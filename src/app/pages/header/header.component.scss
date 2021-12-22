@@ -1,0 +1,109 @@
+@import "./fonts.scss";
+
+:host {
+  font-size: 28rem; //text-align: center; width: 100vw;
+  caret-color: transparent;
+  // background: rgba(black,  0.65);
+  //padding: 5rem; 
+  // border-bottom-left-radius: 45px; 
+
+  .logos-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15rem 5rem;
+
+    img {
+      height: 25px;
+      filter: drop-shadow(#27c6f7 0px 3px 12px) drop-shadow(#27c6f7 0px 3px 50px);
+    }
+  }
+
+  .title {
+    // font-weight: lighter;
+    position: absolute;
+    color: rgb(255, 255, 255);
+    // padding: 10rem; 
+    top: 30vh;
+    width: 100%;
+    font-family: 'Heebo', sans-serif;
+    text-align: center;
+    font-weight: 900;
+    font-size: 7vw;
+    z-index: 1;
+  }
+}
+
+.images {
+  position: relative;
+  top: 0;
+  height: 40vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transition: background-image 2s;
+
+  &::after {
+    position: static;
+    top: 0;
+    width: 100vw;
+    height: 40vh;
+    content: "";
+    display: block;
+    background-color: #2631667c;
+  }
+}
+
+.restart {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 0;
+  width: 0;
+  top: 0;
+}
+
+
+li {
+  list-style: none;
+}
+
+@media (min-width: 880px) {
+
+  // //   .search-container {
+  // //     height: 30rem;
+  // //   }
+
+  .title {
+    top: 2vh;
+  }
+
+
+
+}
+
+
+/*
+    animation: 15s images-change 2s linear forwards; 
+    animation-iteration-count: infinite;
+    // animation-play-state: running;
+    
+    @keyframes images-change {
+       
+        0%{
+            background-image: url(../../../assets/images/startImg1.jpg);
+        }
+        10% {
+            background-image: url(../../../assets/images/startImg2.jpg);
+        }
+        20% {
+            background-image: url(../../../assets/images/startImg3.jpg);
+        }
+        30% {
+            background-image: url(../../../assets/images/startImg4.jpg);
+        }
+        90% {
+            background-image: url(../../../assets/images/startImg5.jpg);
+        }
+    } */

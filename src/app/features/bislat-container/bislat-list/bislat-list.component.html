@@ -1,0 +1,10 @@
+<ng-container *ngIf="showList && indexOutput">
+    <div class="list-container" *ngIf="indexOutput.length > 0">
+        <div class="list-item" *ngFor="let index of indexOutput" (click)="itemClicked(index)" routerLink="/course/{{index.CourseNumber}}">
+            {{index.CourseNumber + " - " + index.CourseName}}
+        </div>
+    </div>
+</ng-container>
+
+
+<!-- <div class="list-item" *ngFor="let index of indexOutput" (click)="itemClicked(index)" [routerLink]="['/course', index.CourseNumber]"> -->

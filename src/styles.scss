@@ -1,0 +1,14 @@
+// @import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
+
+html, body { height: 100%; font-size: 1px; direction: rtl; 
+    font-family: 'Alef', sans-serif;}
+body { margin: 0; }
+
+.button-appearence{
+    cursor: pointer; transition: .4s ease-in;
+
+    &:hover{
+        background: rgba(0, 0, 0, 0.05);
+        filter: contrast(.9);
+    }
+}

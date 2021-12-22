@@ -1,0 +1,14 @@
+
+<div>
+    <div class="search-container">
+        <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"
+        (clearEmitter)="handleClear()"></app-bislat-input>
+        <a routerLink="/favorite"><img src="../../../assets/images/favorite1.svg" class="favorite-button"></a>
+    </div>
+
+    <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList"
+        (selectedItemEmitter)="handleSelected($event)"></app-bislat-list>
+</div>
+
+<!-- <app-bislat-output [item]="resultItem$ | async"></app-bislat-output> -->
+

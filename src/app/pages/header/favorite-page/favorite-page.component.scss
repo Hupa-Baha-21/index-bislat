@@ -1,0 +1,172 @@
+@import "../../../pages/header/fonts.scss";
+
+.backgroundcolor {
+  position: absolute;
+  background: #c0cADB;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dont-save {
+  position: relative;
+  color: #61687F;
+  top: 120px;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 500;
+  font-size: 35rem;
+  text-align: center;
+  margin: 15px;
+
+  img {
+    position: relative;
+    display: block;
+    height: 40px;
+    right: 50%;
+    transform: translateX(50%);
+    margin-top: 5px;
+  }
+}
+
+.title {
+  position: relative;
+  caret-color: transparent;
+  display: block;
+  color: #2E365B;
+  margin: auto;
+  width: 100%;
+  top: 20px;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 900;
+  font-size: 32rem;
+
+  .favorite-img {
+    margin-right: 15px;
+    height: 100%;
+    width: 27px;
+  }
+
+  .home-page {
+    margin-left: 15px;
+    float: left;
+    height: 100%;
+    width: 40px;
+  }
+
+  span {
+    vertical-align: top;
+    line-height: 60%;
+    margin-right: 5px;
+  }
+}
+
+.favorites-output {
+  position: relative;
+  caret-color: transparent;
+  color: #2E365B;
+  background: #ffffff;
+  margin-bottom: 15px;
+  width: 87%;
+  font-size: 18rem;
+  border-radius: 20rem;
+  padding: 10rem;
+  filter: drop-shadow(#00000045 3px 3px 10px);
+  top: 50px;
+  right: 50%;
+  transform: translateX(50%);
+  // height: 80px;
+  min-height: 80px;
+  max-height: 60%;
+  font-family: 'Heebo', sans-serif;
+  display: inline-flex;
+
+  // .course-img {
+  //   aspect-ratio: 1/1;
+  //   border-radius: 10rem;
+  // }
+
+  .main-title1 {
+    font-weight: 800;
+  }
+
+  .main-title2 {
+    font-weight: 300;
+  }
+}
+
+.title-container {
+  display: block;
+  width: 100%;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+.text-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 8px auto 5px;
+  caret-color: transparent;
+  color: #2E365B;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 300;
+  text-align: center;
+  font-size: 14rem;
+  line-height: 113%;
+
+  img {
+    height: 35px;
+    margin: 0 5px;
+  }
+
+  span {
+    width: 32%;
+  }
+
+  .new-line {
+    white-space: pre;
+  }
+}
+
+
+
+@media (max-width: 330px) {
+
+  .title {
+    font-size: 9vw;
+
+    .favorite-img {
+      width: 20px;
+    }
+
+    .home-page {
+      width: 30px;
+    }
+  }
+
+  .favorites-output {
+    font-size: 5vw;
+  }
+
+  .text-container {
+    font-size: 4vw;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+//   &::-webkit-scrollbar {
+//     width: 25px;
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//     background-color: #9da1a8;
+//     border-radius: 20rem;
+//     border: 10px transparent solid;
+//     background-clip: padding-box;
+//   }

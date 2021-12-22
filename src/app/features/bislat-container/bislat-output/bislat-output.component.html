@@ -1,0 +1,43 @@
+<div class="title-container">
+<div *ngIf="item" class="title">
+
+    <span *ngIf="isItemFavorite===false"><img src="../../../../assets/images/favorite3.svg" class="favorite-img" (click)="itemClicked()"></span>
+    <span *ngIf="isItemFavorite===true"><img src="../../../../assets/images/favorite2.svg" class="favorite-img" (click)="itemClicked()"></span>
+    
+    <span class="text">קורס </span>
+    <span class="number-font">{{item.CourseNumber}}</span>
+    <a routerLink="/homePage"><img src="../../../../assets/images/home.svg" class="home-page"></a>
+</div>
+
+<div *ngIf="item" class="subheading">{{item.CourseName}}</div>
+
+<!-- </div> -->
+
+<div *ngIf="item" class="index-output">
+    <!-- {{item.CourseName}} -->
+    <!-- {{item.CourseTime}} -->
+    <!-- {{item.CourseBases}} -->
+    {{item.CourseDescription1}}
+    <span *ngIf="isReadMore"> {{item.CourseDescription2}} </span>
+    <img src="../../../../assets/images/readMore.svg" class="read-more" (click)="readMoreClicked()" *ngIf="isReadMore === false">
+    <img src="../../../../assets/images/readLess.svg" class="read-more" (click)="readMoreClicked()" *ngIf="isReadMore === true">
+</div>  
+
+<div class="map-container">
+<!-- <img src="../../../../assets/images/map.svg" class="map" > -->
+
+<!-- <svg src="../../../../assets/images/map.svg" class="map"> -->
+    <!-- <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" class="invisible" /> -->
+<!-- </svg> -->
+
+{{item.CourseBases}}
+
+</div>
+
+
+<div class="index-output">
+    <iframe class="youtube-video"
+    src="https://www.youtube.com/embed/W7qWa52k-nE">
+    </iframe>
+</div>
+
