@@ -24,8 +24,8 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build --prod
+        working-directory: .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -53,4 +53,4 @@ jobs:
           app-name: 'index-bislat'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C84C1C8FDE0646AEAE0941CB9E0970D5 }}
-          package: .
+          package: ./dist/index-bislat
