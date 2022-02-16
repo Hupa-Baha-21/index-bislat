@@ -1,0 +1,105 @@
+<div class="backgroundcolor">
+
+  <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
+  <span class="header">שאלון העדפות מיון</span>
+
+  <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
+    <div *ngIf="pageNumber === 1 && !blockForm" class="select-container">  
+    
+      <span class="InputTitle">מחזור המיון</span>
+        <select name="cycle" formControlName="cycleInput" [class.error]="!isValid('cycleInput')">
+          <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+          <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+      </select>
+        
+      <span class="InputTitle">שם פרטי + שם משפחה</span>
+      <input formControlName="nameInput" [class.error]="!isValid('nameInput')">
+        
+      <span class="InputTitle">מספר תעודת זהות</span>
+      <input formControlName="idInput" [class.error]="!isValid('idInput')">
+        
+      <span class="InputTitle">מסגרת מיון</span>
+      <input placeholder="הערך חייב להיות מספר" formControlName="sortNumberInput" [class.error]="!isValid('sortNumberInput')">
+        
+      <button type="submit" (click)="moveNextPage()">המשך</button> 
+      <span class="error-message" *ngIf="!selectionPage1Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
+      
+    </div>
+  </form>
+
+
+  <form [formGroup]="selectionPage2Form" (ngSubmit)="sendForm()">
+    <div *ngIf="pageNumber === 2 && !blockForm" class="select-container">
+      
+      <span class="InputTitle">העדפה ראשונה</span>
+      <select name="firstOption" formControlName="firstOption" [class.error]="!isValid('firstOption')">
+        <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+        <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+      </select>
+      
+      <span class="InputTitle">העדפה שנייה</span>
+      <select name="secondOption" formControlName="secondOption" [class.error]="!isValid('secondOption')">
+        <option value="מחזורר 2021">מחזור דר 2021</option>
+        <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+      </select>
+
+      <span class="InputTitle">העדפה שלישית</span>
+      <select name="thirdOption" formControlName="thirdOption" [class.error]="!isValid('thirdOption')">
+        <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+        <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+      </select>
+      <button type="submit" (click)="sendForm()">שלח</button>
+      <span class="error-message" *ngIf="!selectionPage2Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
+
+    </div>
+  </form>
+
+  <div *ngIf="pageNumber === 3" class="block-form"> 
+    הטופס נשלח בהצלחה!
+  </div>
+
+  <div *ngIf="blockForm" class="block-form"> 
+    כבר מילאת שאלון העדפות, לא ניתן למלא שוב
+  </div>
+</div>
+
+
+
+
+
+
+  <!-- <div *ngFor="let control of selectionForm.controls | keyvalue" class="error">
+    {{control.key}}
+    <span class="InputTitle">שם פרטי + שם משפחה</span>
+    <input formControlName="nameInput">
+    <span *ngIf="selectionForm.get('nameInput')?.errors?.['required'] && ButtonClicked" class="error">* הכנס ערך</span>
+  </div> -->
+  
+  <!-- [disabled]="!selectionForm.valid" -->
+  <!-- <div *ngIf="nextPage === true" class="select-container">
+    <span class="InputTitle">העדפה ראשונה</span>
+    <select name="cycl" [formControl]="firstOption">
+      <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+      <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+    </select>
+    <span class="erorr">{{inputArr[0]}}</span>
+    
+    <span class="InputTitle">העדפה שנייה</span>
+    <select name="cle" [formControl]="secondOption">
+      <option value="מחזורר 2021">מחזור דר 2021</option>
+      <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+    </select>
+    <span class="erorr">{{inputArr[0]}}</span>
+    
+    <span class="InputTitle">העדפה שלישית</span>
+            <select name="cyle" [formControl]="thirdOption">
+              <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+              <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+            </select>
+            <span class="erorr">{{inputArr[0]}}</span>
+                
+                <!-- לחסום אפשרות בחירה פעמיים באותו מקצוע -->
+                <!-- <button>שלח</button>
+              </div> --> -->
+              
+<!-- </div> -->

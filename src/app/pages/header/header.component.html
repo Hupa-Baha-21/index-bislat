@@ -1,10 +1,21 @@
-<div class="title">ברוכים הבאים למערך הטכני!</div>
-
 <li *ngFor="let Imgu of imgArr">
     <div class= "restart" [style.backgroundImage]="'url(' + Imgu + ')'"></div>
 </li>
 
-<div class="images" [style.backgroundImage]="'url(' + imgUrl + ')'"></div>
+<div class="title-container">
+    <h1 class="title">ברוכים הבאים למערך הטכני!</h1>
+    <div class="background-images" [style.backgroundImage]="'url(' + imgUrl + ')'"></div>
+</div>
+
+<div class="logos-container">
+    <img src="../../../assets/images//hupi.svg" class="img1">
+    <img src="../../../assets/images/techni.svg" class="img2">
+    <img src="../../../assets/images//baha21.png" class="img3">
+    
+</div>
+
+
+
 
 
 
@@ -14,7 +25,6 @@
 <!-- <div *ngFor="" [class.showing]="index === currIndex" [style.backgroundImage]="'url(' + imgUrl + ')'" class="images"></div> -->
 <!-- <div class="images" [style.backgroundImage]="../../../assets/images/startImg1.jpg"></div> -->
 
-<!-- עמוד 11 - מערך מטוסי הקרב -->
 <!-- עמוד 12 -->
 
 

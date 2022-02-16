@@ -1,14 +1,13 @@
-
-<div>
-    <div class="search-container">
+<div class="input-favorite-container">
+    <div class="input-list-container">
         <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"
         (clearEmitter)="handleClear()"></app-bislat-input>
-        <a routerLink="/favorite"><img src="../../../assets/images/favorite1.svg" class="favorite-button"></a>
+        <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList"
+            (selectedItemEmitter)="handleSelected($event)"></app-bislat-list>
     </div>
-
-    <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList"
-        (selectedItemEmitter)="handleSelected($event)"></app-bislat-list>
+    <a routerLink="/favorite"><img src="../../../assets/images/favorite1.svg" class="favorite-button"></a>
+    <!-- (click)="setValueInPlaceholder()" -->
 </div>
-
+        
 <!-- <app-bislat-output [item]="resultItem$ | async"></app-bislat-output> -->
 

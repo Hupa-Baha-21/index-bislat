@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-// import { setTimeout } from 'timers';
+
 
 @Component({
   selector: 'app-bislat-input',
@@ -12,17 +12,30 @@ export class BislatInputComponent implements OnInit {
   @Input() inputControl: FormControl | undefined;
   @Output() showListEmitter = new EventEmitter<boolean>();
   @Output() clearEmitter = new EventEmitter<void>();
-  inputPlaceholder: string = "";
+  inputPlaceholder: string = " ";
 
-  constructor() { setTimeout(() => { this.inputPlaceholder = "הקלד כאן את מספר הקורס" }, 2000); }
+  isFirstVisit: boolean = true;
+  placeholderTime: number = 0;
+
+  constructor() { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("firstVisit")) {
+      this.isFirstVisit = false;
+      this.placeholderTime = 0;
+    }
+    else {
+      sessionStorage.setItem("firstVisit", "false");
+      this.placeholderTime = 2300;
+    }
+
+    /*if (localStorage.getItem('placeholder') === "")*/ { setTimeout(() => { this.inputPlaceholder = "הקלד כאן את מספר המקצוע" }, this.placeholderTime); }
   }
 
   onBlur(): void {
     setTimeout(() => {
       this.showListEmitter.emit(false);
-    }, 105);
+    }, 80);
   }
 
   onFocus(): void {

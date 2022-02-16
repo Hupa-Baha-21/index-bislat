@@ -3,86 +3,67 @@
 .backgroundcolor {
   position: absolute;
   background: #c0cADB;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 }
 
-.dont-save {
+.header {
+  font-family: 'Heebo', sans-serif;
+  font-weight: 900;
+  font-size: 32rem;
+  color: #2E365B;
+  display: block;
+  margin-top: 20px;
+  margin-right: 42px;
+  caret-color: transparent;
+
+  span {
+    vertical-align: top;
+    margin-right: 5px;
+    line-height: 65%;
+  }
+}
+
+.didnt-save {
   position: relative;
-  color: #61687F;
   top: 120px;
   font-family: 'Heebo', sans-serif;
   font-weight: 500;
   font-size: 35rem;
   text-align: center;
+  color: #61687F;
   margin: 15px;
 
   img {
     position: relative;
-    display: block;
     height: 40px;
     right: 50%;
     transform: translateX(50%);
+    display: block;
     margin-top: 5px;
   }
 }
 
-.title {
+.output-container {
   position: relative;
-  caret-color: transparent;
-  display: block;
-  color: #2E365B;
-  margin: auto;
-  width: 100%;
-  top: 20px;
-  font-family: 'Heebo', sans-serif;
-  font-weight: 900;
-  font-size: 32rem;
-
-  .favorite-img {
-    margin-right: 15px;
-    height: 100%;
-    width: 27px;
-  }
-
-  .home-page {
-    margin-left: 15px;
-    float: left;
-    height: 100%;
-    width: 40px;
-  }
-
-  span {
-    vertical-align: top;
-    line-height: 60%;
-    margin-right: 5px;
-  }
-}
-
-.favorites-output {
-  position: relative;
-  caret-color: transparent;
-  color: #2E365B;
-  background: #ffffff;
-  margin-bottom: 15px;
   width: 87%;
-  font-size: 18rem;
-  border-radius: 20rem;
-  padding: 10rem;
-  filter: drop-shadow(#00000045 3px 3px 10px);
-  top: 50px;
   right: 50%;
   transform: translateX(50%);
-  // height: 80px;
-  min-height: 80px;
+  // min-height: 80px;
   max-height: 60%;
   font-family: 'Heebo', sans-serif;
-  display: inline-flex;
+  font-size: 18rem;
+  color: #2E365B;
+  background: #ffffff;
+  caret-color: transparent;
+  margin-top: 15px;
+  padding: 10rem;
+  border-radius: 20rem;
+  filter: drop-shadow(#00000045 3px 3px 10px);
 
-  // .course-img {
-  //   aspect-ratio: 1/1;
-  //   border-radius: 10rem;
-  // }
+  &:last-child {
+    margin-bottom: 70px;
+  }
 
   .main-title1 {
     font-weight: 800;
@@ -94,55 +75,86 @@
 }
 
 .title-container {
+  width: 90%;
   display: block;
-  width: 100%;
   margin-right: 10px;
   margin-left: 5px;
 }
 
 .text-container {
-  display: flex;
-  justify-content: space-around;
-  margin: 8px auto 5px;
-  caret-color: transparent;
-  color: #2E365B;
+  width: 100%;
   font-family: 'Heebo', sans-serif;
   font-weight: 300;
-  text-align: center;
   font-size: 14rem;
+  text-align: center;
+  color: #2E365B;
+  justify-content: space-around;
+  display: flex;
+  margin: 8px auto 5px;
+  caret-color: transparent;
   line-height: 113%;
 
   img {
     height: 35px;
+    width: 3px;
     margin: 0 5px;
   }
 
   span {
-    width: 32%;
+    width: 26vw;
   }
 
   .new-line {
-    white-space: pre;
+    display: block;
   }
 }
 
+.remove-favorite {
+  position: absolute;
+  height: 18px;
+  top: 5px;
+  left: 5px;
+  padding: 8px;
+}
 
+.restart {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 0;
+  width: 0;
+  top: 0;
+}
 
-@media (max-width: 330px) {
+.favorite {
+  position: absolute;
+  width: 27px;
+  top: 20px;
+  margin-right: 15px;
+}
 
-  .title {
+.homepage {
+  position: absolute;
+  width: 40px;
+  top: 20px;
+  left: 15px;
+}
+
+@media (max-width: 390px) {
+  .header {
     font-size: 9vw;
-
-    .favorite-img {
-      width: 20px;
-    }
-
-    .home-page {
-      width: 30px;
-    }
+    margin-right: 39px;
   }
 
-  .favorites-output {
+  .favorite {
+    width: 20px;
+  }
+
+  .homepage {
+    width: 33px;
+  }
+
+  .output-container {
     font-size: 5vw;
   }
 
@@ -152,13 +164,25 @@
 
 }
 
+@media (min-width: 1700px) {
+  .didnt-save {
+    font-size: 90rem;
+
+    img {
+      height: 70px;
+    }
+  }
+}
 
 
 
+// display: inline-flex;
+// height: 80px;
 
-
-
-
+// .course-img {
+//   aspect-ratio: 1/1;
+//   border-radius: 10rem;
+// }
 
 //   &::-webkit-scrollbar {
 //     width: 25px;

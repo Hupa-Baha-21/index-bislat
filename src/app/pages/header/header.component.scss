@@ -1,46 +1,58 @@
-@import "./fonts.scss";
+.logos-container {
+  position: absolute;
+  top: 15px;
+  width: 100vw;
 
-:host {
-  font-size: 28rem; //text-align: center; width: 100vw;
-  caret-color: transparent;
-  // background: rgba(black,  0.65);
-  //padding: 5rem; 
-  // border-bottom-left-radius: 45px; 
-
-  .logos-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 15rem 5rem;
-
-    img {
-      height: 25px;
-      filter: drop-shadow(#27c6f7 0px 3px 12px) drop-shadow(#27c6f7 0px 3px 50px);
-    }
+  .img1 {
+    position: absolute;
+    right: 20px;
   }
 
-  .title {
-    // font-weight: lighter;
+  .img2 {
     position: absolute;
-    color: rgb(255, 255, 255);
-    // padding: 10rem; 
-    top: 30vh;
-    width: 100%;
-    font-family: 'Heebo', sans-serif;
-    text-align: center;
-    font-weight: 900;
-    font-size: 7vw;
-    z-index: 1;
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .img3 {
+    position: absolute;
+    left: 20px;
+  }
+
+  img {
+    height: 8vw;
+    filter: drop-shadow(#879ba1 0px 3px 12px) drop-shadow(#94a2a7 0px 3px 50px);
   }
 }
 
-.images {
+.title-container {
+  position: relative;
+
+  h1 {
+    bottom: 25rem;
+    line-height: 60%;
+  }
+}
+
+.title {
+  position: absolute;
+  width: 100%;
+  color: rgb(255, 255, 255);
+  font-size: 7vw;
+  font-weight: 900;
+  caret-color: transparent;
+  text-align: center;
+  z-index: 1;
+}
+
+.background-images {
   position: relative;
   top: 0;
-  height: 40vh;
+  height: 37vh;
   width: 100vw;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 
   transition: background-image 2s;
 
@@ -48,7 +60,7 @@
     position: static;
     top: 0;
     width: 100vw;
-    height: 40vh;
+    height: 100%;
     content: "";
     display: block;
     background-color: #2631667c;
@@ -64,28 +76,28 @@
   top: 0;
 }
 
-
 li {
   list-style: none;
 }
 
-@media (min-width: 880px) {
+@media (min-width: 1700px) {
 
-  // //   .search-container {
-  // //     height: 30rem;
-  // //   }
-
-  .title {
-    top: 2vh;
+  .logos-container {
+    img {
+      height: 100px;
+    }
   }
 
-
-
+  .title-container {
+    h1 {
+      bottom: -10rem;
+    }
+  }
 }
 
 
 /*
-    animation: 15s images-change 2s linear forwards; 
+animation: 15s images-change 2s linear forwards; 
     animation-iteration-count: infinite;
     // animation-play-state: running;
     

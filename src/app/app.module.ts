@@ -12,6 +12,10 @@ import { CourseComponent } from './pages/header/course/course.component';
 import { HomepageComponent } from './pages/header/homepage/homepage.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FavoritePageComponent } from './pages/header/favorite-page/favorite-page.component';
+import { ManagementComponent } from './pages/header/management/management.component';
+import { CourseSelectionComponent } from './pages/header/course-selection/course-selection.component';
+
+import { SortCoursesService } from './features/bislat-container/sort-courses.service';
 
 @NgModule({
   declarations: [
@@ -23,14 +27,17 @@ import { FavoritePageComponent } from './pages/header/favorite-page/favorite-pag
     BislatListComponent,
     CourseComponent,
     HomepageComponent,
-    FavoritePageComponent
+    FavoritePageComponent,
+    ManagementComponent,
+    CourseSelectionComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [SortCoursesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

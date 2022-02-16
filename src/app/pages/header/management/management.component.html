@@ -1,0 +1,170 @@
+<div class="backgroundcolor">
+
+    <!-- <img src="../../../../assets/images/home.svg" class="homepage-icon" routerLink="/homePage"> -->
+    <div class="header">דף ניהול</div>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
+    <i class="fa fa-bars" (click)="menuCliked()" [class.fa__fix]="showMenuBar"></i>
+
+    <div class="menu-bar" *ngIf="showMenuBar">
+        <span class="menu-element" routerLink="/homePage">דף הבית</span>
+        <span class="menu-element" (click)="changePage('selectionForm')">שאלון העדפות</span>
+        <span class="menu-element" (click)="changePage('createNewCycle')">יצירת מחזור מיון חדש</span>
+        <span class="menu-element" (click)="changePage('editCycle')">עריכת מחזור מיון קיים</span>
+        <span class="menu-element">התנתק</span>
+    </div>
+
+    
+    <div class="container" *ngIf="selectedPage === 'selectionForm'">
+
+        <span class="main-title">שאלון העדפות</span>
+
+        <div class="text-container">
+            <button class="cycle-button">הצג הכל</button>
+            <button class="cycle-button">מחזור דצמבר 2021</button>
+            <button class="cycle-button">מחזור דצמבר 2022</button>
+        
+
+        <div class="tabel-container" [class.text-container__animated]="true" style="padding: 0;">
+
+            <table>
+                <tr>
+                  <th>מחזור המיון</th>
+                  <th>שם</th>
+                  <th>תעודת זהות</th>
+                  <th>מסגרת מיון</th>
+                  <th>העדפה ראשונה</th>
+                  <th>העדפה שנייה</th>
+                  <th>העדפה שלישית</th>
+                </tr>
+                <tr>
+                  <td>Emil</td>
+                  <td>Tobias</td>
+                  <td>Linus</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>14</td>
+                  <td>10</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </table>
+
+            </div>
+        </div>
+        <div class="error-message">לא ניתן לצפות בתצוגה מקדימה של שאלון העדפות בטלפון</div>
+        <span class="download-tabel">הורדת הקובץ למחשב</span>
+
+    </div>
+        
+        
+    <div class="container" *ngIf="selectedPage === 'createNewCycle'">
+
+        <span class="main-title">יצירת מחזור מיון חדש</span>            
+        <span class="title">מחזור המיון</span>
+        <input class="cycle-input">
+
+        <div class="courses-grid">
+            <div *ngFor="let con of [].constructor(10)">
+                <span class="title">מערך החשמל</span>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
+    
+                <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
+                <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+    
+                <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
+                <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+                
+                <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
+                <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+            </div>
+        </div>        
+
+        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
+        
+        <button class="save-button">יצירה</button>
+    </div>        
+
+
+     <div class="container" *ngIf="selectedPage === 'editCycle'">
+
+        <span class="main-title">עריכת מחזור מיון</span>
+        
+        <span class="title">מחזור המיון</span>
+        <select class="cycle-input" name="cycle">
+            <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+            <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+        </select>
+
+        <span class="title">מערך החשמל</span>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" checked="true">
+        <label for="vehicle1"> 1307 - טכנאי מערכות חשמל פתן/ שרף</label><br>
+
+        <input type="checkbox" id="vehicle" name="vehicle" value="Bike" checked="true">
+        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+
+        <span class="title">מערך מטוסי קרב</span>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
+
+        <input type="checkbox" id="vehicle" name="vehicle" value="Bike" checked="true">
+        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+
+        <!-- <span class="title">+ הוספת מקצוע</span> -->
+        <!-- <input class="cycle-input" placeholder="הקלד מספר קורס"> -->
+        <!-- <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"></app-bislat-input> -->
+
+        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
+
+        <button class="save-button">שמור שינויים</button>
+
+        
+    </div>        
+
+
+
+    <!-- <div class="container">
+
+        <button class="container-header" (click)="editCycleClicked()" [class.container-header__border]="editCycle">עריכת שאלון מיון</button>
+        <div class="text-container" *ngIf="editCycle" [class.text-container__animated]="editCycle">
+            
+            
+            <button class="save-button">שמור שינויים</button>
+
+            
+        </div>         -->
+
+
+</div>
+
+
+
+<!-- <span class="selction-item">מחזור המיון: דצמבק 2022</span>
+    <span class="selction-item">שם: ליה</span>
+    <span class="selction-item">מספר תעודת זהות: 123456789</span>
+<span class="selction-item">מסגרת מיון: 12</span> -->
+
+
+
+    <!-- <div class="container">
+        <button [class.button__animatedButton1]="true">יצירת מחזור מיון חדש</button>
+        <span class="title">מערך החשמל</span>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
+        
+        <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
+        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+    </div> -->

@@ -1,14 +1,28 @@
-// @import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
+@import "./app/pages/header/fonts.scss";
 
-html, body { height: 100%; font-size: 1px; direction: rtl; 
-    font-family: 'Alef', sans-serif;}
-body { margin: 0; }
+html,
+body {
+    height: 100%;
+    font-size: 1px;
+    direction: rtl;
+    font-family: 'Heebo', sans-serif;
+}
 
-.button-appearence{
-    cursor: pointer; transition: .4s ease-in;
+body {
+    margin: 0;
+    background-color: #fff;
+}
 
-    &:hover{
+.button-appearence {
+    cursor: pointer;
+    transition: .4s ease-in;
+
+    &:hover {
         background: rgba(0, 0, 0, 0.05);
         filter: contrast(.9);
     }
+}
+
+input {
+    font-family: 'Heebo', sans-serif;
 }

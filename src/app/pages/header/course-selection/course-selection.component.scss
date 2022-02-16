@@ -1,0 +1,126 @@
+@import "../../../pages/header/fonts.scss";
+
+.backgroundcolor {
+    background: #c0cADB;
+    width: 100%;
+    min-height: 100%;
+}
+
+.header {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 900;
+    font-size: 34rem;
+    color: #2E365B;
+    margin-right: 15px;
+}
+
+.block-form {
+    position: relative;
+    top: 120px;
+    font-family: 'Heebo', sans-serif;
+    font-weight: 500;
+    font-size: 35rem;
+    text-align: center;
+    color: #61687F;
+    margin: 15px;
+}
+
+// .logo {
+//     position: relative;
+//     height: 34px;
+//     right: 50%;
+//     // transform: translateX(50%);
+//     // margin-top: 15px;
+//     display: block;
+// }
+
+.homepage {
+    position: absolute;
+    width: 40px;
+    top: 15px;
+    left: 15px;
+}
+
+.select-container {
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+    margin-top: 20px;
+
+    input,
+    select {
+        -webkit-appearance: none;
+        position: relative;
+        height: 40px;
+        width: 100%;
+        max-width: 555px;
+        font-family: 'Heebo', sans-serif;
+        font-weight: 600;
+        font-size: 15rem;
+        color: #2E365B;
+        padding-right: 7px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        background: #fff;
+        border: 2px solid #2E365B;
+        filter: drop-shadow(#00000045 3px 3px 10px);
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .error {
+        box-shadow: inset 0px 0px 6px red;
+    }
+
+    .error-message {
+        font-family: 'Heebo', sans-serif;
+        font-weight: 500;
+        font-size: 15rem;
+        color: red;
+        display: block;
+    }
+
+    ::placeholder {
+        color: rgb(182, 182, 182);
+        font-weight: 400;
+    }
+
+    .InputTitle {
+        font-family: 'Heebo', sans-serif;
+        font-weight: 600;
+        font-size: 15rem;
+        color: #2E365B;
+        margin-top: 15px;
+        display: block;
+    }
+
+    button {
+        font-family: 'Heebo', sans-serif;
+        font-weight: 600;
+        font-size: 20rem;
+        height: 40px;
+        width: 100px;
+        color: cornsilk;
+        background-color: #2E365B;
+        display: block;
+        filter: drop-shadow(#00000045 3px 3px 10px);
+        border-radius: 10px;
+        border: none;
+        margin-top: 18px;
+    }
+}
+
+@media (max-width: 390px) {
+    .header {
+        position: relative;
+        top: 6px;
+        font-size: 7vw;
+    }
+
+    .homepage {
+        width: 30px;
+    }
+}
