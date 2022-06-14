@@ -27,15 +27,18 @@ export class FavoritePageComponent implements OnInit {
   
   removeFromeFavorites(index: number): void {
     
-    let favorites = JSON.parse(localStorage.getItem('courseNumber') || '[]');
+    let favorites = JSON.parse(localStorage.getItem('courseName') || '[]');
     favorites.splice(index, 1);
-    localStorage.setItem('courseNumber', JSON.stringify(favorites));
+    localStorage.setItem('courseName', JSON.stringify(favorites));
     this.routing = "/favorite";
     this.ifRouting = false;
   }
   
   router(index: number): void {
-    if (this.ifRouting === true) { this.routing = "/course/" + this.items[index].CourseNumber; }
+    if (this.ifRouting === true) { 
+      sessionStorage.setItem("selectedItem", this.items[index].CourseName);
+      this.routing = "/course/" + this.items[index].CourseNumber; 
+    }
     this.ifRouting = true;
     window.location.href = this.routing;
   }

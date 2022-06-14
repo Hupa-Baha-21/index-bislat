@@ -2,10 +2,10 @@
 
   <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
   <span class="header">שאלון העדפות מיון</span>
-
+  
   <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
     <div *ngIf="pageNumber === 1 && !blockForm" class="select-container">  
-    
+      
       <span class="InputTitle">מחזור המיון</span>
         <select name="cycle" formControlName="cycleInput" [class.error]="!isValid('cycleInput')">
           <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
@@ -23,7 +23,7 @@
         
       <button type="submit" (click)="moveNextPage()">המשך</button> 
       <span class="error-message" *ngIf="!selectionPage1Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
-      
+      <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
     </div>
   </form>
 
@@ -50,6 +50,7 @@
       </select>
       <button type="submit" (click)="sendForm()">שלח</button>
       <span class="error-message" *ngIf="!selectionPage2Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
+      <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
 
     </div>
   </form>

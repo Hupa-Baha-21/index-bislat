@@ -26,10 +26,10 @@ export class BislatInputComponent implements OnInit {
     }
     else {
       sessionStorage.setItem("firstVisit", "false");
-      this.placeholderTime = 2300;
+      this.placeholderTime = 2000;
     }
 
-    /*if (localStorage.getItem('placeholder') === "")*/ { setTimeout(() => { this.inputPlaceholder = "הקלד כאן את מספר המקצוע" }, this.placeholderTime); }
+    setTimeout(() => { this.inputPlaceholder = "הקלד כאן את מספר המקצוע" }, this.placeholderTime);
   }
 
   onBlur(): void {

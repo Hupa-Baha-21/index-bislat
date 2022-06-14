@@ -16,6 +16,7 @@ import { ManagementComponent } from './pages/header/management/management.compon
 import { CourseSelectionComponent } from './pages/header/course-selection/course-selection.component';
 
 import { SortCoursesService } from './features/bislat-container/sort-courses.service';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SortCoursesService } from './features/bislat-container/sort-courses.ser
     HomepageComponent,
     FavoritePageComponent,
     ManagementComponent,
-    CourseSelectionComponent
+    CourseSelectionComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

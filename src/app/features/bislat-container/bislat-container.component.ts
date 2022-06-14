@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
-// import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
-// import * as data from '../../mock-data.json'
 import { SortCoursesService } from './sort-courses.service';
+import { openingParagraphs } from 'src/app/pages/header/img-url';
 
 
 @Component({
@@ -21,6 +20,9 @@ export class BislatContainerComponent implements OnInit {
   showList: boolean = false;
   item: IDictionaryItem | undefined;
 
+  readMoreButton = ['readMore', 1]; //[img, mun of paragraphs]
+  openingParagraphs: string[] = openingParagraphs;
+
   constructor(service: SortCoursesService) {
 
     this.indexOutput$ = this.inputControl.valueChanges.pipe(
@@ -28,9 +30,7 @@ export class BislatContainerComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {
-    // this.setValueInPlaceholder()
-  }
+  ngOnInit(): void { }
 
   handleShowList(show: boolean): void {
     this.showList = show;
@@ -46,11 +46,27 @@ export class BislatContainerComponent implements OnInit {
     this.resultItem$.next(undefined);
   }
 
-  // setValueInPlaceholder(): void {
-  //   if (sessionStorage.getItem('ValueInPlaceholder')) {
-  //     this.inputControl.setValue(sessionStorage.getItem('ValueInPlaceholder'));
-  //   }
-  // } ??
+  routingPage() {
+    window.open(
+      'https://youtube.com/channel/UCElJ2Ybi3FBsslbq5ROLQoA',
+      '_blank'
+    );
+  }
+
+  readMoreButtonClick(): void {
+
+    if (this.readMoreButton[0] === "readMore") {
+      this.readMoreButton = ["readLess", this.openingParagraphs.length];
+    }
+    else {
+      this.readMoreButton = ["readMore", 1];
+    }
+  }
+
+  threeImagesPosition(): boolean {
+    if ((window.innerWidth / window.innerHeight) > 1) { return true; }
+    else { return false; }
+  }
 }
 
 export interface IDictionary {
@@ -58,15 +74,17 @@ export interface IDictionary {
 }
 
 export interface IDictionaryItem {
+  category: string;
   CourseNumber: string;
   CourseName: string;
   CourseTime: string;
-  CourseBases: string;
-  CourseDescription1: string;
-  CourseDescription2: string;
+  CourseBases: string[];
+  CourseDescription: string;
   YouTubeURL: string;
   ImgURL: string;
+  note?: string;
 }
+
 
 
 

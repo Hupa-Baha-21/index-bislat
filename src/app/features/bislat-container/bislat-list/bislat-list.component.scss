@@ -2,16 +2,17 @@
   position: relative;
   right: 0;
   top: -2px;
-  max-height: 25vh;
+  max-height: 35vh;
   overflow-y: auto;
   font-size: 15rem;
   font-weight: 500;
   color: #2E365B;
-  background: rgba(255, 255, 255, 0.582);
+  background: rgb(255, 255, 255);
   border: 2px solid #2E365B;
   border-bottom-left-radius: 30rem;
   border-bottom-right-radius: 30rem;
   box-sizing: border-box;
+  z-index: 100000000;
 
   &::-webkit-scrollbar {
     width: 0;

@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, Renderer2, Input, OnInit, ViewChild } from '@angular/core';
 import { IDictionaryItem } from '../bislat-container.component';
 import { ActivatedRoute } from '@angular/router';
 import { IDictionary } from '../bislat-container.component';
 import * as data from '../../../mock-data.json'
 import { SortCoursesService } from '../sort-courses.service';
+import { bases } from 'src/app/pages/header/img-url';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,109 +16,86 @@ import { SortCoursesService } from '../sort-courses.service';
 })
 export class BislatOutputComponent implements OnInit {
 
-  isItemFavorite: boolean;
+  favoritePosition: string;
   isReadMore: boolean = false;
+  changeMap: boolean = false;
 
   inputPlaceholder: string = "" + this.route.snapshot.paramMap.get('number');
   dictionaryData: IDictionary = data;
   item: IDictionaryItem;
 
+  map: Document | undefined;
+  @ViewChild("mapObject") set mapObject(o: ElementRef) {
+    this.renderer.listen(o.nativeElement, "load", () => {
+      this.map = o.nativeElement.contentDocument;
+      this.removeBases();
+    });
+  };
 
-  constructor(private route: ActivatedRoute, service: SortCoursesService) {
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, service: SortCoursesService, private renderer: Renderer2) {
 
     this.item = service.getSelectedCourse(this.inputPlaceholder);
-    this.isItemFavorite = service.isItemFavorite(this.item);
+    this.favoritePosition = service.isItemFavorite(this.item);
+    // this.changeMap = this.mapPosition();
+    setTimeout(() => { this.changeMap = this.mapPosition(); }, 3500);
   }
-  
-  ngOnInit(): void { 
-    // this.setValueInPlaceholder();
+
+  ngOnInit(): void {
   }
-  
-  removeOrAddFavorite(): void {
-    
-    let favorites: string[] = JSON.parse(localStorage.getItem('courseNumber') || '[]');
-    
-    if (this.isItemFavorite === false) {
-      
-      this.isItemFavorite = true;
-      favorites.push(this.item.CourseNumber);
+
+  renameBases(): string[] {
+
+    let elementsID: string[] = [];
+
+    for (let i = 0; i < this.item.CourseBases.length; i++) {
+      elementsID.push(this.item.CourseBases[i].replace(" ", "_").replace("''", "_"));
     }
-    
-    else if (this.isItemFavorite === true) {
-      
-      this.isItemFavorite = false;
+    return elementsID;
+  }  //--------------------------------------------------
+
+  mapPosition(): boolean {
+    const courseBases: string[] = this.renameBases();
+
+    for (let i = 0; i < courseBases.length; i++) {
+      if (!bases.includes(courseBases[i])) { return false; }
+    }
+    return true;
+  }  //--------------------------------------------------
+
+  removeBases() {
+    // if (!this.changeMap) { return; }
+    const elementsID: string[] = this.renameBases();
+
+    for (let i = 0; i < bases.length; i++) {
+      if (!elementsID.includes(bases[i])) {
+        this.renderer.setStyle(this.map?.getElementById(bases[i]), "display", "none");
+      }
+    }
+  } //--------------------------------------------------
+
+  removeOrAddFavorite(): void {
+
+    let favorites: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
+
+    if (this.favoritePosition === 'notFavorite.svg') {
+
+      this.favoritePosition = 'favorite.svg';
+      favorites.push(this.item.CourseName);
+      // alert("נוסף למועדפים בהצלחה");
+    }
+
+    else if (this.favoritePosition === 'favorite.svg') {
+
+      this.favoritePosition = 'notFavorite.svg';
       for (let i = 0; i < favorites.length; i++) {
-        
-        if (favorites[i] === this.item.CourseNumber) {
+
+        if (favorites[i] === this.item.CourseName) {
           favorites.splice(i, 1);
           break;
         }
       }
     }
-    
-    localStorage.setItem('courseNumber', JSON.stringify(favorites));
+
+    localStorage.setItem('courseName', JSON.stringify(favorites));
   }
-  //------------------------------------------------------------------------------------
-  
-  readMoreClicked() {
-    
-    if (this.isReadMore === false) { this.isReadMore = true; }
-    else if (this.isReadMore === true) { this.isReadMore = false; }
-  }
-  //------------------------------------------------------------------------------------
-  
-  // setValueInPlaceholder(): void {
-  //   sessionStorage.setItem('ValueInPlaceholder', this.item.CourseNumber);
-  // }
-  //------------------------------------------------------------------------------------
-  
 }
-
-
-
-// const filteredDictionary: IDictionaryItem[] = keyDictionary.filter(item => item.CourseNumber.includes(this.inputPlaceholder)); 
-// return (filteredDictionary);
-
-
-
-// findItem() {
-  
-  //   let tmp1!: IDictionaryItem;
-  
-  //   if (this.inputPlaceholder) {
-    //     const key = this.inputPlaceholder[0];
-    //     const keyDictionary: IDictionaryItem[] = this.dictionaryData[key];
-    
-    //     if (keyDictionary) {
-      //       for (let i = 0; i < keyDictionary.length; i++) {
-        //         let tmp: IDictionaryItem = keyDictionary[i];
-        
-        //         if (tmp.CourseNumber === this.inputPlaceholder) { return tmp; }
-        //       }
-        //     }
-        //   }
-        //   else {
-          //     return tmp1;
-          //   }
-          //   return tmp1;
-          // }
-          // //------------------------------------------------------------------------------------
-          
-          // isFavorite() {
-            
-            //   let favorites: string[] = JSON.parse(localStorage.getItem('courseNumber') || '[]');
-            
-            //   for (let i = 0; i < favorites.length; i++) {
-              //     if (favorites[i] === this.item.CourseNumber) { return true; }
-//   }
-
-//   return false;
-// }
-//------------------------------------------------------------------------------------
-
-
-
-
-// this.item = this.findItem();
-// this.item = SortCoursesService;
-// this.isItemFavorite = this.isFavorite();

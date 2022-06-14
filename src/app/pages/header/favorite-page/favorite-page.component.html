@@ -1,38 +1,41 @@
-<div class="backgroundcolor">
+<div class="backgroundcolor" [class.backgroundcolor__padding]="items.length != 0">
 
-<div class="header">
-    <span>המועדפים שלי</span>
-</div>
-
-<div *ngIf="items.length === 0" class="didnt-save"> 
-    עדיין לא שמרת כלום במועדפים כדי להוסיף מקצוע למועדפים לחץ על האייקון
-    <img src="../../../../assets/images/favorite2.svg" class="course-img">
-</div>
-
-
-<div *ngIf="items.length > 0">
-
-    <div class="output-container" *ngFor="let item of items; let i = index" (click)="router(i)" routerLink={{routing}}>
-
-    <div class="title-container">
-        <span class="main-title1"> קורס {{item.CourseNumber}}</span>
-        <span class="main-title2"> - {{item.CourseName}} </span>
+    <div class="header">
+        <span>המועדפים שלי</span>
     </div>
 
-    <img src="../../../../assets/images/remove.svg" class="remove-favorite" (click)="removeFromeFavorites(i)" routerLink="/favorite">
-
-    <div class="text-container">
-        <span> משך ההכשרה<br>{{item.CourseTime}}</span>
-        <img src="../../../../assets/images/search-line.svg">
-        <span> מיקום ההכשרה<br>בח"א 21 - טכני</span>
-        <img src="../../../../assets/images/search-line.svg">
-        <span>קרב א' נשק מונחה</span>
+    <div *ngIf="items.length === 0" class="didnt-save"> 
+        עדיין לא שמרת כלום במועדפים כדי להוסיף מקצוע למועדפים לחץ על האייקון
+        <img src="../../../../assets/images/notFavorite.svg" class="course-img">
     </div>
+
+
+    <div class="courses-grid" *ngIf="items.length > 0">
+
+        <div class="output-container" *ngFor="let item of items; let i = index" (click)="router(i)" routerLink={{routing}}>
+
+        <div class="title-container">
+            <span class="main-title1"> קורס {{item.CourseNumber}}</span>
+            <span class="main-title2"> - {{item.CourseName}} </span>
+        </div>
+
+        <img src="../../../../assets/images/remove.svg" class="remove-favorite" (click)="removeFromeFavorites(i)" routerLink="/favorite">
+
+        <div class="text-container">
+            <span> משך ההכשרה<br>{{item.CourseTime}}</span>
+            <img src="../../../../assets/images/search-line.svg">
+            <span> מיקום ההכשרה<br>בח"א 21 - טכני</span>
+            <img src="../../../../assets/images/search-line.svg">
+            <span>קרב א' נשק מונחה</span>
+        </div>
+    </div>
+    </div>
+
+    
+    <img src="../../../../assets/images/favorite.svg" class="favorite">
+    <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
+    <span *ngIf="items.length > 0" class="note" routerLink="/courseSelection">סיימתי! מעבר למילוי שאלון העדפות</span>
 </div>
-</div>
-</div>
-<img src="../../../../assets/images/favorite3.svg" class="favorite">
-<img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
 
 
 

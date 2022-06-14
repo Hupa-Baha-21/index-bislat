@@ -13,12 +13,14 @@ import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 export class SortCoursesService {
 
   dictionaryData: IDictionary = data;
+  MaxKeyCourses: number = 8;
 
   constructor() { }
 
   getSelectedCourse(courseNumber: string): IDictionaryItem {
 
     let tmp1!: IDictionaryItem;
+    let courseName: any = sessionStorage.getItem("selectedItem");
 
     if (courseNumber) {
       const key = courseNumber[0];
@@ -28,7 +30,7 @@ export class SortCoursesService {
         for (let i = 0; i < keyDictionary.length; i++) {
           let tmp: IDictionaryItem = keyDictionary[i];
 
-          if (tmp.CourseNumber === courseNumber) { return tmp; }
+          if (tmp.CourseNumber === courseNumber && tmp.CourseName === courseName) { return tmp; }
         }
       }
     }
@@ -39,34 +41,33 @@ export class SortCoursesService {
   }
   //------------------------------------------------------------------------------------
 
-  isItemFavorite(item: IDictionaryItem): boolean {
+  isItemFavorite(item: IDictionaryItem): string {
 
-    let favorites: string[] = JSON.parse(localStorage.getItem('courseNumber') || '[]');
+    const favorites: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
 
-    for (let i = 0; i < favorites.length; i++) {
-      if (favorites[i] === item.CourseNumber) { return true; }
-    }
-
-    return false;
+    if (favorites.includes(item.CourseName)) { return 'favorite.svg'; }
+    return 'notFavorite.svg';
   }
   //------------------------------------------------------------------------------------
 
   findFavoriteCourses(): IDictionaryItem[] {
 
-    let coursesNumber: string[] = JSON.parse(localStorage.getItem('courseNumber') || '[]');
+    let coursesNames: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
     let favorites: IDictionaryItem[] = [];
-    console.log(coursesNumber);
 
-    for (let i = 0; i < coursesNumber.length; i++) {
+    for (let i = 0; i <= this.MaxKeyCourses; i++) {
 
-      const key = coursesNumber[i];
-      let keyDictionary: IDictionaryItem[] = this.dictionaryData[key[0]];
+      let keyDictionary: IDictionaryItem[] = [];
+      if (this.dictionaryData[i]) { keyDictionary = this.dictionaryData[i]; }
 
-      for (let y = 0; y < keyDictionary.length; y++) {
-        if (coursesNumber[i] === keyDictionary[y].CourseNumber) { favorites.push(keyDictionary[y]); }
+      let index = 0;
+
+      while (keyDictionary[index]) {
+        if (coursesNames.includes(keyDictionary[index].CourseName)) { favorites.push(keyDictionary[index]); }
+        index++;
       }
     }
-    console.log(favorites);
+
     return favorites;
   }
   //------------------------------------------------------------------------------------
@@ -96,3 +97,5 @@ export class SortCoursesService {
     })
   )
 }
+
+

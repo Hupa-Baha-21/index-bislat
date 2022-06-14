@@ -6,6 +6,7 @@ body {
     font-size: 1px;
     direction: rtl;
     font-family: 'Heebo', sans-serif;
+    caret-color: transparent;
 }
 
 body {
@@ -24,5 +25,9 @@ body {
 }
 
 input {
+    font-family: 'Heebo', sans-serif;
+}
+
+button {
     font-family: 'Heebo', sans-serif;
 }

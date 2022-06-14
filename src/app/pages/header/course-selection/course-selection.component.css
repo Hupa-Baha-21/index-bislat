@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap");
+.backgroundcolor {
+  position: absolute;
+  background: #c0cADB;
+  width: 100%;
+  min-height: 100%;
+}
+
+.header {
+  font-weight: 900;
+  font-size: 34rem;
+  color: #2E365B;
+  margin-right: 15px;
+}
+
+.note {
+  display: block;
+  font-weight: 500;
+  font-size: 20rem;
+  color: #61687F;
+  margin-top: 10px;
+}
+
+.block-form {
+  display: block;
+  font-weight: 500;
+  font-size: 32rem;
+  color: #61687F;
+  margin: 15px;
+  margin-top: 120px;
+  text-align: center;
+}
+
+.homepage {
+  position: absolute;
+  width: 40px;
+  top: 15px;
+  left: 15px;
+}
+
+.select-container {
+  width: 100%;
+  padding: 15px;
+  padding-bottom: 70px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.select-container input,
+.select-container select {
+  -webkit-appearance: none;
+  position: relative;
+  height: 40px;
+  width: 100%;
+  max-width: 555px;
+  font-weight: 600;
+  font-size: 15rem;
+  color: #2E365B;
+  padding-right: 7px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 10px;
+  background: #fff;
+  border: 2px solid #2E365B;
+  -webkit-filter: drop-shadow(#00000045 3px 3px 10px);
+          filter: drop-shadow(#00000045 3px 3px 10px);
+}
+
+.select-container input:focus,
+.select-container select:focus {
+  outline: none;
+}
+
+.select-container .error {
+  -webkit-box-shadow: inset 0px 0px 6px red;
+          box-shadow: inset 0px 0px 6px red;
+}
+
+.select-container .error-message {
+  font-weight: 500;
+  font-size: 15rem;
+  color: red;
+  display: block;
+}
+
+.select-container ::-webkit-input-placeholder {
+  color: #b6b6b6;
+  font-weight: 400;
+}
+
+.select-container :-ms-input-placeholder {
+  color: #b6b6b6;
+  font-weight: 400;
+}
+
+.select-container ::-ms-input-placeholder {
+  color: #b6b6b6;
+  font-weight: 400;
+}
+
+.select-container ::placeholder {
+  color: #b6b6b6;
+  font-weight: 400;
+}
+
+.select-container .InputTitle {
+  font-weight: 600;
+  font-size: 15rem;
+  color: #2E365B;
+  margin-top: 15px;
+  display: block;
+}
+
+.select-container button {
+  font-weight: 600;
+  font-size: 20rem;
+  height: 40px;
+  width: 100px;
+  color: cornsilk;
+  background-color: #2E365B;
+  display: block;
+  -webkit-filter: drop-shadow(#00000045 3px 3px 10px);
+          filter: drop-shadow(#00000045 3px 3px 10px);
+  border-radius: 10px;
+  border: none;
+  margin-top: 18px;
+}
+
+@media (max-width: 390px) {
+  .header {
+    position: relative;
+    top: 6px;
+    font-size: 7vw;
+  }
+  .homepage {
+    width: 30px;
+  }
+}
+/*# sourceMappingURL=course-selection.component.css.map */

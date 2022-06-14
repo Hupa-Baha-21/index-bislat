@@ -1,0 +1,48 @@
+.list-container {
+  position: relative;
+  right: 0;
+  top: -2px;
+  max-height: 25vh;
+  overflow-y: auto;
+  font-size: 15rem;
+  font-weight: 500;
+  color: #2E365B;
+  background: rgb(255, 255, 255);
+  border: 2px solid #2E365B;
+  border-bottom-left-radius: 30rem;
+  border-bottom-right-radius: 30rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.list-container::-webkit-scrollbar {
+  width: 0;
+  color: white;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+}
+
+.list-container .list-item {
+  padding: 12rem 8rem;
+  border-top: 0px solid #fff;
+  border-right: 0px solid #fff;
+  border-bottom: 2px solid #596570;
+  cursor: pointer;
+  text-align: right;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, #61687f, #61687f00);
+}
+
+.list-container .list-item:last-child {
+  border-bottom: 0px solid #fff;
+}
+
+.list-container .list-item:hover {
+  background: rgba(48, 90, 168, 0.15);
+}
+
+/*# sourceMappingURL=bislat-list.component.css.map */

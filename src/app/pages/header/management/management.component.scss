@@ -8,7 +8,7 @@
         position: absolute;
         background: #c0cADB;
         width: 100%;
-        min-height: 100vh;
+        min-height: 100%;
     }
 
     .fa {
@@ -35,10 +35,9 @@
         z-index: 9;
         border-bottom-right-radius: 7px;
         border-bottom-left-radius: 7px;
-        padding: 10px;
         box-sizing: border-box;
-        padding-top: 50px;
-        padding-bottom: 25px;
+        padding: 15px;
+        padding-top: 45px;
     }
 
     .menu-element {
@@ -105,12 +104,10 @@
     .error-message {
         position: relative;
         top: 20px;
-        font-family: 'Heebo', sans-serif;
         font-weight: 500;
-        font-size: 23rem;
-        text-align: center;
+        font-size: 18rem;
+        // text-align: center;
         color: #61687F;
-        margin: 15px;
     }
 
     .cycle-input {
@@ -183,7 +180,7 @@
 
 
 
-    @media (min-width: 1700px) {
+    @media (min-width: 1400px) {
         font-size: 20rem;
 
         .title {

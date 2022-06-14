@@ -1,20 +1,29 @@
-<li *ngFor="let Imgu of imgArr">
-    <div class= "restart" [style.backgroundImage]="'url(' + Imgu + ')'"></div>
+<li *ngFor="let image of images">
+    <div class= "restart" [style.backgroundImage]="'url(' + image + ')'"></div>
 </li>
 
 <div class="title-container">
-    <h1 class="title">ברוכים הבאים למערך הטכני!</h1>
-    <div class="background-images" [style.backgroundImage]="'url(' + imgUrl + ')'"></div>
+
+    <h1 class="title" [class.h1__three-images-position]="threeImagesPosition">ברוכים הבאים למערך הטכני!</h1>
+    <div class="img-grid" [class.img-grid__big-screen]="threeImagesPosition">
+        <div class="background-images" *ngIf="imgURL1 != ''" [style.backgroundImage]="'url(' + imgURL1 + ')'"></div>
+        <div class="background-images" *ngIf="imgURL2 != ''" [style.backgroundImage]="'url(' + imgURL2 + ')'"></div>
+        <div class="background-images" *ngIf="imgURL3 != ''" [style.backgroundImage]="'url(' + imgURL3 + ')'"></div>
+    </div>
 </div>
 
 <div class="logos-container">
-    <img src="../../../assets/images//hupi.svg" class="img1">
+    <img src="../../../assets/images/hupi.svg" class="img1">
     <img src="../../../assets/images/techni.svg" class="img2">
-    <img src="../../../assets/images//baha21.png" class="img3">
+    <img src="../../../assets/images/baha21.png" class="img3">
     
 </div>
 
+<!-- <div *ngFor="let img of arr">
+    <div class="background-images" *ngIf="img != ''" [style.backgroundImage]="'url(' + img + ')'"></div>
+</div> -->
 
+<!-- <div class="background-images" [style.backgroundImage]="'url(' + imgUrl + ')'"></div> -->
 
 
 

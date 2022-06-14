@@ -1,38 +1,37 @@
 @import "../../../pages/header/fonts.scss";
 
 .backgroundcolor {
+    position: absolute;
     background: #c0cADB;
     width: 100%;
     min-height: 100%;
 }
 
 .header {
-    font-family: 'Heebo', sans-serif;
     font-weight: 900;
     font-size: 34rem;
     color: #2E365B;
     margin-right: 15px;
 }
 
-.block-form {
-    position: relative;
-    top: 120px;
-    font-family: 'Heebo', sans-serif;
+.note {
+    display: block;
     font-weight: 500;
-    font-size: 35rem;
-    text-align: center;
+    font-size: 20rem;
     color: #61687F;
-    margin: 15px;
+    margin-top: 10px;
+
 }
 
-// .logo {
-//     position: relative;
-//     height: 34px;
-//     right: 50%;
-//     // transform: translateX(50%);
-//     // margin-top: 15px;
-//     display: block;
-// }
+.block-form {
+    display: block;
+    font-weight: 500;
+    font-size: 32rem;
+    color: #61687F;
+    margin: 15px;
+    margin-top: 120px;
+    text-align: center;
+}
 
 .homepage {
     position: absolute;
@@ -55,7 +54,6 @@
         height: 40px;
         width: 100%;
         max-width: 555px;
-        font-family: 'Heebo', sans-serif;
         font-weight: 600;
         font-size: 15rem;
         color: #2E365B;
@@ -76,7 +74,6 @@
     }
 
     .error-message {
-        font-family: 'Heebo', sans-serif;
         font-weight: 500;
         font-size: 15rem;
         color: red;
@@ -89,7 +86,6 @@
     }
 
     .InputTitle {
-        font-family: 'Heebo', sans-serif;
         font-weight: 600;
         font-size: 15rem;
         color: #2E365B;
@@ -98,7 +94,6 @@
     }
 
     button {
-        font-family: 'Heebo', sans-serif;
         font-weight: 600;
         font-size: 20rem;
         height: 40px;

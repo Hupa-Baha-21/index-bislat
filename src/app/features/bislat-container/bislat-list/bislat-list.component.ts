@@ -15,16 +15,18 @@ export class BislatListComponent implements OnInit {
 
   @Output() selectedItemEmitter = new EventEmitter<IDictionaryItem>();
 
-  constructor (private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   itemClicked(item: IDictionaryItem) {
-    setTimeout(() => {
-      this.selectedItemEmitter.emit(item);
-      // this.router.navigate(['courseNumber']);
-    }, 105);
+    sessionStorage.setItem("selectedItem", item.CourseName);
   }
 
 }
+
+// setTimeout(() => {
+//   this.selectedItemEmitter.emit(item);
+//   // this.router.navigate(['courseNumber']);
+// }, 105);

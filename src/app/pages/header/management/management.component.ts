@@ -46,14 +46,16 @@ export class ManagementComponent implements OnInit {
 
   changePage(pageName: string): void {
 
-    if (pageName === 'selectionForm') {
-      this.selectedPage = 'selectionForm';
-    }
-    if (pageName === 'createNewCycle') {
-      this.selectedPage = 'createNewCycle';
-    }
-    if (pageName === 'editCycle') {
-      this.selectedPage = 'editCycle';
+    switch (pageName) {
+      case 'selectionForm':
+        this.selectedPage = 'selectionForm';
+        break;
+      case 'createNewCycle':
+        this.selectedPage = 'createNewCycle';
+        break;
+      case 'editCycle':
+        this.selectedPage = 'editCycle';
+        break;
     }
     this.showMenuBar = false;
   }
