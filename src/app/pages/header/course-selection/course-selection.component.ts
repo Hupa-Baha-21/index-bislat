@@ -82,6 +82,7 @@ export class CourseSelectionComponent implements OnInit {
     if (this.selectionPage2Form.valid) {
       localStorage.setItem("blockForm", "true");
       this.pageNumber = 3;
+      // console.log(this.selectionPage1Form.value);
     }
   }
 }

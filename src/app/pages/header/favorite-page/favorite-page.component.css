@@ -192,7 +192,9 @@
   .courses-grid {
     -ms-grid-columns: (470rem)[auto-fill];
     grid-template-columns: repeat(auto-fill, 470rem);
-    gap: 10rem;
+    grid-gap: 17px;
+    column-gap: 45px;
+    /* gap: 10rem; */
   }
 
   .note {

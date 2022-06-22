@@ -1,31 +1,36 @@
-<div class="input-favorite-container" [class.input-favorite-container__three-images-position]="threeImagesPosition()">
-    <div class="input-list-container">
+<div class="input-container" [class.input-favorite-container__three-images-position]="threeImagesPosition()">
+    <div class="list-container">
         <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"
         (clearEmitter)="handleClear()"></app-bislat-input>
         <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList"
             (selectedItemEmitter)="handleSelected($event)"></app-bislat-list>
     </div>
-    <a routerLink="/favorite"><img src="../../../assets/images/favorite1.svg" class="favorite-button"></a>
+    <img src="../../../assets/images/favorite1.svg" routerLink="/favorite" class="favorite-button">
 </div>
 
-<div class="description">
+<div class="opening-container">
     <ng-container *ngFor="let paragraph of openingParagraphs; index as i">
         <p *ngIf="i < readMoreButton[1]">{{paragraph}}</p>
     </ng-container>
-    
-    <img src="../../../assets/images/{{readMoreButton[0]}}.svg" (click)="readMoreButtonClick()" style="height: 17px;">
-    <!-- <a>לרשימת המקצועות למחזור מיון ספטמבר 2022</a> -->
+
+    <img src="../../../assets/images/{{readMoreButton[0]}}.svg" class="read-more" (click)="readMoreButtonClick()">
+    <a href="">לרשימת המקצועות למחזור מיון ספטמבר 2022</a>
+    <a routerLink="/courseSelection">למילוי שאלון העדפות</a>
+    <a routerLink="/favorite">לרשימת המועדפים שלי</a>
     
     <div class="youtube-container" [class.youtube-container__layer]="showList">
         <div class="container">
-            <iframe class="youtube-video" src="https://www.youtube.com/embed/rDNDHfgwzlg"></iframe>
-            <iframe class="youtube-video" src="https://www.youtube.com/embed/4z4_oJ0FxV0"></iframe>
-              <a href="" (click)="routingPage()">לסרטונים נוספים</a>           
+            <ng-container *ngFor="let url of openingVideosUrl">
+                <iframe class="youtube-video" [src]="url | safe"></iframe>
+            </ng-container>
+            <a href="" (click)="routingPage()">לסרטונים נוספים</a>           
         </div>
     </div>
 </div>
 
 
+<!-- <iframe class="youtube-video" src="https://www.youtube.com/embed/4z4_oJ0FxV0"></iframe> -->
+<!-- <iframe class="youtube-video" src="https://www.youtube.com/embed/rDNDHfgwzlg"></iframe> -->
 <!-- <app-bislat-output [item]="resultItem$ | async"></app-bislat-output> -->
 
 

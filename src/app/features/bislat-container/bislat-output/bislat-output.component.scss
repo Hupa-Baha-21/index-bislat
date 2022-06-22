@@ -1,168 +1,160 @@
-:host {
-  font-weight: 300;
+.header-container {
+  padding: 8px 47px 8px 60px;
+  color: #2E365B;
+}
 
-  .header-container {
-    padding: 8px 46px;
-    color: #2E365B;
+.course-grid {
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: auto 35%;
+  grid-template-rows: auto auto;
+  margin-bottom: 70px;
+  padding: 4%;
+  box-sizing: border-box;
+}
+
+.bases-grid {
+  grid-column: 1/2;
+  grid-row: 2;
+
+  span {
+    display: block;
+  }
+}
+
+h2 {
+  margin: -6px 1.2px;
+  line-height: 100%;
+}
+
+.course-output {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  height: fit-content;
+  background: #ffffff;
+  border-radius: 18rem;
+  filter: drop-shadow(#00000045 3px 3px 10px);
+  grid-column: 1/3;
+
+  span {
+    margin-top: 10px;
+    font-size: 16rem;
+    display: block;
+  }
+}
+
+.map {
+  width: 0%;
+  max-width: 300px;
+  grid-column: 2/3;
+  grid-row: 2;
+  margin: 0 auto;
+
+  &.map__size {
+    width: 100%;
+    min-width: 100px;
+  }
+}
+
+.youtube-container {
+  width: min-content;
+  height: min-content;
+  background: #ffffff;
+  margin: auto;
+  grid-column: 1/3;
+  padding: 8px;
+  border-radius: 20rem;
+  filter: drop-shadow(#00000045 3px 3px 10px);
+}
+
+.youtube-video {
+  width: 70vw;
+  max-width: 600px;
+  height: 38vw;
+  max-height: 280px;
+  border-radius: 15px;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 21px;
+  width: 29px;
+  margin-right: 15px;
+}
+
+.homepage-icon {
+  position: absolute;
+  top: 21px;
+  left: 15px;
+  width: 40px;
+}
+
+@media (max-width: 330px) {
+
+  .homepage-icon {
+    width: 36px;
   }
 
-  h1 {
-    font-size: 29rem;
-    font-weight: 900;
-    margin: 0;
+  .favorite-icon {
+    width: 24px;
+  }
 
-    span {
-      font-size: 25rem;
-    }
+  .header-container {
+    padding: 10px 41px 10px 50px;
   }
 
   h2 {
-    font-size: 20rem;
-    font-weight: 300;
-    margin: -6px 1.2px;
-    line-height: 100%;
-  }
-
-  h3 {
-    font-size: 16rem;
-    font-weight: 300;
-    margin: 0;
-    padding: 10rem;
-
-    span {
-      font-size: 16rem;
-      display: block;
-    }
-
-    .bases-grid {
-      grid-column: 1/2;
-      grid-row: 2;
-    }
-  }
-
-  .course-grid {
-    display: grid;
-    grid-gap: 25px;
-    grid-template-columns: auto 35%;
-    grid-template-rows: auto auto;
-    margin-bottom: 70px;
-    padding: 4%;
-    box-sizing: border-box;
+    font-size: 17rem;
+    margin: -5px 1px;
   }
 
   .course-output {
-    width: 100%;
-    height: fit-content;
-    background: #ffffff;
-    border-radius: 18rem;
-    filter: drop-shadow(#00000045 3px 3px 10px);
-    grid-column: 1/3;
+    span {
+      font-size: 14rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .header-container {
+    padding: 5px 51px 10px 60px;
+  }
+
+  .favorite-icon {
+    width: 33px;
+  }
+
+  .course-grid {
+    grid-template-columns: auto 26%;
+    grid-template-rows: min-content min-content 75%;
+    padding-left: 7%;
+    margin-bottom: 0;
+  }
+
+  .course-output {
+    grid-column: 1/2;
 
     span {
-      margin-top: 10px;
+      font-size: 18rem;
     }
   }
 
   .map {
-    width: 0%;
-    max-width: 300px;
-    grid-column: 2/3;
-    grid-row: 2;
-    margin: 0 auto;
-
-    &.map__size {
-      width: 100%;
-      min-width: 100px;
-    }
+    grid-row: 1/4;
   }
 
   .youtube-container {
-    width: min-content;
-    height: min-content;
-    background: #ffffff;
-    margin: auto;
-    grid-column: 1/3;
-    padding: 8px;
-    border-radius: 20rem;
-    filter: drop-shadow(#00000045 3px 3px 10px);
+    grid-column: 1/2;
   }
 
   .youtube-video {
-    width: 70vw;
-    max-width: 600px;
-    height: 38vw;
-    max-height: 280px;
-    border-radius: 15px;
+    width: 63vw;
+    height: 35vw;
   }
 
-  .favorite-icon {
-    position: absolute;
-    top: 21px;
-    width: 28px;
-    margin-right: 15px;
-  }
-
-  .homepage-icon {
-    position: absolute;
-    top: 20px;
-    left: 15px;
-    width: 40px;
-  }
-
-  @media (max-width: 390px) {
-
-    .homepage-icon {
-      width: 33px;
-    }
-
-    .favorite-icon {
-      width: 22px;
-    }
-
-    .header-container {
-      padding: 10px 39px 10px 50px;
-    }
-
-    h1 {
-      font-size: 22rem;
-
-      span {
-        font-size: 21rem;
-      }
-    }
-
-    h2 {
-      font-size: 17rem;
-      margin: -5px 1px;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .course-grid {
-      grid-template-columns: auto 26%;
-      grid-template-rows: min-content min-content 75%;
-      padding-left: 7%;
-      margin-bottom: 0;
-    }
-
-    .course-output {
-      grid-column: 1/2;
-    }
-
-    .map {
-      grid-row: 1/4;
-    }
-
-    .youtube-video {
-      width: 63vw;
-      height: 35vw;
-    }
-
-    .youtube-container {
-      grid-column: 1/2;
-    }
-  }
 }
+
 
 
 

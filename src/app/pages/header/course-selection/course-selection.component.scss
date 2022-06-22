@@ -108,6 +108,28 @@
     }
 }
 
+@media (min-width: 1000px) {
+    .select-container {
+        width: 40%;
+        padding: 70px 0;
+        margin: auto;
+
+        input,
+        select {
+
+            width: 100%;
+            max-width: none;
+        }
+    }
+
+    .header {
+        font-size: 34rem;
+        margin-right: 0;
+        display: block;
+        text-align: center;
+    }
+}
+
 @media (max-width: 390px) {
     .header {
         position: relative;

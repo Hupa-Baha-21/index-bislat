@@ -12,16 +12,16 @@
 
 <div class="course-grid" *ngIf="item">    
     <div class="course-output">
-        <h3>{{item.CourseDescription}}
-        <span>משך ההכשרה- {{item.CourseTime}}</span></h3>
+        <h4>{{item.CourseDescription}}
+        <span>משך ההכשרה- {{item.CourseTime}}</span></h4>
     </div>
     
     <object #mapObject type="image/svg+xml" class="map" [class.map__size]="changeMap" data="assets/images/map_tmp7.svg"></object>
     <img #mapAllBases src="../../../../assets/images/map.svg" *ngIf="!changeMap" class="map" [class.map__size]="true">
     
-    <h3 class="bases-grid">הבסיסים בהם ניתן לשרת הם- 
+    <h4 class="bases-grid">הבסיסים בהם ניתן לשרת הם- 
         <span *ngFor="let base of item.CourseBases">• {{base}}</span>
-    </h3>
+    </h4>
     
     <div class="youtube-container">
         <iframe class="youtube-video" [src]="item.YouTubeURL | safe"></iframe>

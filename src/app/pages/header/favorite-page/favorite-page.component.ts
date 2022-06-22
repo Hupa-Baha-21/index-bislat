@@ -25,10 +25,18 @@ export class FavoritePageComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  removeFromeFavorites(index: number): void {
+  removeFromeFavorites(courseName: string): void {
     
     let favorites = JSON.parse(localStorage.getItem('courseName') || '[]');
-    favorites.splice(index, 1);
+    console.log(courseName);
+    console.log(favorites);
+    for(let i = 0; i < favorites.length; i++){
+      if(favorites[i] === courseName){ 
+        favorites.splice(i, 1);
+        break;
+      }
+    }
+    console.log(favorites);
     localStorage.setItem('courseName', JSON.stringify(favorites));
     this.routing = "/favorite";
     this.ifRouting = false;

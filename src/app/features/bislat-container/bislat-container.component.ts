@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
 import { SortCoursesService } from './sort-courses.service';
-import { openingParagraphs } from 'src/app/pages/header/img-url';
+import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-url';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class BislatContainerComponent implements OnInit {
 
   readMoreButton = ['readMore', 1]; //[img, mun of paragraphs]
   openingParagraphs: string[] = openingParagraphs;
+  openingVideosUrl = openingVideosUrl;
 
   constructor(service: SortCoursesService) {
 
