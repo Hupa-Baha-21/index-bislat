@@ -13,7 +13,8 @@
 <div class="course-grid" *ngIf="item">    
     <div class="course-output">
         <h4>{{item.CourseDescription}}
-        <span>משך ההכשרה- {{item.CourseTime}}</span></h4>
+        <span>משך ההכשרה- {{item.CourseTime}}</span>
+        <span *ngIf="item.note">שים לב, {{item.note}}</span></h4>
     </div>
     
     <object #mapObject type="image/svg+xml" class="map" [class.map__size]="changeMap" data="assets/images/map_tmp7.svg"></object>

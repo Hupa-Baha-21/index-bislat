@@ -16,12 +16,11 @@
         <div class="output-container" *ngFor="let item of items; let i = index" (click)="router(i)" routerLink={{routing}}>
 
             <img src="../../../../assets/images/remove.svg" (click)="removeFromeFavorites(item.CourseName)" routerLink="/favorite">
-            <!-- <img src="../../../../assets/images/remove.svg" class="delete" (click)="removeFromeFavorites(item.CourseName)" routerLink="/favorite"> -->
             <div class="title-container">
                 <h4 class="main-title1"> קורס {{item.CourseNumber}}<span> - {{item.CourseName}} </span></h4>
+                
             </div>
-
-
+            
             <div class="text-container">
                 <h5> משך ההכשרה<br>{{item.CourseTime}}</h5><hr>
                 <h5> מיקום ההכשרה<br>בח"א 21 - טכני</h5><hr>
@@ -29,15 +28,16 @@
             </div>
         </div>
     </div>
-
+    
     <img src="../../../../assets/images/favorite.svg" class="favorite">
     <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
     <h2 *ngIf="items.length > 0" class="note" routerLink="/courseSelection">סיימתי! מעבר למילוי שאלון העדפות</h2>
-    <!-- <span *ngIf="items.length > 0" class="note" routerLink="/courseSelection">סיימתי! מעבר למילוי שאלון העדפות</span> -->
 </div>
 
 
 
+<!-- <span *ngIf="items.length > 0" class="note" routerLink="/courseSelection">סיימתי! מעבר למילוי שאלון העדפות</span> -->
+<!-- <img src="../../../../assets/images/remove.svg" class="delete-fav" (click)="removeFromeFavorites(item.CourseName)" routerLink="/favorite"> -->
 <!-- <img src="../../../../assets/images/search-line.svg" style="width: 2px;"> -->
 
 <!-- <div class="backgroundcolor">

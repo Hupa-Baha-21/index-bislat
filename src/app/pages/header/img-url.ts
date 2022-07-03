@@ -1,3 +1,5 @@
+import { FormGroup } from "@angular/forms";
+
 export const imgUrls = [
     "'../../../assets/images/startImg1.jpg'",
     "'../../../assets/images/startImg2.jpg'",
@@ -32,4 +34,91 @@ export const openingParagraphs = [
 export const openingVideosUrl = [
     "rDNDHfgwzlg",
     "4z4_oJ0FxV0"
+]
+
+interface selection {
+    title: string;
+    HTMLelement: string;
+    selectOptions?: string[]; ///-------------
+    inputPlaceholder: string;
+    validName: string;
+    formControlName: string;
+}
+
+interface page {
+    formGroup: string;
+    fformGroup?: FormGroup;
+    ngSubmit: string;
+    buttonText: string;
+    buttonFunc: string;
+    func?: (s: string) => void;
+    items: selection[];
+}
+
+export const selectionPage: page[] = [
+    {
+        formGroup: "selectionPage1Form",
+        ngSubmit: "moveNextPage",
+        buttonText: "המשך",
+        buttonFunc: "moveNextPage",
+        items: [
+            {
+                title: "מחזור המיון",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                validName: "cycleInput",
+                formControlName: "cycleInput"
+            },
+            {
+                title: "שם פרטי + שם משפחה",
+                HTMLelement: "input",
+                inputPlaceholder: "",
+                validName: "nameInput",
+                formControlName: "nameInput"
+            },
+            {
+                title: "מספר תעודת זהות",
+                HTMLelement: "input",
+                inputPlaceholder: "",
+                validName: "idInput",
+                formControlName: "idInput"
+            },
+            {
+                title: "מסגרת מיון",
+                HTMLelement: "input",
+                inputPlaceholder: "הערך חייב להיות מספר",
+                validName: "sortNumberInput",
+                formControlName: "sortNumberInput"
+            }
+        ]
+    },
+    {
+        formGroup: "selectionPage2Form",
+        ngSubmit: "sendForm",
+        buttonText: "שלח",
+        buttonFunc: "sendForm",
+        items: [
+            {
+                title: "העדפה ראשונה",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                validName: "firstOption",
+                formControlName: "firstOption"
+            },
+            {
+                title: "העדפה שנייה",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                validName: "secondOption",
+                formControlName: "secondOption"
+            },
+            {
+                title: "העדפה שלישית",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                validName: "thirdOption",
+                formControlName: "thirdOption"
+            }
+        ]
+    }
 ]

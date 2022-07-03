@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { selectionPage } from '../img-url';
 
 
 @Component({
@@ -12,6 +13,7 @@ export class CourseSelectionComponent implements OnInit {
   pageNumber: number = 1;
   blockForm: boolean = false;
   buttonClicked: boolean = false;
+  selectionPages = selectionPage;
 
   selectionPage1Form = new FormGroup({
 
@@ -38,6 +40,11 @@ export class CourseSelectionComponent implements OnInit {
     if (this.pageNumber === 3) {
       this.blockForm = true;
     }
+
+    this.selectionPages[0].fformGroup = this.selectionPage1Form;
+    this.selectionPages[0].func = this.moveNextPage;
+    this.selectionPages[1].fformGroup = this.selectionPage2Form;
+    this.selectionPages[1].func = this.sendForm;
   }
 
   isValid(controlName: string): boolean | undefined {
@@ -83,6 +90,7 @@ export class CourseSelectionComponent implements OnInit {
       localStorage.setItem("blockForm", "true");
       this.pageNumber = 3;
       // console.log(this.selectionPage1Form.value);
+      // console.log(JSON.parse(this.selectionPage1Form.value));
     }
   }
 }

@@ -2,8 +2,29 @@
 
   <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
   <span class="header">שאלון העדפות מיון</span>
+
+  <ng-container *ngFor="let s of selectionPages; let i = index">
+    <form [formGroup]="s.fformGroup || selectionPage1Form" (ngSubmit)="moveNextPage()">
+      <div *ngIf="pageNumber === (i + 1) && !blockForm" class="select-container">
+
+        <ng-container *ngFor="let item of s.items">
+
+          <span class="InputTitle">{{item.title}}</span>
+          <input *ngIf="item.HTMLelement === 'input'" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)">
+          <select *ngIf="item.HTMLelement === 'select'" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)">
+            <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+            <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+          </select>
+        </ng-container>
+
+        <button type="submit" (click)="s.buttonFunc">{{s.buttonText}}</button>        
+      <span class="error-message" *ngIf="!selectionPage1Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
+      <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
+      </div>
+  </form>
+  </ng-container>
   
-  <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
+  <!-- <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
     <div *ngIf="pageNumber === 1 && !blockForm" class="select-container">  
       
       <span class="InputTitle">מחזור המיון</span>
@@ -24,11 +45,13 @@
       <button type="submit" (click)="moveNextPage()">המשך</button> 
       <span class="error-message" *ngIf="!selectionPage1Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
       <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
-    </div>
-  </form>
+      <span class="note">{{selectionPages.length}}</span> -->
+      <!-- <ng-container *ngFor="let s of selectionPages"><span class="note">hdcsui</span></ng-container> -->
+    <!-- </div> -->
+  <!-- </form> -->
 
 
-  <form [formGroup]="selectionPage2Form" (ngSubmit)="sendForm()">
+  <!-- <form [formGroup]="selectionPage2Form" (ngSubmit)="sendForm()">
     <div *ngIf="pageNumber === 2 && !blockForm" class="select-container">
       
       <span class="InputTitle">העדפה ראשונה</span>
@@ -51,7 +74,6 @@
       <button type="submit" (click)="sendForm()">שלח</button>
       <span class="error-message" *ngIf="!selectionPage2Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
       <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
-
     </div>
   </form>
 
@@ -63,6 +85,12 @@
     כבר מילאת שאלון העדפות, לא ניתן למלא שוב
   </div>
 </div>
+
+
+<div *ngFor="let s of selectionPages">
+  <span class="note">hjcdio</span>
+<div> -->
+
 
 
 

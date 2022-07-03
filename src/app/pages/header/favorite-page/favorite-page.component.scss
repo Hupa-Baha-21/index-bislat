@@ -33,8 +33,8 @@ h5 {
 hr {
   width: 1px;
   background-color: #2E365B;
-  outline: none;
   margin: 0px;
+  border: none;
 }
 
 .didnt-save {
@@ -54,6 +54,7 @@ hr {
 }
 
 .output-container {
+  position: relative;
   width: 85%;
   max-width: 440px;
   background: #ffffff;
@@ -70,7 +71,14 @@ hr {
     left: 5px;
     padding: 8px;
   }
+}
 
+.delete-fav {
+  position: absolute;
+  height: 18px;
+  top: 9px;
+  left: 5px;
+  padding: 8px;
 }
 
 // .delete {
