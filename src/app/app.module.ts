@@ -18,6 +18,16 @@ import { CourseSelectionComponent } from './pages/header/course-selection/course
 import { SortCoursesService } from './features/bislat-container/sort-courses.service';
 import { SafePipe } from './safe.pipe';
 
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { TopBarComponent } from './features/bislat-container/top-bar/top-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,12 +41,19 @@ import { SafePipe } from './safe.pipe';
     FavoritePageComponent,
     ManagementComponent,
     CourseSelectionComponent,
-    SafePipe
+    SafePipe,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    BrowserAnimationsModule
   ],
   providers: [SortCoursesService
   ],

@@ -3,6 +3,7 @@
 :host {
     font-size: 16rem;
     font-weight: 300;
+    color: #2E365B;
 
     .backgroundcolor {
         position: absolute;
@@ -10,6 +11,36 @@
         width: 100%;
         min-height: 100%;
     }
+
+    .header-container {
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 26px;
+    }
+
+    .level-container {
+        background-color: #ffffff87;
+        border-radius: 10px;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 8px;
+        filter: drop-shadow(#00000045 3px 3px 10px);
+    }
+
+    h4 {
+        font-weight: 400;
+    }
+
+    h2 {
+        font-weight: 400;
+        margin-top: -7px;
+    }
+
+    h3 {
+        font-weight: 700;
+        margin-top: 22px;
+    }
+
 
     .fa {
         position: absolute;
@@ -23,6 +54,11 @@
         &.fa__fix {
             position: fixed;
             color: #fff;
+        }
+
+        &.fa__course {
+            top: 4px;
+            font-size: 25px;
         }
     }
 
@@ -124,7 +160,7 @@
         margin-bottom: 10px;
         border: 1px solid #2E365B;
         box-sizing: border-box;
-        filter: drop-shadow(#00000045 3px 3px 10px);
+        // filter: drop-shadow(#00000045 3px 3px 10px);
 
         &:focus {
             outline: none;

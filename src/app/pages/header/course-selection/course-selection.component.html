@@ -1,29 +1,42 @@
 <div class="backgroundcolor">
 
-  <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
-  <span class="header">שאלון העדפות מיון</span>
+  <div class="header-container">
+    <h1>שאלון העדפות מיון</h1>
+    <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
+  </div>
 
   <ng-container *ngFor="let s of selectionPages; let i = index">
-    <form [formGroup]="s.fformGroup || selectionPage1Form" (ngSubmit)="moveNextPage()">
+    <form [formGroup]="s.formGroup || selectionPage1Form" (ngSubmit)="submitForm(i)">
       <div *ngIf="pageNumber === (i + 1) && !blockForm" class="select-container">
 
         <ng-container *ngFor="let item of s.items">
 
-          <span class="InputTitle">{{item.title}}</span>
+          <h4>{{item.title}}</h4>
           <input *ngIf="item.HTMLelement === 'input'" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)">
           <select *ngIf="item.HTMLelement === 'select'" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)">
             <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
             <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
           </select>
         </ng-container>
-
-        <button type="submit" (click)="s.buttonFunc">{{s.buttonText}}</button>        
-      <span class="error-message" *ngIf="!selectionPage1Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
-      <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
+        
+      <button type="submit">{{s.buttonText}}</button>
+      <h4 [class.h4__error-message]="true" *ngIf="!s.formGroup?.valid && buttonClicked === true">* הכנס ערך חוקי</h4>
+      <h2>שים לב! ניתן למלא שאלון זה רק פעם אחת</h2>
       </div>
   </form>
   </ng-container>
-  
+
+  <div class="note-container">
+    <span *ngIf="pageNumber === 3">הטופס נשלח בהצלחה!</span>
+    <span *ngIf="blockForm">כבר מילאת שאלון העדפות, לא ניתן למלא שוב</span>
+  </div>
+</div>
+
+
+
+
+
+
   <!-- <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
     <div *ngIf="pageNumber === 1 && !blockForm" class="select-container">  
       

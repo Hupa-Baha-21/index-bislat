@@ -14,7 +14,7 @@ import { EventEmitter, Output } from '@angular/core';
 export class ManagementComponent implements OnInit {
 
   showMenuBar: boolean = false;
-  selectedPage: string = "selectionForm";
+  selectedPage: string = "createNewCycle";
 
   inputControl: FormControl = new FormControl();
   indexOutput$: Observable<IDictionaryItem[]>;
@@ -44,6 +44,7 @@ export class ManagementComponent implements OnInit {
     }
   }
 
+
   changePage(pageName: string): void {
 
     switch (pageName) {
@@ -68,5 +69,4 @@ export class ManagementComponent implements OnInit {
     this.resultItem$.next(item);
     this.inputControl.setValue(item.CourseNumber);
   }
-
 }

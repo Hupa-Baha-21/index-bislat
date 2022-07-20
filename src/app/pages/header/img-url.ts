@@ -1,3 +1,4 @@
+import { templateJitUrl } from "@angular/compiler";
 import { FormGroup } from "@angular/forms";
 
 export const imgUrls = [
@@ -46,21 +47,20 @@ interface selection {
 }
 
 interface page {
-    formGroup: string;
-    fformGroup?: FormGroup;
+    formGroup?: FormGroup;
     ngSubmit: string;
     buttonText: string;
     buttonFunc: string;
-    func?: (s: string) => void;
+    func: () => void;
     items: selection[];
 }
 
 export const selectionPage: page[] = [
     {
-        formGroup: "selectionPage1Form",
         ngSubmit: "moveNextPage",
         buttonText: "המשך",
         buttonFunc: "moveNextPage",
+        func: () => void {},
         items: [
             {
                 title: "מחזור המיון",
@@ -93,10 +93,10 @@ export const selectionPage: page[] = [
         ]
     },
     {
-        formGroup: "selectionPage2Form",
         ngSubmit: "sendForm",
         buttonText: "שלח",
         buttonFunc: "sendForm",
+        func: () => void {},
         items: [
             {
                 title: "העדפה ראשונה",
@@ -121,4 +121,12 @@ export const selectionPage: page[] = [
             }
         ]
     }
-]
+];
+
+export const NavTitles: string[] = [
+    'דף הבית',
+    'שאלון העדפות',
+    'יצירת מחזור מיון חדש',
+    'עריכת מחזור מיון קיים',
+    'התנתק'
+];

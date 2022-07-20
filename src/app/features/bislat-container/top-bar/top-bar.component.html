@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<i class="fa fa-bars" (click)="snav.toggle()" [class.fa__clicked]="snav.opened"></i>
+
+<mat-sidenav-container>
+    <mat-sidenav #snav mode="over" position="start" fixedInViewport fixedTopGap="0" class="bar-container">
+        <mat-nav-list>
+            <ng-container *ngFor="let title of navTitle">
+                <h3>{{title}}</h3>
+            </ng-container>
+        </mat-nav-list>
+    </mat-sidenav>
+</mat-sidenav-container>

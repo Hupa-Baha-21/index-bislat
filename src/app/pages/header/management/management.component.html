@@ -1,25 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="backgroundcolor">
-
-    <!-- <img src="../../../../assets/images/home.svg" class="homepage-icon" routerLink="/homePage"> -->
-    <div class="header">דף ניהול</div>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <app-top-bar></app-top-bar>
     
-    
-    <i class="fa fa-bars" (click)="menuCliked()" [class.fa__fix]="showMenuBar"></i>
-
-    <div class="menu-bar" *ngIf="showMenuBar">
-        <span class="menu-element" routerLink="/homePage">דף הבית</span>
-        <span class="menu-element" (click)="changePage('selectionForm')">שאלון העדפות</span>
-        <span class="menu-element" (click)="changePage('createNewCycle')">יצירת מחזור מיון חדש</span>
-        <span class="menu-element" (click)="changePage('editCycle')">עריכת מחזור מיון קיים</span>
-        <span class="menu-element">התנתק</span>
-    </div>
-
+    <div class="header-container">
+        <h1>דף ניהול</h1>
+        <h2>יצירת מחזור מיון חדש</h2>
+    </div> 
     
     <div class="container" *ngIf="selectedPage === 'selectionForm'">
-
+        
         <span class="main-title">שאלון העדפות</span>
 
         <div class="text-container">
@@ -64,16 +53,55 @@
         </div>
         <div class="error-message">לא ניתן לצפות בתצוגה מקדימה של שאלון העדפות בטלפון</div>
         <span class="download-tabel">הורדת הקובץ למחשב</span>
-
+        
     </div>
         
         
     <div class="container" *ngIf="selectedPage === 'createNewCycle'">
+        
+        <h3>שם מחזור המיון</h3>
+        <input class="cycle-input" placeholder="לדוגמא: דצמבר 2022">
+        
+        <!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
+        <!-- <div class="level-container" style="margin-bottom: 30px;"> -->
+            <!-- <h4>שם מחזור המיון</h4> -->
+        <!-- </div> -->
+        
+        <!-- <h2>המשך</h2> -->
 
-        <span class="main-title">יצירת מחזור מיון חדש</span>            
+        <h3>הוספת מקצועות</h3>
+
+        <div class="level-container">
+            <h4>מערך החשמל</h4>
+            <i class="fa fa-angle-down" [class.fa__course]="true"></i>
+        </div>
+        <div class="level-container">
+            <h4>מערך החשמל</h4>
+            <i class="fa fa-angle-down" [class.fa__course]="true"></i>
+        </div>
+
+        <div class="level-container">
+            <h4>מערך החשמל</h4>
+            <i class="fa fa-angle-up" [class.fa__course]="true"></i>
+            
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
+
+        <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
+        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+        </div>
+        
+        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
+        
+
+
+
+
+<!-- 
         <span class="title">מחזור המיון</span>
         <input class="cycle-input">
-
+        
         <div class="courses-grid">
             <div *ngFor="let con of [].constructor(10)">
                 <span class="title">מערך החשמל</span>
@@ -94,7 +122,7 @@
         <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
         <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
         
-        <button class="save-button">יצירה</button>
+        <button class="save-button">יצירה</button> -->
     </div>        
 
 
@@ -130,7 +158,7 @@
         <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
 
         <button class="save-button">שמור שינויים</button>
-
+        
         
     </div>        
 
@@ -143,10 +171,10 @@
             
             
             <button class="save-button">שמור שינויים</button>
-
+            
             
         </div>         -->
-
+        
 
 </div>
 
@@ -168,3 +196,13 @@
         <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
         <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
     </div> -->
+
+
+
+<!-- <div class="menu-bar" *ngIf="showMenuBar">
+    <span class="menu-element" routerLink="/homePage">דף הבית</span>
+    <span class="menu-element" (click)="changePage('selectionForm')">שאלון העדפות</span>
+    <span class="menu-element" (click)="changePage('createNewCycle')">יצירת מחזור מיון חדש</span>
+    <span class="menu-element" (click)="changePage('editCycle')">עריכת מחזור מיון קיים</span>
+    <span class="menu-element">התנתק</span>
+</div> -->

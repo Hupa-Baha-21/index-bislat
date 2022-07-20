@@ -41,9 +41,9 @@ export class CourseSelectionComponent implements OnInit {
       this.blockForm = true;
     }
 
-    this.selectionPages[0].fformGroup = this.selectionPage1Form;
+    this.selectionPages[0].formGroup = this.selectionPage1Form;
     this.selectionPages[0].func = this.moveNextPage;
-    this.selectionPages[1].fformGroup = this.selectionPage2Form;
+    this.selectionPages[1].formGroup = this.selectionPage2Form;
     this.selectionPages[1].func = this.sendForm;
   }
 
@@ -74,10 +74,17 @@ export class CourseSelectionComponent implements OnInit {
     }
   }
 
+  submitForm(index: number): void {
+    if (index === 0) { this.moveNextPage(); }
+    if (index === 1) { this.sendForm(); }
+  }
+
   moveNextPage(): void {
     this.buttonClicked = true;
+    console.log("next page");
 
-    if (this.selectionPage1Form.valid) {
+    if (this.selectionPages[0].formGroup?.valid) {
+      console.log("bhxdki");
       this.pageNumber = 2;
       this.buttonClicked = false;
     }
@@ -85,6 +92,7 @@ export class CourseSelectionComponent implements OnInit {
 
   sendForm(): void {
     this.buttonClicked = true;
+    console.log("send form");
 
     if (this.selectionPage2Form.valid) {
       localStorage.setItem("blockForm", "true");
