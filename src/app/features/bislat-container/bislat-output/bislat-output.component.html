@@ -10,6 +10,12 @@
     <h2>{{item.CourseName}}</h2>
 </div>
 
+<mat-sidenav-container>
+    <mat-sidenav #snav mode="over" position="end" fixedInViewport fixedTopGap="0" class="message-background">
+            <h3>{{alertText}}</h3>
+    </mat-sidenav>
+</mat-sidenav-container>
+
 <div class="course-grid" *ngIf="item">    
     <div class="course-output">
         <h4>{{item.CourseDescription}}

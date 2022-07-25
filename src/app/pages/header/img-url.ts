@@ -130,3 +130,7 @@ export const NavTitles: string[] = [
     'עריכת מחזור מיון קיים',
     'התנתק'
 ];
+
+// export const managerPage = [
+
+// ];

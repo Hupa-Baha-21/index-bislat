@@ -7,6 +7,7 @@ import { SortCoursesService } from '../sort-courses.service';
 import { bases } from 'src/app/pages/header/img-url';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSidenav } from '@angular/material/sidenav';
 
 
 @Component({
@@ -19,10 +20,13 @@ export class BislatOutputComponent implements OnInit {
   favoritePosition: string;
   isReadMore: boolean = false;
   changeMap: boolean = false;
+  alertText: string = 'נוסף למועדפים בהצלחה'
 
   inputPlaceholder: string = "" + this.route.snapshot.paramMap.get('number');
   dictionaryData: IDictionary = data;
   item: IDictionaryItem;
+
+  @ViewChild(MatSidenav) snav!: MatSidenav;
 
   map: Document | undefined;
   @ViewChild("mapObject") set mapObject(o: ElementRef) {
@@ -41,6 +45,15 @@ export class BislatOutputComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  alertMessage(position: string): void {
+    if (position === 'delete') { this.alertText = 'הוסר מהמועדפים'; }
+    else { this.alertText = 'נוסף למועדפים בהצלחה'; }
+
+    // this.snav.opened = false;
+    // this.snav.opened = true;
+    // setTimeout(() => { this.snav.opened = false }, 1200);
   }
 
   renameBases(): string[] {
@@ -81,12 +94,14 @@ export class BislatOutputComponent implements OnInit {
 
       this.favoritePosition = 'favorite.svg';
       favorites.push(this.item.CourseName);
-      // alert("נוסף למועדפים בהצלחה");
+      this.alertMessage("add");
     }
 
     else if (this.favoritePosition === 'favorite.svg') {
 
       this.favoritePosition = 'notFavorite.svg';
+      // let alert: string = 'הוסר מהמועדפים';
+      this.alertMessage("delete");
       for (let i = 0; i < favorites.length; i++) {
 
         if (favorites[i] === this.item.CourseName) {
@@ -96,6 +111,8 @@ export class BislatOutputComponent implements OnInit {
       }
     }
 
+    this.snav.opened = true;
+    setTimeout(() => { this.snav.opened = false }, 1200);
     localStorage.setItem('courseName', JSON.stringify(favorites));
   }
 }
