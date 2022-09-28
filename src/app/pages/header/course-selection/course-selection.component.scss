@@ -24,6 +24,16 @@ h4 {
     }
 }
 
+.container {
+    background-color: #fff;
+    border: #2E365B 2px solid;
+    color: #2E365B;
+    padding: 7px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
 .note-container {
     font-size: 32rem;
     font-weight: 500;
@@ -45,8 +55,8 @@ h4 {
     padding: 23px 15px 70px;
     box-sizing: border-box;
 
-    input,
-    select {
+
+    .input-select {
         -webkit-appearance: none;
         position: relative;
         height: 40px;

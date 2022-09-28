@@ -1,4 +1,5 @@
-<img src="../../../../assets/images/map.svg" style="height: 0; width: 0;">
+<img src="../../../../assets/images/mapSmall.svg" style="height: 0; width: 0;">
+<img src="../../../../assets/images/mapBig.svg" style="height: 0; width: 0;">
 <img src="../../../../assets/images/favorite.svg" style="height: 0; width: 0;">
 <img src="../../../../assets/images/notFavorite.svg" style="height: 0; width: 0;">
 
@@ -7,7 +8,8 @@
 
 <div class="header-container" *ngIf="item">
     <h1>קורס <span>{{item.CourseNumber}}</span></h1>
-    <h2>{{item.CourseName}}</h2>
+    <!-- <h2>{{item.CourseName}}</h2> -->
+    <h2 style="font-size: 18rem;">{{item.CourseName}}</h2>
 </div>
 
 <mat-sidenav-container>
@@ -20,11 +22,12 @@
     <div class="course-output">
         <h4>{{item.CourseDescription}}
         <span>משך ההכשרה- {{item.CourseTime}}</span>
-        <span *ngIf="item.note">שים לב, {{item.note}}</span></h4>
+        <span *ngIf="item.note">שים לב ♡, {{item.note}}</span></h4>
     </div>
     
-    <object #mapObject type="image/svg+xml" class="map" [class.map__size]="changeMap" data="assets/images/map_tmp7.svg"></object>
-    <img #mapAllBases src="../../../../assets/images/map.svg" *ngIf="!changeMap" class="map" [class.map__size]="true">
+    <object #mapObject type="image/svg+xml" class="map" [class.map__size]="changeMap" data="assets/images/maxMap.svg"></object>
+    <!-- <img #mapAllBases src="../../../../assets/images/mapSmall.svg" *ngIf="!changeMap" class="map" [class.map__size]="true"> -->
+    <img #mapAllBases src="../../../../assets/images/miniMap.svg" *ngIf="!changeMap" class="map" [class.map__size]="true">
     
     <h4 class="bases-grid">הבסיסים בהם ניתן לשרת הם- 
         <span *ngFor="let base of item.CourseBases">• {{base}}</span>

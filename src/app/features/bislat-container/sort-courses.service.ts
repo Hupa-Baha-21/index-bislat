@@ -6,6 +6,8 @@ import * as data from '../../mock-data.json'
 
 import { Observable, of, pipe } from 'rxjs';
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
+import { numbers } from '@material/list';
+import { equalshWords } from 'src/app/pages/header/img-url';
 
 @Injectable({
   providedIn: 'root'
@@ -79,7 +81,7 @@ export class SortCoursesService {
 
       input = input.trim();
 
-      if (input) {
+      if (!isNaN(Number(input))) {
         const key = input[0];
         const keyDictionary: IDictionaryItem[] = this.dictionaryData[key];
 
@@ -91,11 +93,105 @@ export class SortCoursesService {
           return of([]);
         }
       }
+
       else {
-        return of([]);
+        // let filteredDictionary: IDictionaryItem[] = [];
+        let inputArr: string[] = this.getSearchWords(input);
+        let n: IDictionaryItem[] = [];
+
+        for (let i = 0; i <= 1; i++) {
+          const keyDictionary: IDictionaryItem[] = this.dictionaryData[i];
+
+          if (keyDictionary) { n = [...n, ...this.getList(inputArr, keyDictionary)]; }
+        }
+        return of(n);
       }
     })
   )
+
+  getList(searchWords: string[], keyDictionary: IDictionaryItem[]): IDictionaryItem[] {
+
+    let Arr: IDictionaryItem[] = this.getListOfWord(searchWords[0], keyDictionary);
+    let list: IDictionaryItem[] = [];
+
+    for (let i = 1; i < searchWords.length; i++) {
+      let tmpArr: IDictionaryItem[] = this.getListOfWord(searchWords[i], keyDictionary);
+
+      for (let y = 0; y < Arr.length; y++) {
+        let tmp = tmpArr.filter(item => (" " + item.CourseName).includes(Arr[y].CourseName));
+        list = [...list, ...tmp];
+      }
+      Arr = list;
+      list = [];
+    }
+    return Arr;
+  }//----------------------------------------------------
+
+  getListOfWord(searchWord: string, keyDictionary: IDictionaryItem[]): IDictionaryItem[] {
+
+    let Arr: IDictionaryItem[] = [];
+
+    for (let i = 0; i < equalshWords.length; i++) {
+      if (equalshWords[i].includes(searchWord)) {
+        let words: string[] = this.getSearchWords(equalshWords[i]);
+
+        for (let index = 0; index < words.length; index++) {
+          let tmpArr: IDictionaryItem[] = keyDictionary.filter(item => (" " + item.CourseName).includes(words[index]));
+          Arr = [...Arr, ...tmpArr];
+        }
+        return Arr;
+      }
+    }
+    return keyDictionary.filter(item => (" " + item.CourseName).includes(searchWord));
+  }//----------------------------------------------------
+
+  getSearchWords(input: string) {
+
+    let Arr: string[] = [];
+    let tmp: string = " ";
+
+    for (let i = 0; i < input.length; i++) {
+
+      if (input[i] != " ") {
+        tmp = tmp + input[i];
+      }
+      else {
+        Arr.push(tmp);
+        tmp = " ";
+      }
+    }
+    Arr.push(tmp);
+    // console.log(Arr);
+    return Arr;
+  }//--------
+
+  // includesSearchWords(item: IDictionaryItem, search: string[]) {
+
+  //   let TorF: boolean = true;
+  //   for (let i = 0; i < search.length - 1 && search.length > 1; i++) {
+  //     if (!this.isinclude(search[i], item.CourseName) || !this.isinclude(search[i + 1], item.CourseName)) { TorF = false; }
+  //   }
+
+  //   return (this.isinclude(search[0], item.CourseName) && TorF);
+  // }//--------
+
+  // isinclude(input: string, courseName: string): boolean {
+
+  //   for (let i = 0; i < equalshWords.length; i++) {
+  //     // if (equalshWords[i].includes(input)) {
+
+  //     const tmp: string[] = equalshWords[i];
+  //     for (let y = 0; y < tmp.length; y++) {
+  //       if (courseName.includes(tmp[y])) { return true; }
+  //     }
+  //     // }
+  //   }
+
+  //   if ((" " + courseName).includes(input)) { return true; }
+  //   return false;
+  // }
 }
+
+
 
 

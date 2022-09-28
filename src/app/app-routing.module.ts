@@ -5,7 +5,8 @@ import { HomepageComponent } from './pages/header/homepage/homepage.component';
 import { FavoritePageComponent } from './pages/header/favorite-page/favorite-page.component';
 import { ManagementComponent } from './pages/header/management/management.component';
 import { CourseSelectionComponent } from './pages/header/course-selection/course-selection.component';
-
+import { SecretPageComponent } from './pages/header/course/secret-page/secret-page.component';
+import { SortCycleComponent } from './pages/header/sort-cycle/sort-cycle.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -13,7 +14,9 @@ const routes: Routes = [
   { path: 'course/:number', component: CourseComponent },
   { path: 'favorite', component: FavoritePageComponent },
   { path: 'management', component: ManagementComponent },
-  { path: 'courseSelection', component: CourseSelectionComponent }
+  { path: 'courseSelection', component: CourseSelectionComponent },
+  { path: 'secret/page', component: SecretPageComponent },
+  { path: 'sort/cycle', component: SortCycleComponent }
 ];
 
 @NgModule({

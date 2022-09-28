@@ -1,5 +1,5 @@
 .header-container {
-  padding: 8px 47px 8px 60px;
+  padding: 8px 43px 8px 60px;
   color: #2E365B;
 }
 
@@ -46,11 +46,12 @@ h2 {
 
 .message-background {
   background-color: #e8e9eaed;
-  // height: fit-content;
+  height: max-content;
   border-radius: 6px 0 0 6px;
-  height: fit-content;
+  height: 37px;
   padding: 5px;
   box-sizing: border-box;
+  font-size: 18px;
 }
 
 .map {
@@ -83,12 +84,13 @@ h2 {
   height: 38vw;
   max-height: 280px;
   border-radius: 15px;
+  border: none;
 }
 
 .favorite-icon {
   position: absolute;
   top: 21px;
-  width: 29px;
+  width: 26.5px;
   margin-right: 15px;
 }
 
@@ -107,10 +109,11 @@ h2 {
 
   .favorite-icon {
     width: 24px;
+    margin-right: 10px;
   }
 
   .header-container {
-    padding: 10px 41px 10px 50px;
+    padding: 10px 37px 10px 60px;
   }
 
   h2 {
@@ -127,11 +130,15 @@ h2 {
 
 @media (min-width: 1200px) {
   .header-container {
-    padding: 5px 51px 10px 60px;
+    padding: 5px 49px 10px 60px;
   }
 
   .favorite-icon {
-    width: 33px;
+    width: 30.5px;
+  }
+
+  h2 {
+    margin: -6px 3.2px;
   }
 
   .course-grid {

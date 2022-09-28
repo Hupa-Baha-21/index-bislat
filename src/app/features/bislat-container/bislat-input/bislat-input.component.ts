@@ -29,7 +29,7 @@ export class BislatInputComponent implements OnInit {
       this.placeholderTime = 2000;
     }
 
-    setTimeout(() => { this.inputPlaceholder = "הקלד כאן את מספר המקצוע" }, this.placeholderTime);
+    setTimeout(() => { this.inputPlaceholder = "הקלד כאן את מספר/שם המקצוע" }, this.placeholderTime);
   }
 
   onBlur(): void {

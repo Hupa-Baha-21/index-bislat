@@ -1,3 +1,6 @@
+<img src="../../../assets/images/readMore.svg" style="width: 0; height: 0;">
+<img src="../../../assets/images/readLess.svg" style="width: 0; height: 0;">
+
 <div class="input-container" [class.input-favorite-container__three-images-position]="threeImagesPosition()">
     <div class="list-container">
         <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"
@@ -13,10 +16,12 @@
         <p *ngIf="i < readMoreButton[1]">{{paragraph}}</p>
     </ng-container>
 
-    <img src="../../../assets/images/{{readMoreButton[0]}}.svg" class="read-more" (click)="readMoreButtonClick()">
-    <a href="">לרשימת המקצועות למחזור מיון ספטמבר 2022</a>
-    <a routerLink="/courseSelection">למילוי שאלון העדפות</a>
+    <img *ngIf="!readMoreButton[0]" src="../../../assets/images/readMore.svg" class="read-more" (click)="readMoreButtonClick()">
+    <img *ngIf="readMoreButton[0]" src="../../../assets/images/readLess.svg" class="read-more" (click)="readMoreButtonClick()">
+
     <a routerLink="/favorite">לרשימת המועדפים שלי</a>
+    <a routerLink="/sort/cycle">לרשימת המקצועות למחזור מיון ספטמבר 2022</a>
+    <!-- <a routerLink="/courseSelection">למילוי שאלון העדפות</a> -->
     
     <div class="youtube-container" [class.youtube-container__layer]="showList">
         <div class="container">

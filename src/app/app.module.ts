@@ -25,6 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { TopBarComponent } from './features/bislat-container/top-bar/top-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SecretPageComponent } from './pages/header/course/secret-page/secret-page.component';
+import { SortCycleComponent } from './pages/header/sort-cycle/sort-cycle.component';
 
 
 
@@ -42,7 +44,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ManagementComponent,
     CourseSelectionComponent,
     SafePipe,
-    TopBarComponent
+    TopBarComponent,
+    SecretPageComponent,
+    SortCycleComponent
   ],
   imports: [
     BrowserModule,

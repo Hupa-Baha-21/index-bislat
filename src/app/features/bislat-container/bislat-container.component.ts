@@ -20,7 +20,7 @@ export class BislatContainerComponent implements OnInit {
   showList: boolean = false;
   item: IDictionaryItem | undefined;
 
-  readMoreButton = ['readMore', 1]; //[img, mun of paragraphs]
+  readMoreButton = [false, 1]; //[f-short t-long, mun of paragraphs]
   openingParagraphs: string[] = openingParagraphs;
   openingVideosUrl = openingVideosUrl;
 
@@ -56,12 +56,8 @@ export class BislatContainerComponent implements OnInit {
 
   readMoreButtonClick(): void {
 
-    if (this.readMoreButton[0] === "readMore") {
-      this.readMoreButton = ["readLess", this.openingParagraphs.length];
-    }
-    else {
-      this.readMoreButton = ["readMore", 1];
-    }
+    if (this.readMoreButton[0]) { this.readMoreButton = [false, 1]; }
+    else { this.readMoreButton = [true, this.openingParagraphs.length]; }
   }
 
   threeImagesPosition(): boolean {

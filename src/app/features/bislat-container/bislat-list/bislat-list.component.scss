@@ -2,9 +2,9 @@
   position: relative;
   right: 0;
   top: -2px;
-  max-height: 35vh;
+  max-height: 30vh;
   overflow-y: auto;
-  font-size: 15rem;
+  font-size: 14rem;
   font-weight: 500;
   color: #2E365B;
   background: rgb(255, 255, 255);
@@ -43,6 +43,13 @@
     &:hover {
       background: rgba(48, 90, 168, 0.15);
     }
+  }
+}
+
+@media (min-width: 1200px) {
+  .list-container {
+    max-height: 35vh;
+    font-size: 17rem;
   }
 }
 

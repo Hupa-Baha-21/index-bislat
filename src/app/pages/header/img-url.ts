@@ -2,17 +2,16 @@ import { templateJitUrl } from "@angular/compiler";
 import { FormGroup } from "@angular/forms";
 
 export const imgUrls = [
-    "'../../../assets/images/startImg1.jpg'",
-    "'../../../assets/images/startImg2.jpg'",
-    "'../../../assets/images/startImg3.jpg'",
-    "'../../../assets/images/startImg4.jpg'",
-    "'../../../assets/images/startImg5.jpg'"
+    "'../../../assets/images/startImg1_tmp.jpg'",
+    "'../../../assets/images/startImg2_tmp.jpg'",
+    "'../../../assets/images/startImg13_tmp.jpg'",
+    "'../../../assets/images/startImg11_tmp.jpg'",
+    "'../../../assets/images/startImg16_tmp.jpg'",
 ];
 
 export const bases = [
     'בח_א_21',
     'כנף_1',
-    'כנף_15',
     'יב_א_צפונית',
     'ממח_א_111',
     'יב_א_מרכז',
@@ -34,13 +33,21 @@ export const openingParagraphs = [
 
 export const openingVideosUrl = [
     "rDNDHfgwzlg",
-    "4z4_oJ0FxV0"
+    "4z4_oJ0FxV0",
+    "GWabNedaFBI"
 ]
+
+export const equalshWords = [
+    "ברק סופה f16 F16 f-16 F-16",
+    "א' א׳",
+    "ב' ב׳",
+    "ג'ג׳",
+    "ד' ד׳"
+];
 
 interface selection {
     title: string;
     HTMLelement: string;
-    selectOptions?: string[]; ///-------------
     inputPlaceholder: string;
     validName: string;
     formControlName: string;
@@ -89,6 +96,13 @@ export const selectionPage: page[] = [
                 inputPlaceholder: "הערך חייב להיות מספר",
                 validName: "sortNumberInput",
                 formControlName: "sortNumberInput"
+            },
+            {
+                title: "מגדר",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                validName: "genderInput",
+                formControlName: "genderInput"
             }
         ]
     },
@@ -106,6 +120,14 @@ export const selectionPage: page[] = [
                 formControlName: "firstOption"
             },
             {
+                title: "סיבה להעדפה ראשונה",
+                HTMLelement: "checkbox",
+                inputPlaceholder: "",
+                validName: "firstCause",
+                formControlName: "firstCause"
+
+            },
+            {
                 title: "העדפה שנייה",
                 HTMLelement: "select",
                 inputPlaceholder: "",
@@ -113,24 +135,126 @@ export const selectionPage: page[] = [
                 formControlName: "secondOption"
             },
             {
+                title: "סיבה להעדפה שנייה",
+                HTMLelement: "checkbox",
+                inputPlaceholder: "",
+                validName: "secondCause",
+                formControlName: "secondCause"
+
+            },
+            {
                 title: "העדפה שלישית",
                 HTMLelement: "select",
                 inputPlaceholder: "",
                 validName: "thirdOption",
                 formControlName: "thirdOption"
+            },
+            {
+                title: "סיבה להעדפה שלישית",
+                HTMLelement: "checkbox",
+                inputPlaceholder: "",
+                validName: "thirdCause",
+                formControlName: "thirdCause"
+
             }
         ]
     }
 ];
 
 export const NavTitles: string[] = [
-    'דף הבית',
     'שאלון העדפות',
     'יצירת מחזור מיון חדש',
     'עריכת מחזור מיון קיים',
     'התנתק'
 ];
 
-// export const managerPage = [
+export interface managerPage {
+    title: string;
+    // firstInput: string;
+    table: boolean;
+    courses: boolean;
+    items?: selection[];
+    selectionForm?: selection;
+}
 
-// ];
+export const managerPages = [
+    {
+        title: "שאלון העדפות",
+        // firstInput: "שם מחזור המיון",
+        table: true,
+        courses: false,
+    },
+    {
+        title: "יצירת מחזור מיון חדש",
+        // firstInput: "שם מחזור המיון",
+        table: false,
+        courses: true,
+        items: [
+            {
+                title: "שם מחזור מיון",
+                HTMLelement: "input",
+                inputPlaceholder: "לדוגמא: דצמבר 2022",
+                validName: "", //----
+                formControlName: "" //---
+            }
+        ],
+        selectionPage: {
+            title: "יצירת שאלון העדפות",
+            HTMLelement: "checkbox",
+            inputPlaceholder: "",
+            validName: "", //----
+            formControlName: "" //--- 
+        }
+    },
+    {
+        title: "עריכת מחזור מיון קיים",
+        // firstInput: "בחר מחזור מיון שברצונך לערוך",
+        table: false,
+        courses: true,
+        items: [
+            {
+                title: "בחר מחזור מיון שברצונך לערוך",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                validName: "", //----
+                formControlName: "" //---
+            }
+        ],
+        selectionPage: {
+            title: "יצירת שאלון העדפות",
+            HTMLelement: "checkbox",
+            inputPlaceholder: "",
+            validName: "", //----
+            formControlName: "" //--- 
+        }
+    }
+];
+
+interface coursesSort {
+    courseName: string;
+    courseNum: string;
+}
+
+export const listAvionics: coursesSort[] = [
+    {
+        courseName: "טכנאי אבנט כחול פורס",
+        courseNum: "1532"
+    },
+    {
+        courseName: "טכנאי מכ''מ מערכת כיפת ברזל/ קלע דוד",
+        courseNum: "1574"
+    },
+    {
+        courseName: "טכנאי אוויוניקה מסוק עטלף",
+        courseNum: "1319"
+    },
+    {
+        courseName: "טכנאי מערכות קשר יחידות טיסה",
+        courseNum: "1245"
+    },
+    {
+        courseName: "טכנאי מערכות לוחמה אלקטרונית",
+        courseNum: "1234"
+    }
+];
+

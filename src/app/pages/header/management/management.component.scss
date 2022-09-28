@@ -98,6 +98,37 @@
         padding-top: 0;
         box-sizing: border-box;
         margin-bottom: 50px;
+
+        .input-select {
+            -webkit-appearance: none;
+            position: relative;
+            height: 40px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 15rem;
+            margin-bottom: 15px;
+            color: #2E365B;
+            padding-right: 7px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: #fff;
+            border: 2px solid #2E365B;
+            filter: drop-shadow(#00000045 3px 3px 10px);
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .error {
+            box-shadow: inset 0px 0px 6px red;
+        }
+
+
+        ::placeholder {
+            color: rgb(182, 182, 182);
+            font-weight: 400;
+        }
     }
 
     .text-container {

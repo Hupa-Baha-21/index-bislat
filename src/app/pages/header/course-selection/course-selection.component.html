@@ -12,16 +12,29 @@
         <ng-container *ngFor="let item of s.items">
 
           <h4>{{item.title}}</h4>
-          <input *ngIf="item.HTMLelement === 'input'" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)">
-          <select *ngIf="item.HTMLelement === 'select'" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)">
+          <input *ngIf="item.HTMLelement === 'input'" class="input-select" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)">
+          
+          <select *ngIf="item.HTMLelement === 'select'" class="input-select" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)">
             <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
             <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
           </select>
+          
+          <form *ngIf="item.HTMLelement === 'checkbox'" class="container" data-validate="custom=causeValidator" [class.error]="!causeValidator() && buttonClicked">
+              <input type="checkbox" #checkbox1 id="hicle" name="vehicle" value="Bike" (click)="cause(0, checkbox1)" >
+              <label for="vehicle1" style="font-weight: 500; font-size: 15px;">{{item.formControlName}}</label><br>
+
+              <input type="checkbox"  #checkbox2 id="hicle" name="vehicle" value="Bike" (click)="cause(1, checkbox2)">
+              <label for="vehicle1" style="font-weight: 500; font-size: 15px;"> יצירת שאלון העדפות</label><br>
+
+              <input type="checkbox"  #checkbox3 id="hicle" name="vehicle" value="Bike" (click)="cause(2, checkbox3)">
+              <label for="vehicle1" style="font-weight: 500; font-size: 15px;"> יצירת שאלון העדפות</label><br>
+            </form>
+         
         </ng-container>
         
-      <button type="submit">{{s.buttonText}}</button>
-      <h4 [class.h4__error-message]="true" *ngIf="!s.formGroup?.valid && buttonClicked === true">* הכנס ערך חוקי</h4>
-      <h2>שים לב! ניתן למלא שאלון זה רק פעם אחת</h2>
+        <button type="submit">{{s.buttonText}}</button>
+        <h4 [class.h4__error-message]="true" *ngIf="!s.formGroup?.valid && buttonClicked === true">* הכנס ערך חוקי</h4>
+        <h2>שים לב! ניתן למלא שאלון זה רק פעם אחת</h2>
       </div>
   </form>
   </ng-container>
@@ -44,7 +57,7 @@
         <select name="cycle" formControlName="cycleInput" [class.error]="!isValid('cycleInput')">
           <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
           <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
-      </select>
+        </select>
         
       <span class="InputTitle">שם פרטי + שם משפחה</span>
       <input formControlName="nameInput" [class.error]="!isValid('nameInput')">
@@ -78,7 +91,7 @@
         <option value="מחזורר 2021">מחזור דר 2021</option>
         <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
       </select>
-
+      
       <span class="InputTitle">העדפה שלישית</span>
       <select name="thirdOption" formControlName="thirdOption" [class.error]="!isValid('thirdOption')">
         <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
@@ -145,3 +158,10 @@
               </div> --> -->
               
 <!-- </div> -->
+
+
+            <!-- <ng-component *ngIf="item.selectOptions">
+              <ng-component *ngFor="let selectItem of item.selectOptions">
+                <option value="{{selectItem}}">{{selectItem}}</option>
+              </ng-component>
+            </ng-component> -->

@@ -4,8 +4,9 @@
 <mat-sidenav-container>
     <mat-sidenav #snav mode="over" position="start" fixedInViewport fixedTopGap="0" class="bar-container">
         <mat-nav-list>
-            <ng-container *ngFor="let title of navTitle">
-                <h3>{{title}}</h3>
+            <h3>דף הבית</h3>
+            <ng-container *ngFor="let title of navTitle; let i = index">
+                <h3 style="font-size: 18px;" (click)="pageClicked(i)">{{title}}</h3>
             </ng-container>
         </mat-nav-list>
     </mat-sidenav>
