@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
-import { SortCoursesService } from './sort-courses.service';
+import { SortCoursesService } from '../../services/sort-courses.service';
 import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-url';
 
 

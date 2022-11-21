@@ -5,11 +5,11 @@
     
     <div class="header-container">
         <h1>דף ניהול</h1>
-        <h2>{{child.selectedPage.title}}</h2>
+        <h2 *ngIf="isManager()">{{child.selectedPage.title}}</h2>
     </div> 
 
 
-    <div class="container">
+    <div class="container" *ngIf="isManager()">
 
         <div *ngFor="let item of child.selectedPage.items">
             <h3>{{item.title}}</h3>
@@ -50,8 +50,12 @@
         <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
     </div>
 
+    <app-block-form *ngIf="!isManager()"></app-block-form>
+
+
     
-    
+
+
 
     <!-- </ng-container> -->
     
@@ -123,7 +127,7 @@
     <!-- </div>         -->
 
     
-     <div class="container" *ngIf="selectedPage === 'editCycle'">
+     <!-- <div class="container" *ngIf="selectedPage === 'editCycle'">
 
         <span class="main-title">עריכת מחזור מיון</span>
         
@@ -145,19 +149,19 @@
         <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
 
         <input type="checkbox" id="vehicle" name="vehicle" value="Bike" checked="true">
-        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
+        <label for="vehicle1"> טכנאי מערכות חשמל</label><br> -->
 
         <!-- <span class="title">+ הוספת מקצוע</span> -->
         <!-- <input class="cycle-input" placeholder="הקלד מספר קורס"> -->
         <!-- <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"></app-bislat-input> -->
         
-        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <!-- <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
         <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
 
         <button class="save-button">שמור שינויים</button>
         
         
-    </div>        
+    </div>         -->
 
 
 

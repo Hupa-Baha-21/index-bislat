@@ -39,6 +39,8 @@ export const openingVideosUrl = [
 
 export const equalshWords = [
     "ברק סופה f16 F16 f-16 F-16",
+    "F15 F-15 f15 f-15 בז רעם",
+    "F35 F-35 f35 f-35 אדיר",
     "א' א׳",
     "ב' ב׳",
     "ג'ג׳",
@@ -49,6 +51,7 @@ interface selection {
     title: string;
     HTMLelement: string;
     inputPlaceholder: string;
+    selectionsOptions?: option[];
     validName: string;
     formControlName: string;
 }
@@ -60,6 +63,13 @@ interface page {
     buttonFunc: string;
     func: () => void;
     items: selection[];
+}
+
+interface option {
+    name: string;
+    text: string;
+    expansion: boolean;
+
 }
 
 export const selectionPage: page[] = [
@@ -123,8 +133,29 @@ export const selectionPage: page[] = [
                 title: "סיבה להעדפה ראשונה",
                 HTMLelement: "checkbox",
                 inputPlaceholder: "",
-                validName: "firstCause",
-                formControlName: "firstCause"
+                selectionsOptions: [
+                    {
+                        name: 'cause1',
+                        text: 'מוטיבציה לתפקיד',
+                        expansion: false
+                    },
+                    {
+                        name: '2',
+                        text: 'קרבה למקום מגורים',
+                        expansion: false
+                    },
+                    {
+                        name: '3',
+                        text: 'חברים (יש לציין שמות)',
+                        expansion: true
+                    },
+                    {
+                        name: '4',
+                        text: 'אחר',
+                        expansion: true
+                    }],
+                validName: "firstCauses",
+                formControlName: "firstCauses"
 
             },
             {
@@ -138,8 +169,29 @@ export const selectionPage: page[] = [
                 title: "סיבה להעדפה שנייה",
                 HTMLelement: "checkbox",
                 inputPlaceholder: "",
-                validName: "secondCause",
-                formControlName: "secondCause"
+                selectionsOptions: [
+                    {
+                        name: '',
+                        text: 'מוטיבציה לתפקיד',
+                        expansion: false
+                    },
+                    {
+                        name: '',
+                        text: 'קרבה למקום מגורים',
+                        expansion: false
+                    },
+                    {
+                        name: '',
+                        text: 'חברים (יש לציין שמות)',
+                        expansion: true
+                    },
+                    {
+                        name: '',
+                        text: 'אחר',
+                        expansion: true
+                    }],
+                validName: "secondCauses",
+                formControlName: "secondCauses"
 
             },
             {
@@ -153,19 +205,44 @@ export const selectionPage: page[] = [
                 title: "סיבה להעדפה שלישית",
                 HTMLelement: "checkbox",
                 inputPlaceholder: "",
-                validName: "thirdCause",
-                formControlName: "thirdCause"
+                selectionsOptions: [
+                    {
+                        name: '',
+                        text: 'מוטיבציה לתפקיד',
+                        expansion: false
+                    },
+                    {
+                        name: '',
+                        text: 'קרבה למקום מגורים',
+                        expansion: false
+                    },
+                    {
+                        name: '',
+                        text: 'חברים (יש לציין שמות)',
+                        expansion: true
+                    },
+                    {
+                        name: '',
+                        text: 'אחר',
+                        expansion: true
+                    }],
+                validName: "thirdCauses",
+                formControlName: "thirdCauses"
 
             }
         ]
     }
 ];
 
-export const NavTitles: string[] = [
+export const NavTitles_logedIn: string[] = [
     'שאלון העדפות',
     'יצירת מחזור מיון חדש',
     'עריכת מחזור מיון קיים',
-    'התנתק'
+    // 'עריכת קורס'
+];
+
+export const NavTitles_logedOut: string[] = [
+    'התחבר'
 ];
 
 export interface managerPage {
@@ -237,24 +314,75 @@ interface coursesSort {
 
 export const listAvionics: coursesSort[] = [
     {
-        courseName: "טכנאי אבנט כחול פורס",
-        courseNum: "1532"
+        courseName: "טכנאי אוויוניקה מסוק יסעור",
+        courseNum: "1139"
     },
     {
-        courseName: "טכנאי מכ''מ מערכת כיפת ברזל/ קלע דוד",
-        courseNum: "1574"
+        courseName: "טכנאי אוויוניקה מטוס אדיר",
+        courseNum: "1404"
     },
     {
-        courseName: "טכנאי אוויוניקה מסוק עטלף",
-        courseNum: "1319"
+        courseName: "טכנאי דרג ד' מערכות אלקטרוניקה",
+        courseNum: "1541"
+    }, {
+        courseName: "טכנאי אוויוניקה מטוס ברק/ סופה",
+        courseNum: "1551"
+    }, {
+        courseName: "טכנאי מכ''מ מערכת חץ",
+        courseNum: "1578"
     },
     {
-        courseName: "טכנאי מערכות קשר יחידות טיסה",
-        courseNum: "1245"
+        courseName: "טכנאי מערכות בקרת טיסה",
+        courseNum: "1805"
+    }
+];
+
+export const listMaintenace: coursesSort[] = [
+    {
+        courseName: "טכנאי דרג א' מטוס בז",
+        courseNum: "0888"
+    }, {
+        courseName: "טכנאי דרג א' מסוק שרף",
+        courseNum: "1175"
+    }, {
+        courseName: "טכנאי מסוק ינשוף",
+        courseNum: "1288"
+    }, {
+        courseName: "טכנאי דרג א' ברק/ סופה",
+        courseNum: "1373"
+    }, {
+        courseName: "טכנאי דרג א' מטוס אדיר",
+        courseNum: "1402"
+    }, {
+        courseName: "טכנאי חשמל מטוסים אחוד (חמ''מ)",
+        courseNum: "1266"
+    }, {
+        courseName: "טכנאי מערכות חימוש",
+        courseNum: "1298"
+    }, {
+        courseName: "טכנאי מערכות קרקע ממוכנות",
+        courseNum: "1707"
+    }, {
+        courseName: "טכנאי מבנה מטוס",
+        courseNum: "1753"
+    }, {
+        courseName: "טכנאי מכניקה תעופתית",
+        courseNum: "1799"
+    }, {
+        courseName: "טכנאי חימוש אדיר",
+        courseNum: "1403"
     },
     {
-        courseName: "טכנאי מערכות לוחמה אלקטרונית",
-        courseNum: "1234"
+        courseName: "טכנאי צב''ה ציוד בטיחות והצלה",
+        courseNum: "0366"
+    },
+    {
+        courseName: "טכנאי מערכות מידע",
+        courseNum: "1407"
+    },
+    {
+        courseName: "טכנאי מנועים",
+        courseNum: "1520"
     }
 ];
 

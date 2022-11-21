@@ -1,9 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { IDictionaryItem } from 'src/app/features/bislat-container/bislat-container.component';
-import { SortCoursesService } from 'src/app/features/bislat-container/sort-courses.service';
-import { Observable, Subject } from 'rxjs';
-import { EventEmitter, Output } from '@angular/core';
+// import { IDictionaryItem } from 'src/app/features/bislat-container/bislat-container.component';
+// import { SortCoursesService } from 'src/app/services/sort-courses.service';
+// import { Observable, Subject } from 'rxjs';
+// import { EventEmitter, Output } from '@angular/core';
+// import { MsalService } from '@azure/msal-angular';
+// import { AuthenticationHeaderParser, AuthenticationResult } from '@azure/msal-browser';
+// import { PostService } from 'src/app/services/post.service';
+// import { ApiCallsService } from 'src/app/services/api-calls.service';
+import { SecurityMsalService } from 'src/app/services/security-msal.service';
+// import { bases } from 'src/app/inerfaces/api-interface';
 
 
 @Component({
@@ -16,39 +22,13 @@ export class ManagementComponent implements OnInit {
   showMenuBar: boolean = false;
   selectedPage: string = "createNewCycle";
 
+  basesr: any;
+
   inputControl: FormControl = new FormControl();
 
-  constructor(service: SortCoursesService) { }
+  constructor(private msal_service: SecurityMsalService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-
-  // menuCliked(): boolean {
-  //   if (!this.showMenuBar) {
-  //     this.showMenuBar = true;
-  //     return true;
-  //   }
-  //   else {
-  //     this.showMenuBar = false;
-  //     return false;
-  //   }
-  // }
-
-
-  // changePage(pageName: string): void {
-
-  //   switch (pageName) {
-  //     case 'selectionForm':
-  //       this.selectedPage = 'selectionForm';
-  //       break;
-  //     case 'createNewCycle':
-  //       this.selectedPage = 'createNewCycle';
-  //       break;
-  //     case 'editCycle':
-  //       this.selectedPage = 'editCycle';
-  //       break;
-  //   }
-  //   this.showMenuBar = false;
-  // }
+  isManager(): boolean { return this.msal_service.isManager(); }
 }

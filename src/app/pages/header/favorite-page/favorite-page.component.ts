@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDictionaryItem } from 'src/app/features/bislat-container/bislat-container.component';
 import { IDictionary } from 'src/app/features/bislat-container/bislat-container.component';
 import * as data from '../../../mock-data.json';
-import { SortCoursesService } from 'src/app/features/bislat-container/sort-courses.service';
+import { SortCoursesService } from 'src/app/services/sort-courses.service';
 
 
 @Component({

@@ -19,6 +19,8 @@
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
+    "@azure/msal-angular": "^2.4.5",
+    "@azure/msal-browser": "^2.30.0",
     "@material/list": "^14.0.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

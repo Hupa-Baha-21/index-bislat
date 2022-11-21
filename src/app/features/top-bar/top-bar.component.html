@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<i class="fa fa-bars" (click)="snav.toggle()" [class.fa__clicked]="snav.opened"></i>
+
+<mat-sidenav-container>
+    <mat-sidenav #snav mode="over" position="start" fixedInViewport fixedTopGap="0" class="bar-container">
+        <mat-nav-list *ngIf="isManager()">
+            <h3 routerLink="/homePage">דף הבית</h3>
+            <ng-container *ngFor="let title of NavTitles; let i = index">
+                <h3 style="font-size: 18px;" (click)="pageClicked(i)">{{title}}</h3>
+            </ng-container>
+            <h3 (click)="logOut()">התנתק</h3>
+        </mat-nav-list>
+    </mat-sidenav>
+</mat-sidenav-container>
