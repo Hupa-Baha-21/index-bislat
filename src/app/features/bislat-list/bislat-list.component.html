@@ -1,7 +1,7 @@
 <ng-container *ngIf="showList && indexOutput">
     <div class="list-container" *ngIf="indexOutput.length > 0">
-        <div class="list-item" *ngFor="let arrIndex of indexOutput" (click)="itemClicked(arrIndex)" routerLink="/course/{{arrIndex.CourseNumber}}">
-            {{arrIndex.CourseNumber + " - " + arrIndex.CourseName}}
+        <div class="list-item" *ngFor="let arrIndex of indexOutput" (click)="itemClicked(arrIndex)">
+            {{arrIndex.courseNumber + " - " + arrIndex.courseName}}
         </div>
     </div>
 </ng-container>

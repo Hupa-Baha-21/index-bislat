@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
 import { SortCoursesService } from '../../services/sort-courses.service';
 import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-url';
+import { iCourseForSelectionPage } from 'src/app/inerfaces/api-interface';
 
 
 @Component({
@@ -13,9 +14,9 @@ import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-ur
 export class BislatContainerComponent implements OnInit {
 
   inputControl: FormControl = new FormControl();
-  indexOutput$: Observable<IDictionaryItem[]>;
+  indexOutput$: Observable<iCourseForSelectionPage[]>;
 
-  resultItem$ = new Subject<IDictionaryItem | undefined>();
+  resultItem$ = new Subject<iCourseForSelectionPage | undefined>();
 
   showList: boolean = false;
   item: IDictionaryItem | undefined;
@@ -37,9 +38,9 @@ export class BislatContainerComponent implements OnInit {
     this.showList = show;
   }
 
-  handleSelected(item: IDictionaryItem): void {
+  handleSelected(item: iCourseForSelectionPage): void {
     this.resultItem$.next(item);
-    this.inputControl.setValue(item.CourseNumber);
+    this.inputControl.setValue(item.courseNumber);
   }
 
   handleClear(): void {

@@ -8,6 +8,9 @@ import { Observable, of, pipe } from 'rxjs';
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 import { numbers } from '@material/list';
 import { equalshWords } from 'src/app/pages/header/img-url';
+import { ApiCallsService } from './api-connection/api-calls.service';
+import { iCourseForSelectionPage } from '../inerfaces/api-interface';
+import { MatListItem } from '@angular/material/list';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +19,11 @@ export class SortCoursesService {
 
   dictionaryData: IDictionary = data;
   MaxKeyCourses: number = 8;
+  courses: any[] = [];
 
-  constructor() { }
+  constructor(private apiConnection: ApiCallsService) {
+    this.courses = apiConnection.GetRequest('https://index-bislat-back.azurewebsites.net/Course');
+  }
 
   getSelectedCourse(courseNumber: string): IDictionaryItem {
 
@@ -82,86 +88,108 @@ export class SortCoursesService {
       input = input.trim();
 
       if (!isNaN(Number(input))) {
-        const key = input[0];
-        const keyDictionary: IDictionaryItem[] = this.dictionaryData[key];
-
-        if (keyDictionary) {
-          const filteredDictionary: IDictionaryItem[] = keyDictionary.filter(item => item.CourseNumber.includes(input));
-          return of(filteredDictionary);
-        }
-        else {
-          return of([]);
-        }
+        const filteredCourses: iCourseForSelectionPage[] = this.courses.filter(item => (item.courseNumber.slice(0, input.length) === input));
+        return of(filteredCourses);
       }
-
       else {
-        // let filteredDictionary: IDictionaryItem[] = [];
-        let inputArr: string[] = this.getSearchWords(input);
-        let n: IDictionaryItem[] = [];
+        let searchWords: string[] = this.getSearchWords(input);
+        let filteredCourses: iCourseForSelectionPage[] = this.getListOfWord(searchWords[0]);
 
-        for (let i = 0; i <= 1; i++) {
-          const keyDictionary: IDictionaryItem[] = this.dictionaryData[i];
+        for (let i = 1; i < searchWords.length; i++) {
 
-          if (keyDictionary) { n = [...n, ...this.getList(inputArr, keyDictionary)]; }
+          let partialFilteredCourses: iCourseForSelectionPage[] = this.getListOfWord(searchWords[i]);
+          partialFilteredCourses = partialFilteredCourses.filter(item => filteredCourses.includes(item));
+          filteredCourses = partialFilteredCourses;
         }
-        return of(n);
+        if (filteredCourses != []) { return of(filteredCourses); }
       }
+      return of(this.courses);
     })
-  )
+    )
+    
+    
+    getListOfWord(searchWord: string): iCourseForSelectionPage[] {
 
-  getList(searchWords: string[], keyDictionary: IDictionaryItem[]): IDictionaryItem[] {
-
-    let Arr: IDictionaryItem[] = this.getListOfWord(searchWords[0], keyDictionary);
-    let list: IDictionaryItem[] = [];
-
-    for (let i = 1; i < searchWords.length; i++) {
-      let tmpArr: IDictionaryItem[] = this.getListOfWord(searchWords[i], keyDictionary);
-
-      for (let y = 0; y < Arr.length; y++) {
-        let tmp = tmpArr.filter(item => (" " + item.CourseName).includes(Arr[y].CourseName));
-        list = [...list, ...tmp];
-      }
-      Arr = list;
-      list = [];
-    }
-    return Arr;
-  }//----------------------------------------------------
-
-  getListOfWord(searchWord: string, keyDictionary: IDictionaryItem[]): IDictionaryItem[] {
-
-    let Arr: IDictionaryItem[] = [];
+    let Arr: iCourseForSelectionPage[] = this.courses.filter(item => (" " + item.courseName).includes(" " + searchWord));
 
     for (let i = 0; i < equalshWords.length; i++) {
       if (equalshWords[i].includes(searchWord)) {
         let words: string[] = this.getSearchWords(equalshWords[i]);
 
         for (let index = 0; index < words.length; index++) {
-          let tmpArr: IDictionaryItem[] = keyDictionary.filter(item => (" " + item.CourseName).includes(words[index]));
+          let tmpArr: iCourseForSelectionPage[] = this.courses.filter(item => ((" " + item.courseName).includes(words[index]) && !Arr.includes(item)));
           Arr = [...Arr, ...tmpArr];
         }
-        return Arr;
       }
     }
-    return keyDictionary.filter(item => (" " + item.CourseName).includes(searchWord));
+    return Arr;
   }//----------------------------------------------------
 
-  getSearchWords(input: string) {
+  getSearchWords(input: string): string[] {
+    
+    let searchWords: string[] = [];
 
-    let Arr: string[] = [];
-    let tmp: string = " ";
-
-    for (let i = 0; i < input.length; i++) {
-
-      if (input[i] != " ") {
-        tmp = tmp + input[i];
-      }
-      else {
-        Arr.push(tmp);
-        tmp = " ";
-      }
+    while (input.indexOf(' ') != -1) {
+      let index = input.indexOf(' ');
+      searchWords.push(input.slice(0, index));
+      input = input.slice(index + 1, input.length);
     }
-    Arr.push(tmp);
-    // console.log(Arr);
-    return Arr;
-  }//--------
+    searchWords.push(input);
+    return searchWords;
+  }
 }
+
+
+
+
+
+
+    //---------------------------------------------imscared
+    // if (!isNaN(Number(input))) {
+    //   const key = input[0];
+    //   const keyDictionary: IDictionaryItem[] = this.dictionaryData[key];
+  
+    //   if (keyDictionary) {
+    //     const filteredDictionary: IDictionaryItem[] = keyDictionary.filter(item => item.CourseNumber.includes(input));
+    //     return of(filteredDictionary);
+    //   }
+    //   else {
+    //     return of([]);
+    //   }
+    // }
+  
+    // else {
+    //   // let filteredDictionary: IDictionaryItem[] = [];
+    //   let inputArr: string[] = this.getSearchWords(input);
+    //   let n: IDictionaryItem[] = [];
+  
+    //   for (let i = 0; i <= 1; i++) {
+    //     const keyDictionary: IDictionaryItem[] = this.dictionaryData[i];
+  
+    //     if (keyDictionary) { n = [...n, ...this.getList(inputArr, keyDictionary)]; }
+    //   }
+    //   return of(n);
+    // }
+
+
+
+
+
+
+    // getList(searchWords: string[], keyDictionary: iCourseForSelectionPage[]): iCourseForSelectionPage[] {
+
+  //   let Arr: iCourseForSelectionPage[] = this.getListOfWord(searchWords[0]);
+  //   let list: iCourseForSelectionPage[] = [];
+
+  //   for (let i = 1; i < searchWords.length; i++) {
+  //     let tmpArr: iCourseForSelectionPage[] = this.getListOfWord(searchWords[i]);
+
+  //     for (let y = 0; y < Arr.length; y++) {
+  //       let tmp = tmpArr.filter(item => (" " + item.courseName).includes(Arr[y].courseName));
+  //       list = [...list, ...tmp];
+  //     }
+  //     Arr = list;
+  //     list = [];
+  //   }
+  //   return Arr;
+  // }//----------------------------------------------------

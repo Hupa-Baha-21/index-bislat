@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SecurityMsalService } from 'src/app/services/security-msal.service';
+import { SecurityMsalService } from 'src/app/services/microsoft-msal/security-msal.service';
 
 @Component({
   selector: 'app-block-form',

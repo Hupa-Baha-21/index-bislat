@@ -2,19 +2,36 @@ export interface bases {
     name: string
 }
 
-export interface selection {
-    cycleName: string
-    fullName: string
-    idNumber: string
-    sortNumber: number
+export interface iCourseForSelectionPage {
+    courseName: string
+    courseNumber: string
     gender: string
-    firstSelection: string
-    resoneF: string
-    exapmleF: string
-    secondSelection: string
-    resoneS: string
-    exapmleS: string
-    thirdSelection: string
-    resoneT: string
-    exapmleT: string
+}
+
+export interface iCycle {
+    name: string;
+}
+
+export interface iSelectionForm {
+    title: string
+    gender: string
+    id: string
+    fullName: string
+    sortFrame: number
+    first: string
+    resonef: string
+    second: string
+    resones: string
+    third: string
+    resonet: string
+}
+
+// export interface isort {
+//     name: string;
+//     courses: iCourseForSelectionPage
+// }
+
+export interface isort {
+    name: string;
+    isExpand: boolean;
 }

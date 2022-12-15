@@ -52,6 +52,7 @@ interface selection {
     HTMLelement: string;
     inputPlaceholder: string;
     selectionsOptions?: option[];
+    selectOptions?: any[];
     validName: string;
     formControlName: string;
 }
@@ -65,11 +66,14 @@ interface page {
     items: selection[];
 }
 
-interface option {
+export interface option {
     name: string;
     text: string;
     expansion: boolean;
+}
 
+interface iCycle {
+    name: string;
 }
 
 export const selectionPage: page[] = [
@@ -83,8 +87,17 @@ export const selectionPage: page[] = [
                 title: "מחזור המיון",
                 HTMLelement: "select",
                 inputPlaceholder: "",
+                selectOptions: [],
                 validName: "cycleInput",
                 formControlName: "cycleInput"
+            },
+            {
+                title: "מגדר",
+                HTMLelement: "select",
+                inputPlaceholder: "",
+                selectOptions: ['אלקטרוניקה', 'אחזקה מתכת/ חשמל'],
+                validName: "genderInput",
+                formControlName: "genderInput"
             },
             {
                 title: "שם פרטי + שם משפחה",
@@ -106,13 +119,6 @@ export const selectionPage: page[] = [
                 inputPlaceholder: "הערך חייב להיות מספר",
                 validName: "sortNumberInput",
                 formControlName: "sortNumberInput"
-            },
-            {
-                title: "מגדר",
-                HTMLelement: "select",
-                inputPlaceholder: "",
-                validName: "genderInput",
-                formControlName: "genderInput"
             }
         ]
     },
@@ -126,6 +132,7 @@ export const selectionPage: page[] = [
                 title: "העדפה ראשונה",
                 HTMLelement: "select",
                 inputPlaceholder: "",
+                selectOptions: [],
                 validName: "firstOption",
                 formControlName: "firstOption"
             },
@@ -162,6 +169,7 @@ export const selectionPage: page[] = [
                 title: "העדפה שנייה",
                 HTMLelement: "select",
                 inputPlaceholder: "",
+                selectOptions: [],
                 validName: "secondOption",
                 formControlName: "secondOption"
             },
@@ -198,6 +206,7 @@ export const selectionPage: page[] = [
                 title: "העדפה שלישית",
                 HTMLelement: "select",
                 inputPlaceholder: "",
+                selectOptions: [],
                 validName: "thirdOption",
                 formControlName: "thirdOption"
             },
@@ -236,6 +245,7 @@ export const selectionPage: page[] = [
 
 export const NavTitles_logedIn: string[] = [
     'שאלון העדפות',
+    'מחזורי מיון',
     'יצירת מחזור מיון חדש',
     'עריכת מחזור מיון קיים',
     // 'עריכת קורס'
@@ -254,12 +264,19 @@ export interface managerPage {
     selectionForm?: selection;
 }
 
+// interface
+
 export const managerPages = [
     {
         title: "שאלון העדפות",
         // firstInput: "שם מחזור המיון",
         table: true,
         courses: false,
+    },
+    {
+        title: 'מחזורי מיון',
+        table: false,
+        courses: false
     },
     {
         title: "יצירת מחזור מיון חדש",
@@ -313,74 +330,47 @@ interface coursesSort {
 }
 
 export const listAvionics: coursesSort[] = [
-    {
-        courseName: "טכנאי אוויוניקה מסוק יסעור",
-        courseNum: "1139"
-    },
-    {
-        courseName: "טכנאי אוויוניקה מטוס אדיר",
-        courseNum: "1404"
-    },
-    {
-        courseName: "טכנאי דרג ד' מערכות אלקטרוניקה",
-        courseNum: "1541"
-    }, {
-        courseName: "טכנאי אוויוניקה מטוס ברק/ סופה",
-        courseNum: "1551"
-    }, {
-        courseName: "טכנאי מכ''מ מערכת חץ",
-        courseNum: "1578"
-    },
-    {
-        courseName: "טכנאי מערכות בקרת טיסה",
-        courseNum: "1805"
-    }
+    // {
+    //     courseName: "טכנאי אוויוניקה מסוק יסעור",
+    //     courseNum: "1139"
+    // },
+    // {
+    //     courseName: "טכנאי אוויוניקה מטוס אדיר",
+    //     courseNum: "1404"
+    // },
+    // {
+    //     courseName: "טכנאי דרג ד' מערכות אלקטרוניקה",
+    //     courseNum: "1541"
+    // }, {
+    //     courseName: "טכנאי אוויוניקה מטוס ברק/ סופה",
+    //     courseNum: "1551"
+    // }, {
+    //     courseName: "טכנאי מכ''מ מערכת חץ",
+    //     courseNum: "1578"
+    // },
+    // {
+    //     courseName: "טכנאי מערכות בקרת טיסה",
+    //     courseNum: "1805"
+    // }
 ];
 
 export const listMaintenace: coursesSort[] = [
     {
-        courseName: "טכנאי דרג א' מטוס בז",
-        courseNum: "0888"
-    }, {
-        courseName: "טכנאי דרג א' מסוק שרף",
-        courseNum: "1175"
-    }, {
-        courseName: "טכנאי מסוק ינשוף",
-        courseNum: "1288"
-    }, {
         courseName: "טכנאי דרג א' ברק/ סופה",
         courseNum: "1373"
     }, {
-        courseName: "טכנאי דרג א' מטוס אדיר",
-        courseNum: "1402"
+        courseName: "טכנאי נשק מונחה",
+        courseNum: "1630"
+    }, {
+        courseName: "טכנאי דרג א' מטוס תובלה כבדה ראם",
+        courseNum: "0827"
     }, {
         courseName: "טכנאי חשמל מטוסים אחוד (חמ''מ)",
         courseNum: "1266"
     }, {
-        courseName: "טכנאי מערכות חימוש",
-        courseNum: "1298"
-    }, {
-        courseName: "טכנאי מערכות קרקע ממוכנות",
-        courseNum: "1707"
-    }, {
-        courseName: "טכנאי מבנה מטוס",
-        courseNum: "1753"
-    }, {
-        courseName: "טכנאי מכניקה תעופתית",
-        courseNum: "1799"
-    }, {
-        courseName: "טכנאי חימוש אדיר",
-        courseNum: "1403"
-    },
-    {
         courseName: "טכנאי צב''ה ציוד בטיחות והצלה",
         courseNum: "0366"
-    },
-    {
-        courseName: "טכנאי מערכות מידע",
-        courseNum: "1407"
-    },
-    {
+    }, {
         courseName: "טכנאי מנועים",
         courseNum: "1520"
     }

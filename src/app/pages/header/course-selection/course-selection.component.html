@@ -14,9 +14,11 @@
 
           <h4>{{item.title}}</h4>
           <input *ngIf="item.HTMLelement === 'input'" class="input-select" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)"> 
-          <select *ngIf="item.HTMLelement === 'select'" class="input-select" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)">
-            <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
-            <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+          
+          <select #selectDom *ngIf="item.HTMLelement === 'select'" class="input-select" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)" >
+            <ng-container  *ngFor="let option of item.validName | options : allCourses"> 
+              <option>{{option}}</option>
+            </ng-container>
           </select>
 
           <div [formArrayName]="item.formControlName" *ngIf="item.HTMLelement === 'checkbox'" class="container" [class.error]="!isValid(item.validName)">
@@ -32,12 +34,12 @@
               </ng-container>
             </div>
           </div>
-          
-          
+        
         </ng-container>
         
         <button type="submit">{{s.buttonText}}</button>
         <h4 [class.h4__error-message]="true" *ngIf="!s.formGroup?.valid && buttonClicked === true">* הכנס ערך חוקי</h4>
+        <h4 [class.h4__error-message]="true" *ngIf="errorNote">* לא ניתן לבחור מקצוע יותר מפעם אחת</h4>
         <h2>שים לב! ניתן למלא שאלון זה רק פעם אחת</h2>
       </div>
     </form>

@@ -16,7 +16,7 @@ import { ManagementComponent } from './pages/header/management/management.compon
 import { CourseSelectionComponent } from './pages/header/course-selection/course-selection.component';
 
 import { SortCoursesService } from './services/sort-courses.service';
-import { SafePipe } from './pipes/safe.pipe';
+import { SafePipePipe } from './pipes/safe-url/safe-pipe.pipe';
 
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,9 +30,10 @@ import { SecretPageComponent } from './pages/header/course/secret-page/secret-pa
 import { SortCycleComponent } from './pages/header/sort-cycle/sort-cycle.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular'
-import { ApiCallsService } from './services/api-calls.service';
-import { SecurityMsalService } from './services/security-msal.service';
+import { ApiCallsService } from './services/api-connection/api-calls.service';
+import { SecurityMsalService } from './services/microsoft-msal/security-msal.service';
 import { BlockFormComponent } from './features/block-form/block-form.component';
+import { OptionsPipe } from './pipes/options/options.pipe';
 
 export function MSAL_InctanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -45,7 +46,7 @@ export function MSAL_InctanceFactory(): IPublicClientApplication {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  protectedResourceMap.set('https://index-bislat-back.azurewebsites.net/Iafbase/', ['api://4e3fe790-6226-4152-8ca8-e1c01bd31a6c/access_as_user']);
+  protectedResourceMap.set('https://index-bislat-back.azurewebsites.net', ['api://4e3fe790-6226-4152-8ca8-e1c01bd31a6c/access_as_user']);
   protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read', 'mail.read']);
   return {
     interactionType: InteractionType.Popup,
@@ -66,11 +67,12 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     FavoritePageComponent,
     ManagementComponent,
     CourseSelectionComponent,
-    SafePipe,
+    SafePipePipe,
     TopBarComponent,
     SecretPageComponent,
     SortCycleComponent,
-    BlockFormComponent
+    BlockFormComponent,
+    OptionsPipe
   ],
   imports: [
     BrowserModule,

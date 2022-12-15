@@ -8,6 +8,62 @@
         <h2 *ngIf="isManager()">{{child.selectedPage.title}}</h2>
     </div> 
 
+<div class="container">
+    
+</div>
+
+
+
+<div class="container">
+     <ng-container *ngIf="page === 'home'">
+        <div class="blob" *ngFor="let sort of sorts" (click)="sort.isExpand = !sort.isExpand">
+            <span class="title" [class.title__expand]="sort.isExpand">{{sort.name}}</span>
+            <img src="../../../../assets/images/arrowReadMore.png" class="expand-icon" *ngIf="!sort.isExpand">
+            <img src="../../../../assets/images/arrowReadLess.png" class="expand-icon" *ngIf="sort.isExpand">
+
+            <ng-container *ngIf="sort.isExpand"> 
+                <h4>עריכה</h4>
+                <h4>הורדת שאלון העדפות</h4>
+                <h4>מחיקה</h4>
+                <h4>העבר לארכיון</h4>
+            </ng-container>
+        </div>
+        <div class="blob">
+            <span class="title">דצמבר</span>
+            <img src="../../../../assets/images/arrowReadMore.png" class="expand-icon">
+        </div>
+
+        <div class="blob" style="background-color: rgb(255, 255, 255); padding: 10px;" (click)="page = 'add-cycle'">
+            <img src="../../../../assets/images/addIcon.png" class="icon2">
+        </div>
+    </ng-container>
+
+    <!-- ------------------------------------- add new cycle ------------------------------------- -->
+    <ng-container *ngIf="page === 'add-cycle'" [formGroup]="newCycle">
+        <h4 style="font-weight: 400;">שם מחזור המיון</h4>
+        <input class="input-style" [formControlName]="'name'" placeholder="לדוגמא: דצמבר 2022" style="margin-bottom: 8px;"> 
+        
+        <h4 style="font-weight: 400;">הוספת קורסים</h4>
+        <div class="list-container">
+            <input class="search-input" [formControl]="inputControl" placeholder="הקלד מספר/ שם מקצוע" (blur)="onBlur()" (focus)="onFocus()" autocomplete="off">
+            <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList" page="managementPage" (selectedItemEmitter)="addNewItem($event)"></app-bislat-list>
+         </div>
+
+        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 60px;" checked="true">
+        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br> 
+
+        <div class="blob" style="margin-top: 17px;">
+            <h4>מחזור {{newCycle.controls['name'].value}}</h4>
+            <span class="title" style="display: block;">אחזקה מתכת/חשמל</span>
+            <span class="title" style="display: block;">אוויוניקה</span>
+        </div>
+       
+    </ng-container>
+</div>
+   
+
+    
+
 
     <div class="container" *ngIf="isManager()">
 
@@ -46,8 +102,8 @@
         </div>
         </ng-container>
 
-        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
-        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
+        <!-- <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br> -->
     </div>
 
     <app-block-form *ngIf="!isManager()"></app-block-form>

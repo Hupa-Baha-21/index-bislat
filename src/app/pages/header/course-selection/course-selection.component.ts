@@ -1,13 +1,11 @@
 // import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 import { Component, Directive, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors, AbstractControl, FormArray, RequiredValidator } from '@angular/forms';
-import { selectionPage } from '../img-url';
-import { ApiCallsService } from 'src/app/services/api-calls.service';
-import { SecurityMsalService } from 'src/app/services/security-msal.service';
-// import { bases } from 'src/app/inerfaces/api-interface';
-// import { ChangeDetectionStrategy } from '@angular/compiler';
-// import { numbers } from '@material/list';
-// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { selectionPage, option } from '../img-url';
+import { iSelectionForm, isort, iCycle, iCourseForSelectionPage } from 'src/app/inerfaces/api-interface';
+import { ApiCallsService } from 'src/app/services/api-connection/api-calls.service';
+import { SecurityMsalService } from 'src/app/services/microsoft-msal/security-msal.service';
+import { ApiHelpersService } from 'src/app/services/api-helpers/api-helpers.service';
 
 @Component({
   selector: 'app-course-selection',
@@ -20,9 +18,10 @@ export class CourseSelectionComponent implements OnInit {
   blockForm: boolean = false;
   buttonClicked: boolean = false;
   selectionPages = selectionPage;
-  causeArr: boolean[] = [];
-  expansionArr: string[] = [];
   ExpansionValidatorLocation: number[] = []; //index - optionIndex, value - expansionIndex
+  allCourses: string[] = [];
+  errorNote: boolean = false;
+  note: string = '  ';
 
   selectionPage1Form = new FormGroup({
     cycleInput: new FormControl('', Validators.required),
@@ -53,21 +52,24 @@ export class CourseSelectionComponent implements OnInit {
       new FormControl('')], this.formArrValidator(4))
   });
 
-  constructor(private msalService: SecurityMsalService) {
+  constructor(private msalService: SecurityMsalService, private apiConnection: ApiCallsService, private apiHelper: ApiHelpersService) {
     this.selectionPages[0].formGroup = this.selectionPage1Form;
     this.selectionPages[0].func = this.moveNextPage;
     this.selectionPages[1].formGroup = this.selectionPage2Form;
     this.selectionPages[1].func = this.sendForm;
+    selectionPage[0].items[0].selectOptions = apiHelper.getListOfCycleName();
+    this.selectionPage2Form.controls['firstOption'].addValidators(this.selectOptionsValidator(1));
+    this.selectionPage2Form.controls['secondOption'].addValidators(this.selectOptionsValidator(2));
+    this.selectionPage2Form.controls['thirdOption'].addValidators(this.selectOptionsValidator(3));
   }
 
   ngOnInit(): void {
 
-    if (localStorage.getItem("blockForm")) { this.blockForm = true; }
+    if (localStorage.getItem("biockForm")) { this.blockForm = true; }
     if (this.pageNumber === 3) { this.blockForm = true; }
   }
 
   addAndRemoveInput(isExpansion: boolean, isChecked: boolean, formName: string, option: number) {
-
     if (isExpansion) {
       const formGroupExpansion = (this.selectionPage2Form.get(formName) as FormArray);
 
@@ -103,9 +105,32 @@ export class CourseSelectionComponent implements OnInit {
     }
   }
 
-  formArrValidator(selectionsLength: number): ValidatorFn {
+  selectOptionsValidator(select: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
+      switch (select) {
+        case 1:
+          if (control.value === this.selectionPage2Form.controls['secondOption'].value || control.value === this.selectionPage2Form.controls['thirdOption'].value || control.value === '') {
+            return { forbiddenName: { value: control.value } }
+          }
+          break;
+        case 2:
+          if (control.value === this.selectionPage2Form.controls['firstOption'].value || control.value === this.selectionPage2Form.controls['thirdOption'].value || control.value === '') {
+            return { forbiddenName: { value: control.value } }
+          }
+          break
+        case 3:
+          if (control.value === this.selectionPage2Form.controls['firstOption'].value || control.value === this.selectionPage2Form.controls['secondOption'].value || control.value === '') {
+            return { forbiddenName: { value: control.value } }
+          }
+          break;
+      }
+      return null;
+    }
+  }
+
+  formArrValidator(selectionsLength: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value.includes(true) || control.value.includes("", selectionsLength) || control.value.includes(null, selectionsLength)) {
         return { forbiddenName: { value: control.value } };
       }
@@ -132,6 +157,7 @@ export class CourseSelectionComponent implements OnInit {
     this.buttonClicked = true;
 
     if (this.selectionPages[0].formGroup?.valid) {
+      this.allCourses = this.apiHelper.getCyclesListOfCourseName(this.selectionPage1Form.controls["cycleInput"].value);
       this.pageNumber = 2;
       this.buttonClicked = false;
     }
@@ -139,52 +165,56 @@ export class CourseSelectionComponent implements OnInit {
 
   sendForm(): void {
     this.buttonClicked = true;
-    this.createarr();
-
-
-
 
     if (this.selectionPage2Form.valid) {
-      localStorage.setItem("blockForm", "true");
-      // let l = this.selectionPage1Form.map
-      // this.form.controls['your form control name'].value
-      // let arrr: any[];
-      // let tmp = (item => (" " + item.CourseName).includes(Arr[y].CourseName));
-      // this.selectionPage1Form((sele.value) => arrr = b )
-      // this.service.GetBase().subscribe((bases) => this.basesr = bases) 
       this.pageNumber = 3;
-      // this.api_service.postCourseSelection({ cycleName: 'cycletry1', fullName: 'try', idNumber: '', sortNumber: 2, gender: '', firstSelection: '', resoneF: '', exapmleF: '', secondSelection: '', resoneS: '', exapmleS: '', thirdSelection: '', resoneT: '', exapmleT: '' });
+      console.log(this.createSelectionInterface());
+      this.apiConnection.postRequest("https://index-bislat-back.azurewebsites.net/Choise/Addchoise", this.createSelectionInterface());
+      localStorage.setItem("blockForm", "true");
     }
   }
 
-  createarr() {
-    let arr = [];
+  createSelectionInterface() {
+    let tmpPage1 = this.selectionPage1Form.controls;
+    let tmpPage2 = this.selectionPage2Form.controls;
+    let tmpOption: Array<Array<option>> = [];
 
-    for (let i = 0; i < this.selectionPages[0].items.length; i++) {
-      arr.push(this.selectionPage1Form.controls[this.selectionPages[0].items[i].formControlName].value);
+    if (this.selectionPages[1].items[1].selectionsOptions && this.selectionPages[1].items[3].selectionsOptions && this.selectionPages[1].items[5].selectionsOptions) {
+      tmpOption[0] = this.selectionPages[1].items[1].selectionsOptions;
+      tmpOption[1] = this.selectionPages[1].items[3].selectionsOptions;
+      tmpOption[2] = this.selectionPages[1].items[5].selectionsOptions;
     }
 
-    for (let i = 0; i < this.selectionPages[1].items.length; i++) {
+    let formSelection: iSelectionForm = {
+      title: tmpPage1['cycleInput'].value,
+      gender: tmpPage1['genderInput'].value,
+      fullName: tmpPage1['nameInput'].value,
+      id: tmpPage1['idInput'].value,
+      sortFrame: tmpPage1['sortNumberInput'].value,
+      first: tmpPage2['firstOption'].value,
+      resonef: this.convertArrayResonesToString(tmpPage2['firstCauses'].value, tmpOption[0]),
+      second: tmpPage2['secondOption'].value,
+      resones: this.convertArrayResonesToString(tmpPage2['secondCauses'].value, tmpOption[1]),
+      third: tmpPage2['thirdOption'].value,
+      resonet: this.convertArrayResonesToString(tmpPage2['thirdCauses'].value, tmpOption[2])
+    }
+    return formSelection;
+  }
 
-      let formValue = this.selectionPage2Form.controls[this.selectionPages[1].items[i].formControlName].value;
+  convertArrayResonesToString(formValues: any[], optionsInfo: option[]): string {
 
-      if (this.selectionPages[1].items[i].selectionsOptions) {
-        formValue = "";
+    let s: string = '';
 
-        let arr1 = this.selectionPages[1].items[i].selectionsOptions?.map(item => item.text);
-        let arr2 = (this.selectionPage2Form.controls[this.selectionPages[1].items[i].formControlName].value as Array<string>);
+    while (formValues.indexOf(true) != -1) {
+      let selecedOptionIndex = formValues.indexOf(true);
+      s += optionsInfo[selecedOptionIndex].text;
 
-        if (arr1) {
-          for (let y = 0; y < arr1.length; y++) {
-            if (arr2[y] && !this.ExpansionValidatorLocation[y]) { formValue = formValue + arr1[y] + ", "; }
-            else if (arr2[y] && this.ExpansionValidatorLocation[y]) { formValue = formValue + arr1[y] + ": " + arr2[this.ExpansionValidatorLocation[y]]; + ", " }
-          }
-        }
-        // formValue[(formValue.length - 1)] = "";
+      if (optionsInfo[selecedOptionIndex].expansion) {
+        s += ": " + formValues[this.ExpansionValidatorLocation[selecedOptionIndex]];
       }
-      arr.push(formValue);
+      formValues[selecedOptionIndex] = 'false';
+      if (formValues.includes(true)) { s += ", "; }
     }
-
-    console.log(arr);
+    return s;
   }
 }

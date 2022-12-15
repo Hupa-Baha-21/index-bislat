@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavTitles_logedIn, managerPage, managerPages } from 'src/app/pages/header/img-url';
-import { SecurityMsalService } from 'src/app/services/security-msal.service';
+import { SecurityMsalService } from 'src/app/services/microsoft-msal/security-msal.service';
 
 
 
