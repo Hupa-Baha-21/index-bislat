@@ -35,11 +35,6 @@
         }
       }
     }
-
-    // &.bislat-input__focus {
-    //   border-bottom-right-radius: 0;
-    //   border-bottom-left-radius: 0;
-    // }
   }
 
   .bislat-input::placeholder {
@@ -47,15 +42,15 @@
     font-weight: 200;
   }
 
-  // .bislat-input:focus.bislat-input:not(:placeholder-shown) {
-  //   border-bottom-right-radius: 0;
-  //   border-bottom-left-radius: 0;
-  // }
-
-  .bislat-input:focus {
+  .bislat-input:focus.bislat-input:not(:placeholder-shown) {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
+
+  // .bislat-input:focus {
+  //   border-bottom-right-radius: 0;
+  //   border-bottom-left-radius: 0;
+  // }
 
   .search-icon {
     position: absolute;

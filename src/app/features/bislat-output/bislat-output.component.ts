@@ -1,12 +1,8 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, ElementRef, Renderer2, Input, OnInit, ViewChild } from '@angular/core';
-import { IDictionaryItem } from '../bislat-container/bislat-container.component';
-import { ActivatedRoute } from '@angular/router';
-import { IDictionary } from '../bislat-container/bislat-container.component';
-import * as data from '../../mock-data.json'
+import { Component, ElementRef, Renderer2, OnInit, ViewChild } from '@angular/core';
+// import * as data from '../../mock-data.json'
 import { SortCoursesService } from '../../services/sort-courses.service';
 import { bases } from 'src/app/pages/header/img-url';
 import { MatSidenav } from '@angular/material/sidenav';
-
 
 @Component({
   selector: 'app-bislat-output',
@@ -15,15 +11,14 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class BislatOutputComponent implements OnInit {
 
-  savedToFavorite: string;
-  isReadMore: boolean = false;
+  item: any;
+  isItemFavorite: string;
   changeMap: boolean = false;
   alertText: string = 'נוסף למועדפים בהצלחה'
   tof: boolean[] = [];
 
-  inputPlaceholder: string = "" + this.route.snapshot.paramMap.get('number');
-  dictionaryData: IDictionary = data;
-  item: IDictionaryItem;
+  // inputPlaceholder: string = "" + this.route.snapshot.paramMap.get('number');
+  // dictionaryData: IDictionary = data;
 
   @ViewChild(MatSidenav) snav!: MatSidenav;
 
@@ -35,10 +30,11 @@ export class BislatOutputComponent implements OnInit {
     });
   };
 
-  constructor(private route: ActivatedRoute, service: SortCoursesService, private renderer: Renderer2) {
+  constructor(service: SortCoursesService, private renderer: Renderer2) {
 
-    this.item = service.getSelectedCourse(this.inputPlaceholder);
-    this.savedToFavorite = service.isItemFavorite(this.item);
+    // this.item = service.getSelectedCourse(this.inputPlaceholder);
+    this.item = service.getSelectedCourses([JSON.stringify(sessionStorage.getItem('selectedItem'))])[0];
+    this.isItemFavorite = service.isItemFavorite(this.item);
     setTimeout(() => { this.changeMap = this.mapPosition(); }, 3500);
     // private sanitizer: DomSanitizer, 
   }
@@ -97,7 +93,6 @@ export class BislatOutputComponent implements OnInit {
 
     for (let i = 0; i < bases.length; i++) {
       if (!elementsID.includes(bases[i])) {
-        // console.log(bases[i]);
         this.renderer.setStyle(this.mapp?.getElementById(bases[i]), "display", "none");
       }
     }
@@ -105,27 +100,21 @@ export class BislatOutputComponent implements OnInit {
 
   removeOrAddFavorite(): void {
 
-    let favorites: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
+    let favoritesCoursesName: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
 
-    if (this.savedToFavorite === 'notFavorite.svg') {
+    switch (this.isItemFavorite) {
+      case 'notFavorite.svg':
+        this.isItemFavorite = 'favorite.svg';
+        favoritesCoursesName.push(this.item.CourseName);
+        this.alertText = "נוסף למועדפים בהצלחה";
+        break;
 
-      this.savedToFavorite = 'favorite.svg';
-      favorites.push(this.item.CourseName);
-      this.alertText = "נוסף למועדפים בהצלחה";
-    }
-
-    else if (this.savedToFavorite === 'favorite.svg') {
-
-      this.savedToFavorite = 'notFavorite.svg';
-      this.alertText = "הוסר מהמועדפים";
-
-      for (let i = 0; i < favorites.length; i++) {
-
-        if (favorites[i] === this.item.CourseName) {
-          favorites.splice(i, 1);
-          break;
-        }
-      }
+      case 'favorite.svg':
+        this.isItemFavorite = 'notFavorite.svg';
+        this.alertText = "הוסר מהמועדפים";
+        let index = favoritesCoursesName.indexOf(this.item.CourseName);
+        favoritesCoursesName.splice(index, 1);
+        break;
     }
 
     this.snav.opened = true;
@@ -133,6 +122,6 @@ export class BislatOutputComponent implements OnInit {
     let index = this.tof.length - 1;
     setTimeout(() => { this.tof[index] = false }, 1100);
     setTimeout(() => { if (!this.tof.includes(true)) { this.snav.opened = false; } }, 1100);
-    localStorage.setItem('courseName', JSON.stringify(favorites));
+    localStorage.setItem('courseName', JSON.stringify(favoritesCoursesName));
   }
 }

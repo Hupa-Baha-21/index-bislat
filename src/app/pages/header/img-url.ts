@@ -330,49 +330,76 @@ interface coursesSort {
 }
 
 export const listAvionics: coursesSort[] = [
-    // {
-    //     courseName: "טכנאי אוויוניקה מסוק יסעור",
-    //     courseNum: "1139"
-    // },
-    // {
-    //     courseName: "טכנאי אוויוניקה מטוס אדיר",
-    //     courseNum: "1404"
-    // },
-    // {
-    //     courseName: "טכנאי דרג ד' מערכות אלקטרוניקה",
-    //     courseNum: "1541"
-    // }, {
-    //     courseName: "טכנאי אוויוניקה מטוס ברק/ סופה",
-    //     courseNum: "1551"
-    // }, {
-    //     courseName: "טכנאי מכ''מ מערכת חץ",
-    //     courseNum: "1578"
-    // },
-    // {
-    //     courseName: "טכנאי מערכות בקרת טיסה",
-    //     courseNum: "1805"
-    // }
+    {
+        courseName: "טכנאי יירוט מערכת חץ",
+        courseNum: "1576"
+    }, {
+        courseName: "טכנאי מכ''מ מערכת כיפת ברזל/ קלע דוד",
+        courseNum: "1574"
+    }, {
+        courseName: "טכנאי מערכת מגן עורף",
+        courseNum: "1232"
+    }, {
+        courseName: "טכנאי אוויוניקה מטוס תובלה ג'ט",
+        courseNum: "1855"
+    }
 ];
 
 export const listMaintenace: coursesSort[] = [
     {
+        courseName: "טכנאי דרג א' כלי טייס מאוייש איתן",
+        courseNum: "0828"
+    }, {
+        courseName: "טכנאי דרג א' כלי טייס מאוייש שובל",
+        courseNum: "0828"
+    }, {
+        courseName: "טכנאי דרג ב' מטוסים ברק/ סופה",
+        courseNum: "1421"
+    }, {
+        courseName: "טכנאי מטוס רעם",
+        courseNum: "1293"
+    }, {
+        courseName: "טכנאי דרג א' מטוס אדיר",
+        courseNum: "1402"
+    }, {
         courseName: "טכנאי דרג א' ברק/ סופה",
         courseNum: "1373"
     }, {
-        courseName: "טכנאי נשק מונחה",
-        courseNum: "1630"
+        courseName: "טכנאי דרג א' מטוס בז",
+        courseNum: "0888"
     }, {
-        courseName: "טכנאי דרג א' מטוס תובלה כבדה ראם",
-        courseNum: "0827"
+        courseName: "טכנאי מסוק יסעור",
+        courseNum: "1287"
+    }, {
+        courseName: "טכנאי מסוק ינשוף",
+        courseNum: "1288"
+    }, {
+        courseName: "טכנאי דרג א' מסוק פתן",
+        courseNum: "1175"
+    }, {
+        courseName: "טכנאי מערכות חימוש",
+        courseNum: "1298"
+    }, {
+        courseName: "טכנאי אביזרים הגנה אווירית",
+        courseNum: "1795"
+    }, {
+        courseName: "טכנאי מסגר מכני",
+        courseNum: "0351"
+    }, {
+        courseName: "טכנאי מבנה מטוס",
+        courseNum: "1753"
+    }, {
+        courseName: "טכנאי תחמושת אווירית",
+        courseNum: "0325"
     }, {
         courseName: "טכנאי חשמל מטוסים אחוד (חמ''מ)",
         courseNum: "1266"
     }, {
-        courseName: "טכנאי צב''ה ציוד בטיחות והצלה",
-        courseNum: "0366"
+        courseName: "טכנאי מערכות קרקע ממוכנות",
+        courseNum: "1707"
     }, {
-        courseName: "טכנאי מנועים",
-        courseNum: "1520"
+        courseName: "טכנאי מכניקה תעופתית",
+        courseNum: "1799"
     }
 ];
 

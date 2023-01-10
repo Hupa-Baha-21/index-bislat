@@ -3,7 +3,7 @@
 <img src="../../../../assets/images/favorite.svg" style="height: 0; width: 0;">
 <img src="../../../../assets/images/notFavorite.svg" style="height: 0; width: 0;">
 
-<img src="../../../../assets/images/{{savedToFavorite}}" class="favorite-icon" (click)="removeOrAddFavorite()">
+<img src="../../../../assets/images/{{isItemFavorite}}" class="favorite-icon" (click)="removeOrAddFavorite()">
 <img src="../../../../assets/images/home.svg" class="homepage-icon" routerLink="/homePage">
 
 <div class="header-container" *ngIf="item">

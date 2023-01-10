@@ -13,31 +13,25 @@ import { SortCoursesService } from 'src/app/services/sort-courses.service';
 })
 export class FavoritePageComponent implements OnInit {
 
-  dictionaryData: IDictionary = data;
-  items: IDictionaryItem[] = [];
+  // dictionaryData: IDictionary = data;
+  items: any[] = [];
   routing: string = "/course/";
   ifRouting: boolean = true;
   
   constructor(service: SortCoursesService) {
-    this.items = service.findFavoriteCourses();
+    // this.items = service.findFavoriteCourses();
+    this.items = service.getSelectedCourses(JSON.parse(localStorage.getItem('courseName') || '[]'));
   }
   
   ngOnInit(): void {
   }
   
-  removeFromeFavorites(courseName: string): void {
+  removeFromeFavorites(courseName: any): void {
     
-    let favorites = JSON.parse(localStorage.getItem('courseName') || '[]');
-    console.log(courseName);
-    console.log(favorites);
-    for(let i = 0; i < favorites.length; i++){
-      if(favorites[i] === courseName){ 
-        favorites.splice(i, 1);
-        break;
-      }
-    }
-    console.log(favorites);
-    localStorage.setItem('courseName', JSON.stringify(favorites));
+    let favoritesCoursesNames = JSON.parse(localStorage.getItem('courseName') || '[]');
+    let index = favoritesCoursesNames.indexOf(courseName);
+    favoritesCoursesNames.splice(index, 1);
+    localStorage.setItem('courseName', JSON.stringify(favoritesCoursesNames));
     this.routing = "/favorite";
     this.ifRouting = false;
   }

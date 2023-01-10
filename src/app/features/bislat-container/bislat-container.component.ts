@@ -4,7 +4,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { SortCoursesService } from '../../services/sort-courses.service';
 import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-url';
 import { iCourseForSelectionPage } from 'src/app/inerfaces/api-interface';
-
+import { ApiCallsService } from 'src/app/services/api-connection/api-calls.service';
 
 @Component({
   selector: 'app-bislat-container',
@@ -20,16 +20,18 @@ export class BislatContainerComponent implements OnInit {
 
   showList: boolean = false;
   item: IDictionaryItem | undefined;
+  cycles: any[];
 
   readMoreButton = [false, 1]; //[f-short t-long, mun of paragraphs]
   openingParagraphs: string[] = openingParagraphs;
   openingVideosUrl = openingVideosUrl;
 
-  constructor(service: SortCoursesService) {
+  constructor(service: SortCoursesService, private apiConnection: ApiCallsService) {
 
     this.indexOutput$ = this.inputControl.valueChanges.pipe(
       service.getListCourses()
     );
+    this.cycles = apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Sort");
   }
 
   ngOnInit(): void { }
@@ -82,34 +84,3 @@ export interface IDictionaryItem {
   ImgURL: string;
   note?: string;
 }
-
-
-
-
-// this.indexOutput$ = new Observable<IDictionaryItem[]>();
-// console.log(this.inputControl.valueChanges.subscribe(value => console.log(value)));
-// const dictionaryData: IDictionary = data;
-// this.indexOutput$ = this.inputControl.valueChanges.pipe(
-//   debounceTime(300),
-//   distinctUntilChanged(),
-//   switchMap((input: string) => {
-
-//     input = input.trim();
-
-//     if (input) {
-//       const key = input[0];
-//       const keyDictionary: IDictionaryItem[] = dictionaryData[key];
-
-//       if (keyDictionary) {
-//         const filteredDictionary: IDictionaryItem[] = keyDictionary.filter(item => item.CourseNumber.includes(input));
-//         return of(filteredDictionary);
-//       }
-//       else {
-//         return of([]);
-//       }
-//     }
-//     else {
-//       return of([]);
-//     }
-//   })
-// );

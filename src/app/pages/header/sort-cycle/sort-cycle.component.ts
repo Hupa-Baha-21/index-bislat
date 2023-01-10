@@ -17,8 +17,10 @@ export class SortCycleComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  itemClicked(courseName: string) {
-    sessionStorage.setItem("selectedItem", courseName);
+  itemClicked(item: any) {
+    console.log(item);
+    sessionStorage.setItem("selectedItem", item.courseName);
+    window.location.href = '/course/' + item.courseNumber;
   }
 
 }

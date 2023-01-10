@@ -20,6 +20,7 @@ export class CourseSelectionComponent implements OnInit {
   selectionPages = selectionPage;
   ExpansionValidatorLocation: number[] = []; //index - optionIndex, value - expansionIndex
   allCourses: string[] = [];
+  allCycles: string[] = [];
   errorNote: boolean = false;
   note: string = '  ';
 
@@ -57,7 +58,8 @@ export class CourseSelectionComponent implements OnInit {
     this.selectionPages[0].func = this.moveNextPage;
     this.selectionPages[1].formGroup = this.selectionPage2Form;
     this.selectionPages[1].func = this.sendForm;
-    selectionPage[0].items[0].selectOptions = apiHelper.getListOfCycleName();
+    this.allCycles = apiHelper.getListOfCycleName();
+    // selectionPage[0].items[0].selectOptions = apiHelper.getListOfCycleName();
     this.selectionPage2Form.controls['firstOption'].addValidators(this.selectOptionsValidator(1));
     this.selectionPage2Form.controls['secondOption'].addValidators(this.selectOptionsValidator(2));
     this.selectionPage2Form.controls['thirdOption'].addValidators(this.selectOptionsValidator(3));

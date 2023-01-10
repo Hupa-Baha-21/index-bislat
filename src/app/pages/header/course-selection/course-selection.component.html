@@ -16,7 +16,7 @@
           <input *ngIf="item.HTMLelement === 'input'" class="input-select" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)"> 
           
           <select #selectDom *ngIf="item.HTMLelement === 'select'" class="input-select" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)" >
-            <ng-container  *ngFor="let option of item.validName | options : allCourses"> 
+            <ng-container  *ngFor="let option of item.validName | options : allCourses : allCycles"> 
               <option>{{option}}</option>
             </ng-container>
           </select>

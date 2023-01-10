@@ -34,6 +34,7 @@ import { ApiCallsService } from './services/api-connection/api-calls.service';
 import { SecurityMsalService } from './services/microsoft-msal/security-msal.service';
 import { BlockFormComponent } from './features/block-form/block-form.component';
 import { OptionsPipe } from './pipes/options/options.pipe';
+import { PreviewComponent } from './features/preview/preview.component';
 
 export function MSAL_InctanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -72,7 +73,8 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     SecretPageComponent,
     SortCycleComponent,
     BlockFormComponent,
-    OptionsPipe
+    OptionsPipe,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,

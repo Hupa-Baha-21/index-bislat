@@ -1,7 +1,7 @@
 <ng-container *ngIf="showList && indexOutput">
     <div class="list-container" *ngIf="indexOutput.length > 0">
         <div class="list-item" *ngFor="let arrIndex of indexOutput" (click)="itemClicked(arrIndex)">
-            {{arrIndex.courseNumber + " - " + arrIndex.courseName}}
+            {{arrIndex.CourseNumber + " - " + arrIndex.CourseName}}
         </div>
     </div>
 </ng-container>

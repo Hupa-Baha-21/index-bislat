@@ -20,9 +20,13 @@
     <img *ngIf="readMoreButton[0]" src="../../../assets/images/readLess.svg" class="read-more" (click)="readMoreButtonClick()">
 
     <a routerLink="/favorite">לרשימת המועדפים שלי</a>
-    <a routerLink="/sort/cycle">לרשימת המקצועות למחזור מיון דצמבר 2022</a>
-    <!-- <a routerLink="/courseSelection">למילוי שאלון העדפות</a> -->
+    <a routerLink="/sort/cycle">לרשימת המקצועות למחזור מיון ינואר 2023</a>
+    <!-- <ng-container *ngFor="let cycle of cycles">
+        <a routerLink="/sort/cycle">לרשימת המקצועות למחזור מיון {{cycle.name}}</a>
+    </ng-container> -->
     
+    <!-- <a routerLink="/courseSelection">למילוי שאלון העדפות</a> -->
+
     <div class="youtube-container" [class.youtube-container__layer]="showList">
         <div class="container">
             <ng-container *ngFor="let url of openingVideosUrl">

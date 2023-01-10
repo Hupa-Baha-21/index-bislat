@@ -26,7 +26,7 @@ export class ApiHelpersService {
     for (let i = 0; i < allCycles.length; i++) {
       listCycleName.push(allCycles[i].name);
     }
-    console.log(listCycleName);
+    // console.log(listCycleName);
     return listCycleName;
   }
 }

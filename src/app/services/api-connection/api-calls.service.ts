@@ -18,42 +18,43 @@ export class ApiCallsService {
 
   constructor(private authService: MsalService, private http: HttpClient) { }
 
-  AddBase(base: IDictionaryItem): string {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      responseType: 'text',
-    }
+  // AddBase(base: IDictionaryItem): string {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //     responseType: 'text',
+  //   }
 
-    this.http.post("https://index-bislat-back.azurewebsites.net/Iafbase/AddBase", JSON.stringify(base), {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      responseType: 'text',
-    }
-    ).subscribe(
-      data => this.response = data,
-      error => this.response = error
-    );
-    console.log(this.response);
-    return this.response;
-  }
+  //   this.http.post("https://index-bislat-back.azurewebsites.net/Iafbase/AddBase", JSON.stringify(base), {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //     responseType: 'text',
+  //   }
+  //   ).subscribe(
+  //     data => this.response = data,
+  //     error => this.response = error
+  //   );
+  //   console.log(this.response);
+  //   return this.response;
+  // }
 
-  GetBase(): Observable<bases[]> {
-    return this.http.get<bases[]>('https:index-bislat-back.azurewebsites.net/Iafbase');
-  }
+  // GetBase(): Observable<bases[]> {
+  //   return this.http.get<bases[]>('https:index-bislat-back.azurewebsites.net/Iafbase');
+  // }
 
-  AdBase(base: bases): string {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      responseType: 'text',
-    }
-    this.http.post("https://index-bislat-back.azurewebsites.net/Sort", JSON.stringify(base), {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      responseType: 'text',
-    }).subscribe(data =>
-      this.response = data,
-      error => this.response = error
-    );
-    return this.response;
-  }
+  // AdBase(base: bases): string {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //     responseType: 'text',
+  //   }
+  //   this.http.post("https://index-bislat-back.azurewebsites.net/Sort", JSON.stringify(base), {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //     responseType: 'text',
+  //   }).subscribe(data =>
+  //     this.response = data,
+  //     error => this.response = error
+  //   );
+  //   return this.response;
+  // }
+
 
   postRequest(httpURL: string, item: any) {
     const httpOptions = {
@@ -68,6 +69,7 @@ export class ApiCallsService {
       data => this.response = data,
       error => this.response = error
     );
+    console.log(this.response);
     return this.response;
   }
 
@@ -78,6 +80,16 @@ export class ApiCallsService {
     xmlHttp.open("GET", httpURL, false); // false for synchronous request
     xmlHttp.send(null);
     return JSON.parse(xmlHttp.responseText);
+  }
+
+  DeleteRequest(httpURL: string) {
+    this.http.delete(httpURL, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' },
+    ).subscribe(
+      data => this.response = data,
+      error => this.response = error
+    );
+    console.log(this.response);
+    return this.response;
   }
 
 }
