@@ -5,9 +5,9 @@ import { iCycle, isort } from 'src/app/inerfaces/api-interface';
 import { ApiCallsService } from 'src/app/services/api-connection/api-calls.service';
 import { FormGroup } from '@angular/forms';
 import { Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { IDictionaryItem } from 'src/app/features/bislat-container/bislat-container.component';
 import { Observable, of, pipe } from 'rxjs';
-import { SortCoursesService } from 'src/app/services/sort-courses.service';
+import { searchCourses } from 'src/app/services/api-helpers/search/search-courses.service';
+// import { Event } from '@angular/router';
 
 @Component({
   selector: 'app-management',
@@ -17,86 +17,74 @@ import { SortCoursesService } from 'src/app/services/sort-courses.service';
 export class ManagementComponent implements OnInit {
 
   showMenuBar: boolean = false;
-  selectedPage: string = "createNewCycle";
-  page: string = 'home';
+  sortElemntsProperties: Array<isort[]>;
+  page: any = { text: 'מחזורי מיון', url: 'sorts' };
 
-  sorts: isort[];
-  courses;
+  lastSortExpand: number[] = [0, 0]; // index 0-page sorts, index 1-page archives
   previewPopUp: boolean = false;
-  information: [{ font: string, text: any }] = [{ font: "11", text: "11" }];
+  previewPageInformation: [{ font: string, text: any }] = [{ font: "11", text: "11" }];
   buttonClicked: boolean = false;
 
   inputControl: FormControl = new FormControl();
   indexOutput$: Observable<any[]>;
-  // indexOutput$: Observable<any[]> = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Course");
-  selectedItems: [{ gender: string, courses: any[] }];
   showList: boolean = false;
-  selectedAvionicsItems: any[] = [];
-  selectedMaintenaceItems: any[] = [];
+
+  selectedCourses: any[][] = [[], []] // 0-Avionics, 1-Maintenace
   item: any;
-
-  basesr: any;
-
 
   newCycle = new FormGroup({
     name: new FormControl('', Validators.required),
-    selectionForm: new FormControl(true)
+    showSortOnWeb: new FormControl(false),
+    openSelectionForm: new FormControl(false)
   });
 
-  constructor(private msal_service: SecurityMsalService, private apiConnection: ApiCallsService, private service: SortCoursesService) {
-    this.sorts = this.createSortArray();
-    this.courses = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Course");
-    this.selectedItems = [{ gender: 'Avionics', courses: [] }];
-    this.selectedItems.push({ gender: 'Maintenace', courses: [] });
+  constructor(private msal_service: SecurityMsalService, private apiConnection: ApiCallsService, private service: searchCourses) {
 
+    this.sortElemntsProperties = this.getListPropertiesOfSortElements();
     this.indexOutput$ = this.inputControl.valueChanges.pipe(
       service.getListCourses()
     );
   }
-
   ngOnInit(): void { }
 
-
-  isManager(): boolean { return this.msal_service.isManager(); }
-
-  createSortArray() {
-    const sortsName = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Sort");
-    let sortArr: isort[] = [];
-
-    for (let i = 0; i < sortsName.length; i++) {
-      sortArr.push({ name: sortsName[i].name, isExpand: false });
-    }
-    return sortArr;
+  isManager(): boolean {
+    return this.msal_service.isManager();
   }
 
-  addNewItem(event: any) {
+  addCourse(event: any) {
 
-    if (!this.selectedAvionicsItems.includes(event) && !this.selectedMaintenaceItems.includes(event)) {
+    if (!this.selectedCourses[0].includes(event) && !this.selectedCourses[1].includes(event)) {
       switch (event.gender) {
-        case 'Avionics': this.selectedAvionicsItems.push(event); break;
-        case 'Maintenace': this.selectedMaintenaceItems.push(event); break;
+        case 'Avionics': this.selectedCourses[0].push(event); break;
+        case 'Maintenace': this.selectedCourses[1].push(event); break;
       }
     }
   }
 
-  deleteItem(course: any, gender: string) {
-    if (gender === 'Avionics') {
-      const index = this.selectedAvionicsItems.indexOf(course);
-      this.selectedAvionicsItems.splice(index, 1);
-    }
-    else if (gender === 'Maintenace') {
-      const index = this.selectedMaintenaceItems.indexOf(course);
-      this.selectedMaintenaceItems.splice(index, 1);
-    }
+  deleteCourse(course: any, gender: number) {
+    this.lastSortExpand[0] = 0;
+    const index = this.selectedCourses[gender].indexOf(course);
+    this.selectedCourses[gender].splice(index, 1);
   }
 
-  inputValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!this.selectedAvionicsItems.length && !this.selectedMaintenaceItems.length) {
-        return { forbiddenName: { value: control.value } };
-      }
-      return null;
-    }
+  deleteCycle(cycleName: string, index: number, page: number) {
+    this.apiConnection.DeleteRequest('https://index-bislat-back.azurewebsites.net/Sort/' + cycleName);
+    this.sortElemntsProperties[page].splice(index, 1);
+  }
+
+  clearPage() {
+    this.page = { text: 'מחזורי מיון', url: 'sorts' };
+    // this.selectedAvionicsItems = [];
+    // this.selectedMaintenaceItems = [];
+    this.selectedCourses = [[], []];
+    this.newCycle.controls['name'].setValue('');
+    this.inputControl.setValue('');
+    this.newCycle.controls['showSortOnWeb'].setValue(false);
+    this.newCycle.controls['openSelectionForm'].setValue(false);
+    this.buttonClicked = false;
+    this.sortElemntsProperties[0][this.lastSortExpand[0]].isExpand = false;
+    this.sortElemntsProperties[1][this.lastSortExpand[1]].isExpand = false;
+    this.lastSortExpand = [0, 0];
   }
 
   onBlur(): void {
@@ -105,48 +93,129 @@ export class ManagementComponent implements OnInit {
     }, 80);
   }
 
-  onFocus(): void {
+  listOnFocus(): void {
     this.showList = true;
   }
 
-  createInformationArr() {
+  sortOnFocus(index: number, page: number) {
 
-    let informationn: [{ font: string, text: any }] = [{ font: "title", text: this.newCycle.controls['name'].value }];
-
-    if (this.selectedMaintenaceItems.length) { informationn.push({ font: "subtitle", text: "אחזקה מתכת/חשמל" }); }
-    for (let i = 0; i < this.selectedMaintenaceItems.length; i++) {
-      let s: string = this.selectedMaintenaceItems[i].CourseNumber + "- " + this.selectedMaintenaceItems[i].CourseName;
-      informationn.push({ font: "text", text: s });
+    this.sortElemntsProperties[page][index].isExpand = !this.sortElemntsProperties[page][index].isExpand;
+    if (this.lastSortExpand[page] != index) {
+      this.sortElemntsProperties[page][this.lastSortExpand[page]].isExpand = false;
+      this.lastSortExpand[page] = index;
     }
-
-    if (this.selectedAvionicsItems.length) { informationn.push({ font: "subtitle", text: "אוויוניקה" }); }
-    for (let i = 0; i < this.selectedAvionicsItems.length; i++) {
-      let s: string = this.selectedAvionicsItems[i].CourseNumber + "- " + this.selectedAvionicsItems[i].CourseName;
-      informationn.push({ font: "text", text: s });
-    }
-
-    if (this.newCycle.controls['selectionForm'].value === true) { informationn.push({ font: "subtitle", text: "נפתחת אפשרות למלא שאלון העדפות" }); }
-    else { informationn.push({ font: "subtitle", text: "לא נפתחת אפשרות למלא שאלון העדפות" }); }
-
-    return informationn;
   }
 
-  createNewSycle() {
-    if (this.newCycle.valid && (this.selectedAvionicsItems.length + this.selectedMaintenaceItems.length > 2)) {
-      this.information = this.createInformationArr();
-      console.log(this.selectedAvionicsItems);
+  // ---------------------------------------- creating ----------------------------------------
+  getListPropertiesOfSortElements() {
+    const sorts = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Sort");
+    let sortsProperties: Array<isort[]> = [[], []];
+
+    for (let i = 0; i < sorts.length; i++) {
+      switch (sorts[i].status) {
+        case 1:
+          sortsProperties[0].push({ name: sorts[i].name, isExpand: false });
+          break;
+
+        case 2:
+          sortsProperties[0].push({ name: sorts[i].name, isExpand: false });
+          break;
+
+        case 0:
+          sortsProperties[1].push({ name: sorts[i].name, isExpand: false });
+          break;
+      }
+    }
+    return sortsProperties;
+  }
+
+  createCycleInterface() {
+    if (this.newCycle.valid && this.coursesValidator) {
+      this.previewPageInformation = this.createPreviewInformation();
 
       this.item = {
         name: this.newCycle.controls['name'].value,
-        // courses: [...this.service.findCourseNumber(this.selectedAvionicsItems), ... this.service.findCourseNumber(this.selectedMaintenaceItems)]
-        courses: [...this.service.findCourseNumber(this.selectedAvionicsItems), ... this.service.findCourseNumber(this.selectedMaintenaceItems)]
+        status: this.getCycleNumberStatus(),
+        courses: [...this.service.findCourseNumber(this.selectedCourses[0]), ... this.service.findCourseNumber(this.selectedCourses[1])]
       }
       this.previewPopUp = true;
     }
   }
 
-  deleteCycle(cycleName: string) {
-    this.apiConnection.DeleteRequest('https://index-bislat-back.azurewebsites.net/Sort/' + cycleName);
-    this.sorts = this.createSortArray();
+  createPreviewInformation() {
+    let informationn: [{ font: string, text: any }] = [{ font: "title", text: this.newCycle.controls['name'].value }];
+
+    if (this.selectedCourses[1].length) { informationn.push({ font: "subtitle", text: "אחזקה מתכת/חשמל" }); }
+    for (let i = 0; i < this.selectedCourses[1].length; i++) {
+      let s: string = this.selectedCourses[1][i].courseNumber + "- " + this.selectedCourses[1][i].courseName;
+      informationn.push({ font: "text", text: s });
+    }
+
+    if (this.selectedCourses[0].length) { informationn.push({ font: "subtitle", text: "אוויוניקה" }); }
+    for (let i = 0; i < this.selectedCourses[0].length; i++) {
+      let s: string = this.selectedCourses[0][i].courseNumber + "- " + this.selectedCourses[0][i].courseName;
+      informationn.push({ font: "text", text: s });
+
+    }
+
+    if (this.newCycle.controls['showSortOnWeb'].value === true) {
+      switch (this.newCycle.controls['openSelectionForm'].value) {
+        case true:
+          informationn.push({ font: "subtitle", text: "המחזור יוצג באתר ותיפתח אפשרות למלא שאלון העדפות" });
+          break;
+
+        case false:
+          informationn.push({ font: "subtitle", text: "המחזור יוצג באתר ולא יינתן למלא שאלון העדפות" });
+          break;
+      }
+    }
+    else {
+      informationn.push({ font: "subtitle", text: "המחזור לא יוצג באתר וישמר בארכיון!" });
+    }
+
+    return informationn;
+  }
+
+  // ---------------------------------------- validators ----------------------------------------
+  inputValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!this.selectedCourses[0].length && !this.selectedCourses[1].length) {
+        return { forbiddenName: { value: control.value } };
+      }
+      return null;
+    }
+  }
+
+  coursesValidator(): boolean {
+    return (!this.newCycle.controls['name'].valid || (this.selectedCourses[1].length < 3 && this.selectedCourses[1].length > 0) ||
+      (this.selectedCourses[1].length < 3 && this.selectedCourses[1].length > 0) || (this.selectedCourses[0].length === 0 &&
+        this.selectedCourses[1].length === 0)) && this.buttonClicked;
+  }
+
+  getCycleNumberStatus() {
+    let selectionFormStatus = this.newCycle.controls['openSelectionForm'].value;
+    let showCycleOnWebStatus = this.newCycle.controls['showSortOnWeb'].value;
+    // 0-archives, 1-show, 2-open selection form,
+
+    if (!selectionFormStatus && !showCycleOnWebStatus) { return 0; }
+    if (!selectionFormStatus && showCycleOnWebStatus) { return 1; }
+    if (selectionFormStatus && showCycleOnWebStatus) { return 2; }
+
+    return;
+  }
+  addItem(event: any) {
+    if (event.status != 0) {
+      this.sortElemntsProperties[0].push(event);
+    }
+    else if (event.status === 0) {
+      this.sortElemntsProperties[1].push(event);
+    }
+    this.clearPage();
+
+    // if (event.status != 0) { this.sortElemntsProperties.push(event); }
+    // else if (event.status === 1 || event.status === 2) {
+    //   this.archivesSorts[page].push(event);
+    // }
+    // this.clearPage();
   }
 }

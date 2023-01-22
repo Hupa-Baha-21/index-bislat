@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
-import { SortCoursesService } from '../../services/sort-courses.service';
+import { searchCourses } from '../../services/api-helpers/search/search-courses.service';
 import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-url';
 import { iCourseForSelectionPage } from 'src/app/inerfaces/api-interface';
-import { ApiCallsService } from 'src/app/services/api-connection/api-calls.service';
+import { ApiHelpersService } from 'src/app/services/api-helpers/api-helpers.service';
 
 @Component({
   selector: 'app-bislat-container',
@@ -19,19 +19,20 @@ export class BislatContainerComponent implements OnInit {
   resultItem$ = new Subject<iCourseForSelectionPage | undefined>();
 
   showList: boolean = false;
-  item: IDictionaryItem | undefined;
-  cycles: any[];
+  item: any | undefined;
+  sortingCycles: any[];
 
   readMoreButton = [false, 1]; //[f-short t-long, mun of paragraphs]
   openingParagraphs: string[] = openingParagraphs;
   openingVideosUrl = openingVideosUrl;
 
-  constructor(service: SortCoursesService, private apiConnection: ApiCallsService) {
+  constructor(service: searchCourses, apiFunc: ApiHelpersService) {
 
     this.indexOutput$ = this.inputControl.valueChanges.pipe(
       service.getListCourses()
     );
-    this.cycles = apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Sort");
+
+    this.sortingCycles = apiFunc.ListOfShowOnWebCycles();
   }
 
   ngOnInit(): void { }
@@ -66,6 +67,10 @@ export class BislatContainerComponent implements OnInit {
   threeImagesPosition(): boolean {
     if ((window.innerWidth / window.innerHeight) > 1) { return true; }
     else { return false; }
+  }
+
+  cyclePageClicked(cycleName: string) {
+    sessionStorage.setItem('selectedCycle', cycleName);
   }
 }
 

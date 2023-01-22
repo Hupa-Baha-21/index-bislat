@@ -2,16 +2,13 @@
     <div class="background">
         <div class="container">
             <img src="../../../assets/images/close2.png" class="close" (click)="popUp.emit(false)">
-            <!-- <img src="../../../assets/images/close2.png"> -->
             <ng-container *ngFor="let i of information">
 
                 <h1 *ngIf="i.font === 'title'">מחזור {{i.text}}</h1>
                 <h2 *ngIf="i.font === 'subtitle'">{{i.text}}</h2>
                 <h3 *ngIf="i.font === 'text'">{{i.text}}</h3>
             </ng-container>
-
-            <button (click)="sendItemToAPI()">אישור</button>
-            <!-- <h1>מחזור גיוס</h1> -->
+            <button (click)="addSortingCycle()">אישור</button>
         </div>
     </div>
 </div>

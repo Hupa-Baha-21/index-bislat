@@ -6,7 +6,7 @@
         <mat-nav-list *ngIf="isManager()">
             <h3 routerLink="/homePage">דף הבית</h3>
             <ng-container *ngFor="let title of NavTitles; let i = index">
-                <h3 style="font-size: 18px;" (click)="pageClicked(i)">{{title}}</h3>
+                <h3 style="font-size: 18px;" (click)="pageClicked(title)">{{title.text}}</h3>
             </ng-container>
             <h3 (click)="logOut()">התנתק</h3>
         </mat-nav-list>

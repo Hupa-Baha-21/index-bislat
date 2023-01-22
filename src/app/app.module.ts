@@ -15,7 +15,7 @@ import { FavoritePageComponent } from './pages/header/favorite-page/favorite-pag
 import { ManagementComponent } from './pages/header/management/management.component';
 import { CourseSelectionComponent } from './pages/header/course-selection/course-selection.component';
 
-import { SortCoursesService } from './services/sort-courses.service';
+import { searchCourses } from './services/api-helpers/search/search-courses.service';
 import { SafePipePipe } from './pipes/safe-url/safe-pipe.pipe';
 
 import { MatListModule } from '@angular/material/list';
@@ -35,6 +35,7 @@ import { SecurityMsalService } from './services/microsoft-msal/security-msal.ser
 import { BlockFormComponent } from './features/block-form/block-form.component';
 import { OptionsPipe } from './pipes/options/options.pipe';
 import { PreviewComponent } from './features/preview/preview.component';
+import { SortingCyclePipe } from './pipes/sorting-cycle/sorting-cycle.pipe';
 
 export function MSAL_InctanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -74,7 +75,8 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     SortCycleComponent,
     BlockFormComponent,
     OptionsPipe,
-    PreviewComponent
+    PreviewComponent,
+    SortingCyclePipe,
   ],
   imports: [
     BrowserModule,
@@ -104,9 +106,10 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
       useFactory: MSALInterceptorConfigFactory
     },
     MsalService,
-    SortCoursesService,
+    searchCourses,
     ApiCallsService,
-    SecurityMsalService
+    SecurityMsalService,
+    SortingCyclePipe
   ],
   bootstrap: [AppComponent]
 })

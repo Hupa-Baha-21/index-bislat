@@ -27,8 +27,8 @@ export class BislatListComponent implements OnInit {
 
   itemClicked(item: any) {
     if (this.page === 'homePage') {
-      sessionStorage.setItem("selectedItem", item.CourseName);
-      window.location.href = '/course/' + item.CourseNumber;
+      sessionStorage.setItem("selectedItem", item.courseName);
+      window.location.href = '/course/' + item.courseNumber;
     }
     else if (this.page === 'managementPage') {
       this.selectedItemEmitter.emit(item);

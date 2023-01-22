@@ -1,6 +1,6 @@
 import { Component, ElementRef, Renderer2, OnInit, ViewChild } from '@angular/core';
 // import * as data from '../../mock-data.json'
-import { SortCoursesService } from '../../services/sort-courses.service';
+import { searchCourses } from '../../services/api-helpers/search/search-courses.service';
 import { bases } from 'src/app/pages/header/img-url';
 import { MatSidenav } from '@angular/material/sidenav';
 
@@ -30,10 +30,10 @@ export class BislatOutputComponent implements OnInit {
     });
   };
 
-  constructor(service: SortCoursesService, private renderer: Renderer2) {
+  constructor(service: searchCourses, private renderer: Renderer2) {
 
     // this.item = service.getSelectedCourse(this.inputPlaceholder);
-    this.item = service.getSelectedCourses([JSON.stringify(sessionStorage.getItem('selectedItem'))])[0];
+    this.item = service.getClearedSelectedCourses([JSON.stringify(sessionStorage.getItem('selectedItem'))])[0];
     this.isItemFavorite = service.isItemFavorite(this.item);
     setTimeout(() => { this.changeMap = this.mapPosition(); }, 3500);
     // private sanitizer: DomSanitizer, 
@@ -46,14 +46,14 @@ export class BislatOutputComponent implements OnInit {
 
     let elementsID: string[] = [];
 
-    for (let i = 0; i < this.item.CourseBases.length; i++) {
-      if (this.item.CourseBases[i] === "יחידות בקרה אווירית") {
+    for (let i = 0; i < this.item.courseBases.length; i++) {
+      if (this.item.courseBases[i] === "יחידות בקרה אווירית") {
         elementsID.push('יב_א_צפונית');
         elementsID.push('יב_א_מרכז');
         elementsID.push('יב_א_דרומית');
         break;
       }
-      else if (this.item.CourseBases[i] === "בסיסי טיסה") {
+      else if (this.item.courseBases[i] === "בסיסי טיסה") {
         elementsID.push('כנף_1');
         elementsID.push('בח_א_30');
         elementsID.push('בח_א_8');
@@ -64,15 +64,15 @@ export class BislatOutputComponent implements OnInit {
         elementsID.push('בח_א_10');
         break;
       }
-      else if (this.item.CourseBases[i] === "יחידות הגנ''א") {
+      else if (this.item.courseBases[i] === "יחידות הגנ''א") {
         elementsID.push('כנף_4');
         elementsID.push('ביסל_א');
         elementsID.push('בח_א_30');
         break;
       }
-      else if (this.item.CourseBases[i] === "יחידת קשר 502") { elementsID.push('כנף_4'); break; }
+      else if (this.item.courseBases[i] === "יחידת קשר 502") { elementsID.push('כנף_4'); break; }
       else {
-        let tmp = this.item.CourseBases[i].replace(" ", "_").replace("''", "_");
+        let tmp = this.item.courseBases[i].replace(" ", "_").replace("''", "_");
         if (!elementsID.includes(tmp)) { elementsID.push(tmp); }
       }
     }
@@ -105,14 +105,14 @@ export class BislatOutputComponent implements OnInit {
     switch (this.isItemFavorite) {
       case 'notFavorite.svg':
         this.isItemFavorite = 'favorite.svg';
-        favoritesCoursesName.push(this.item.CourseName);
+        favoritesCoursesName.push(this.item.courseName);
         this.alertText = "נוסף למועדפים בהצלחה";
         break;
 
       case 'favorite.svg':
         this.isItemFavorite = 'notFavorite.svg';
         this.alertText = "הוסר מהמועדפים";
-        let index = favoritesCoursesName.indexOf(this.item.CourseName);
+        let index = favoritesCoursesName.indexOf(this.item.courseName);
         favoritesCoursesName.splice(index, 1);
         break;
     }

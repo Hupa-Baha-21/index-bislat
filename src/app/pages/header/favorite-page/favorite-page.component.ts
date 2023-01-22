@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDictionaryItem } from 'src/app/features/bislat-container/bislat-container.component';
 import { IDictionary } from 'src/app/features/bislat-container/bislat-container.component';
 import * as data from '../../../mock-data.json';
-import { SortCoursesService } from 'src/app/services/sort-courses.service';
+import { searchCourses } from 'src/app/services/api-helpers/search/search-courses.service';
 
 
 @Component({
@@ -18,9 +18,9 @@ export class FavoritePageComponent implements OnInit {
   routing: string = "/course/";
   ifRouting: boolean = true;
   
-  constructor(service: SortCoursesService) {
+  constructor(service: searchCourses) {
     // this.items = service.findFavoriteCourses();
-    this.items = service.getSelectedCourses(JSON.parse(localStorage.getItem('courseName') || '[]'));
+    this.items = service.getClearedSelectedCourses(JSON.parse(localStorage.getItem('courseName') || '[]'));
   }
   
   ngOnInit(): void {
@@ -38,8 +38,8 @@ export class FavoritePageComponent implements OnInit {
   
   router(index: number): void {
     if (this.ifRouting === true) { 
-      sessionStorage.setItem("selectedItem", this.items[index].CourseName);
-      this.routing = "/course/" + this.items[index].CourseNumber; 
+      sessionStorage.setItem("selectedItem", this.items[index].courseName);
+      this.routing = "/course/" + this.items[index].courseNumber; 
     }
     this.ifRouting = true;
     window.location.href = this.routing;

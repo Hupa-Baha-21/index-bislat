@@ -244,12 +244,22 @@ export const selectionPage: page[] = [
 ];
 
 export const NavTitles_logedIn: string[] = [
-    'שאלון העדפות',
     'מחזורי מיון',
-    'יצירת מחזור מיון חדש',
-    'עריכת מחזור מיון קיים',
-    // 'עריכת קורס'
+    'עריכת קורסים',
 ];
+
+export const navOptions: Array<{ text: string, url: string }> = [
+    {
+        text: 'מחזורי מיון',
+        url: 'sorts'
+    }, {
+        text: 'ארכיון',
+        url: 'archives'
+    }, {
+        text: 'עריכת קורסים',
+        url: 'courses'
+    }
+]
 
 export const NavTitles_logedOut: string[] = [
     'התחבר'

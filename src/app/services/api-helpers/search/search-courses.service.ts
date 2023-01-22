@@ -1,97 +1,69 @@
 import { Injectable } from '@angular/core';
 
-import { IDictionary } from '../features/bislat-container/bislat-container.component';
-import { IDictionaryItem } from '../features/bislat-container/bislat-container.component';
-import * as data from '../mock-data.json'
+import { IDictionary } from '../../../features/bislat-container/bislat-container.component';
+import { IDictionaryItem } from '../../../features/bislat-container/bislat-container.component';
+import * as data from '../../../mock-data.json'
 
 import { Observable, of, pipe } from 'rxjs';
 import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 import { equalshWords } from 'src/app/pages/header/img-url';
-import { ApiCallsService } from './api-connection/api-calls.service';
-import { iCourseForSelectionPage } from '../inerfaces/api-interface';
+import { ApiCallsService } from '../../api-connection/api-calls.service';
+import { iCourseForSelectionPage } from '../../../inerfaces/api-interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SortCoursesService {
+export class searchCourses {
 
-  dictionaryData: IDictionary = data;
-  MaxKeyCourses: number = 8;
-  courses: any;
+  // dictionaryData: IDictionary = data;
+  courses: any[];
+  unclearedCourses: any[];
 
   constructor(private apiConnection: ApiCallsService) {
-    // this.courses = apiConnection.GetRequest('https://index-bislat-back.azurewebsites.net/Course');
-    this.courses = data;
+    this.courses = apiConnection.GetRequest('https://index-bislat-back.azurewebsites.net/Course');
+    this.unclearedCourses = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Course");
   }
 
-  getSelectedCourses(coursesName: string[]): any {
+  getClearedSelectedCourses(coursesName: string[]): any {
 
-    // let unclearedCourses: any[] = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Course");
-    // let selectedCourses: any = [];
-
-    // for(let i = 0; i < coursesName.length; i++){
-    //   if(coursesName[i][0] === '"') { coursesName[i] = coursesName[i].slice(1,coursesName[i].length-1); }  //clear ""
-    //   let unclearedCourseNumber = unclearedCourses.filter(item => item.courseName === coursesName[i])[0].courseNumber;
-    //   selectedCourses.push(this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Course/" + unclearedCourseNumber));
-    // }
-
-    // return selectedCourses;
-    let coursesData: any[] = this.courses[0];
-    let courses = [];
+    let selectedCourses: any = [];
 
     for(let i = 0; i < coursesName.length; i++){
       if(coursesName[i][0] === '"') { coursesName[i] = coursesName[i].slice(1,coursesName[i].length-1); }  //clear ""
-      courses.push(coursesData.filter(item => item.CourseName === coursesName[i])[0]);
+      
+      let unclearedCourseNumber = this.unclearedCourses.filter(item => item.courseName === coursesName[i])[0].courseNumber;
+      let course = this.apiConnection.GetRequest("https://index-bislat-back.azurewebsites.net/Course/" + unclearedCourseNumber);
+      
+      if(course.courseNumber.includes("_")){
+        let index = course.courseNumber.indexOf("_");
+        course.courseNumber = course.courseNumber.slice(0, index);
+      }
+      selectedCourses.push(course);
     }
-    return courses;
+
+    return selectedCourses;
   }
   //------------------------------------------------------------------------------------
 
   isItemFavorite(item: any): string {
 
     const favorites: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
-    console.log(item);
 
-    if (favorites.includes(item.CourseName)) { return 'favorite.svg'; }
+    if (favorites.includes(item.courseName)) { return 'favorite.svg'; }
     return 'notFavorite.svg';
   }
   //------------------------------------------------------------------------------------
-
-  findFavoriteCourses(): IDictionaryItem[] {
-
-    let coursesNames: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
-    let favorites: any[] = [];
-
-    for (let i = 0; i <= this.MaxKeyCourses; i++) {
-
-      let keyDictionary: IDictionaryItem[] = [];
-      if (this.dictionaryData[i]) { keyDictionary = this.dictionaryData[i]; }
-
-      let index = 0;
-
-      while (keyDictionary[index]) {
-        if (coursesNames.includes(keyDictionary[index].CourseName)) { favorites.push(keyDictionary[index]); }
-        index++;
-      }
-    }
-
-    return favorites;
-  }
-  //------------------------------------------------------------------------------------
-
+  
   getListCourses = () => pipe(
     debounceTime(300),
     distinctUntilChanged<string>(),
     switchMap((input: string) => {
 
       input = input.trim();
-      let coursesdata: any[] = this.courses[0];
 
       if (!isNaN(Number(input)) && input != '') {
-        const filteredCourses = coursesdata.filter(item => (item.CourseNumber.slice(0, input.length) === input));
-        return of(filteredCourses);
-        // return of(this.clearCourseNumber(filteredCourses));
-        // return of(filteredCourses);
+        const filteredCourses = this.courses.filter(item => (item.courseNumber.slice(0, input.length) === input));
+        return of(this.clearCourseNumber(filteredCourses));
       }
       else if(isNaN(Number(input)) && input != '') {
         let searchWords: string[] = this.getSearchWords(input);
@@ -103,9 +75,7 @@ export class SortCoursesService {
           partialFilteredCourses = partialFilteredCourses.filter(item => filteredCourses.includes(item));
           filteredCourses = partialFilteredCourses;
         }
-        if (filteredCourses != []) { return of(filteredCourses); }
-        // if (filteredCourses != []) { return of(this.clearCourseNumber(filteredCourses)); }
-        // if (filteredCourses != []) { return of(filteredCourses); }
+        if (filteredCourses != []) { return of(this.clearCourseNumber(filteredCourses)); }
       }
       return of([]);
     })
@@ -114,15 +84,14 @@ export class SortCoursesService {
     
     getListOfWord(searchWord: string): iCourseForSelectionPage[] {
 
-      let coursesdata: any[] = this.courses[0];
-      let Arr: any[] = coursesdata.filter(item => (" " + item.CourseName).includes(" " + searchWord));
+      let Arr: any[] = this.courses.filter(item => (" " + item.courseName).includes(" " + searchWord));
 
       for (let i = 0; i < equalshWords.length; i++) {
         if (equalshWords[i].includes(searchWord)) {
           let words: string[] = this.getSearchWords(equalshWords[i]);
 
           for (let index = 0; index < words.length; index++) {
-            let tmpArr: any[] = coursesdata.filter(item => ((" " + item.CourseName).includes(words[index]) && !Arr.includes(item)));
+            let tmpArr: any[] = this.courses.filter(item => ((" " + item.courseName).includes(words[index]) && !Arr.includes(item)));
             Arr = [...Arr, ...tmpArr];
           }
         }
@@ -148,7 +117,7 @@ export class SortCoursesService {
     for(let i = 0; i < courses.length; i++){
       if(isNaN(Number(courses[i].courseNumber))){
         
-        let index = courses[i].courseNumber.indexOf("/");
+        let index = courses[i].courseNumber.indexOf("_");
         courses[i].courseNumber = courses[i].courseNumber.slice(0, index);
       }
     }
@@ -160,8 +129,8 @@ export class SortCoursesService {
     let coursesNumber: string[] = [];
 
     for(let i = 0; i < courses.length; i++){
-      // coursesNumber.push(unclearedCourses.filter(item => item.courseName === courses[i].courseName)[0].courseNumber);
-      coursesNumber.push(courses[i].courseNum);
+      coursesNumber.push(unclearedCourses.filter(item => item.courseName === courses[i].courseName)[0].courseNumber);
+      // coursesNumber.push(courses[i].courseNum);
     }
     return coursesNumber;
   }
@@ -170,6 +139,26 @@ export class SortCoursesService {
 
 
 
+// findFavoriteCourses(): IDictionaryItem[] {
+
+//   let coursesNames: string[] = JSON.parse(localStorage.getItem('courseName') || '[]');
+//   let favorites: any[] = [];
+
+//   for (let i = 0; i <= this.MaxKeyCourses; i++) {
+
+//     let keyDictionary: IDictionaryItem[] = [];
+//     if (this.dictionaryData[i]) { keyDictionary = this.dictionaryData[i]; }
+
+//     let index = 0;
+
+//     while (keyDictionary[index]) {
+//       if (coursesNames.includes(keyDictionary[index].CourseName)) { favorites.push(keyDictionary[index]); }
+//       index++;
+//     }
+//   }
+
+//   return favorites;
+// }
 
 
 

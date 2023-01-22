@@ -1,75 +1,109 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="backgroundcolor">
     
-    <app-top-bar #child></app-top-bar>
+    <app-top-bar #child (selectedPage)="page = $event"></app-top-bar>
     
     <div class="header-container">
         <h1>דף ניהול</h1>
-        <h2 *ngIf="isManager()">{{child.selectedPage.title}}</h2>
+        <h2 *ngIf="isManager()">{{page.text}}</h2>
     </div> 
+<!-- ---------------------------------------------- -->
+
+<!-- <div class="container" *ngIf="isManager()">
+    
+
+</div> -->
+
+
+
+
+
+    <!-- ---------------------------------------------------------------------- -->
 
     <div class="container" *ngIf="isManager()">
-        <ng-container *ngIf="page === 'home'">
-            <div class="blob" *ngFor="let sort of sorts" (click)="sort.isExpand = !sort.isExpand">
-                <span class="title" [class.title__expand]="sort.isExpand">מחזור {{sort.name}}</span>
+        <ng-container *ngIf="page.url === 'sorts'">
+            <div class="blob" *ngFor="let sort of sortElemntsProperties[0]; index as i" (click)="sortOnFocus(i, 0)">
+                <h4 [class.h4__bold]="sort.isExpand">מחזור {{sort.name}}</h4>
                 <img src="../../../../assets/images/arrowReadMore.png" class="expand-icon" *ngIf="!sort.isExpand">
                 <img src="../../../../assets/images/arrowReadLess.png" class="expand-icon" *ngIf="sort.isExpand">
 
                 <ng-container *ngIf="sort.isExpand"> 
                     <h4>עריכה</h4>
                     <h4>הורדת שאלון העדפות</h4>
-                    <h4 (click)="deleteCycle(sort.name)">מחיקה</h4>
+                    <h4 (click)="deleteCycle(sort.name, i, 0)">מחיקה</h4>
                     <h4>העבר לארכיון</h4>
                 </ng-container>
             </div>
 
-            <div class="blob" style="background-color: rgb(255, 255, 255); padding: 10px;" (click)="page = 'add-cycle'">
-                <img src="../../../../assets/images/addIcon.png" class="icon2">
-            </div>
+            <div class="blob" style="background-color: rgb(255, 255, 255); padding: 10px;" (click)="page = {text: 'הוספת מחזור מיון', url: 'add-cycle'}">
+                <img src="../../../../assets/images/addIcon.png" class="create-new-cycle">
+            </div> 
         </ng-container>
 
     <!-- ------------------------------------- add new cycle ------------------------------------- -->
-    <form [formGroup]="newCycle" *ngIf="page === 'add-cycle'" [formGroup]="newCycle" (ngSubmit)="createNewSycle()">
+    <form [formGroup]="newCycle" *ngIf="page.url === 'add-cycle'" [formGroup]="newCycle" (ngSubmit)="createCycleInterface()">
         <h4>שם מחזור המיון</h4>
         <input class="input-style" style="margin-bottom: 7px; border-radius: 15px;" [formControlName]="'name'" placeholder="לדוגמא: דצמבר 2022" [class.input-style__focus]="true"> 
         
         <h4 style="font-weight: 400;">הוספת קורסים</h4>
         
-        <input class="input-style" [formControl]="inputControl" placeholder="הקלד מספר/ שם מקצוע" (blur)="onBlur()" (focus)="onFocus()" autocomplete="off">
+        <input class="input-style" [formControl]="inputControl" placeholder="הקלד מספר/ שם מקצוע" (blur)="onBlur()" (focus)="listOnFocus()" autocomplete="off">
         <div class="list-container">
-            <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList" page="managementPage" (selectedItemEmitter)="addNewItem($event)"></app-bislat-list>
+            <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList" page="managementPage" (selectedItemEmitter)="addCourse($event)"></app-bislat-list>
         </div>
 
-        <div class="blob" *ngIf="selectedAvionicsItems.length || selectedMaintenaceItems.length">
-            <h4 *ngIf="selectedAvionicsItems.length">
+        <div class="blob" *ngIf="selectedCourses[0].length || selectedCourses[1].length">
+            <h4 *ngIf="selectedCourses[0].length">
                 אוויוניקה
-                <div *ngFor="let course of selectedAvionicsItems">
-                    <img src="../../../../assets/images/remove.svg" (click)="deleteItem(course, 'Avionics')">
-                    <span>{{course.CourseNumber}}- {{course.CourseName}}</span>
+                <div *ngFor="let course of selectedCourses[0]">
+                    <img src="../../../../assets/images/remove.svg" (click)="deleteCourse(course, 0)">
+                    <span>{{course.courseNumber}}- {{course.courseName}}</span>
                 </div>
             </h4>
-            <h4 *ngIf="selectedMaintenaceItems.length">
+            <h4 *ngIf="selectedCourses[1].length">
                 אחזקה מתכת/חשמל
-                <div *ngFor="let course of selectedMaintenaceItems">
-                    <img src="../../../../assets/images/remove.svg" (click)="deleteItem(course, 'Maintenace')">
-                    <span>{{course.CourseNumber}}- {{course.CourseName}}</span>
+                <div *ngFor="let course of selectedCourses[1]">
+                    <img src="../../../../assets/images/remove.svg" (click)="deleteCourse(course, 1)">
+                    <span>{{course.courseNumber}}- {{course.courseName}}</span>
                 </div>
             </h4>
         </div>
 
-        <input type="checkbox" style=" margin-top: 15px;" formControlName="selectionForm">
-        <label for="vehicle1" style="font-weight: 400;"> יצירת שאלון העדפות</label><br>
+        <input type="checkbox" style=" margin-top: 15px;" formControlName="showSortOnWeb">
+        <label for="vehicle1" style="font-weight: 400;"> הצגת המחזור באתר</label><br>
 
-        <h4 *ngIf="(!newCycle.valid || (selectedAvionicsItems.length + selectedMaintenaceItems.length < 3)) && buttonClicked" style="color: red;">* יש למלא שם מחזור מיון ולבחור לפחות קורס אחד</h4>
+        <ng-container *ngIf="newCycle.controls['showSortOnWeb'].value">
+            <input type="checkbox" style=" margin-top: 15px;" formControlName="openSelectionForm">
+        <label for="vehicle1" style="font-weight: 400;"> פתיחת שאלון העדפות</label><br> 
+        </ng-container>
+        
+        
+
+        <h4 *ngIf="coursesValidator()" style="color: red;">* יש למלא שם מחזור מיון ולבחור לפחות 3 קורסים השייכים לאותו מגזר</h4>
         <div class="buton-container">
             <button type="submit" (click)="buttonClicked = true">סיום</button>
-            <button (click)="page='home'">ביטול</button>
+            <button (click)="clearPage()">ביטול</button>
        </div>
-        
-        <app-preview *ngIf="previewPopUp"(popUp)="previewPopUp = $event" [information]="information" [item]="item"></app-preview>
+       
+       <app-preview *ngIf="previewPopUp"(popUp)="previewPopUp = $event" [information]="previewPageInformation" [newCycleInterface]="item" (page)="page.url= $event" (sorstingCycle)="addItem($event)"></app-preview>
     </form>
+
+    <ng-container *ngIf="page.url === 'archives'">
+        <div class="blob" *ngFor="let sort of sortElemntsProperties[1]; index as i" (click)="sortOnFocus(i, 1)">
+            <h4 [class.h4__bold]="sort.isExpand">מחזור {{sort.name}}</h4>
+            <img src="../../../../assets/images/arrowReadMore.png" class="expand-icon" *ngIf="!sort.isExpand">
+            <img src="../../../../assets/images/arrowReadLess.png" class="expand-icon" *ngIf="sort.isExpand">
+
+            <ng-container *ngIf="sort.isExpand"> 
+                <h4>עריכה</h4>
+                <h4 (click)="deleteCycle(sort.name, i, 1)">מחיקה</h4>
+                <h4>הוצא מהארכיון</h4>
+            </ng-container>
+        </div>
+    </ng-container>
 </div>
-   
+
+<app-block-form *ngIf="!isManager()"></app-block-form>
 
 
 
@@ -80,7 +114,7 @@
     
 
 
-    <div class="container" *ngIf="isManager()">
+    <!-- <div class="container" *ngIf="isManager()">
 
         <div *ngFor="let item of child.selectedPage.items">
             <h3>{{item.title}}</h3>
@@ -117,13 +151,12 @@
         </div>
         </ng-container>
 
-        <!-- <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
         <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br> -->
-    </div>
+    <!-- </div> -->
 
-    <app-block-form *ngIf="!isManager()"></app-block-form>
 
-</div>
+<!-- </div>  -->
     
 
 

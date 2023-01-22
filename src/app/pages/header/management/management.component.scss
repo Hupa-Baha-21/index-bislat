@@ -1,8 +1,6 @@
 @import "../../header/fonts.scss";
 
 :host {
-    font-size: 16rem;
-    font-weight: 300;
     color: #2E365B;
 
     .backgroundcolor {
@@ -16,6 +14,10 @@
         padding: 10px;
         box-sizing: border-box;
         margin-bottom: 30px;
+
+        h2 {
+            margin-top: -6px;
+        }
     }
 
     .list-container {
@@ -25,7 +27,12 @@
     }
 
     h4 {
-        font-weight: 400;
+        font-weight: 300;
+        width: fit-content;
+
+        &.h4__bold {
+            font-weight: 400;
+        }
 
         span {
             font-weight: 300;
@@ -39,22 +46,6 @@
             padding: 2px;
         }
     }
-
-
-
-
-
-
-    .level-container {
-        background-color: #ffffff87;
-        border-radius: 11px;
-        padding: 8px;
-        box-sizing: border-box;
-        margin-bottom: 8px;
-        filter: drop-shadow(#00000045 3px 3px 10px);
-    }
-
-
 
     .container {
         padding: 5%;
@@ -95,6 +86,11 @@
         padding: 5px;
     }
 
+    label {
+        font-size: 16rem;
+        font-weight: 300;
+    }
+
 
     .blob {
         position: relative;
@@ -104,16 +100,12 @@
         padding: 10px 10px 10px 50px;
         box-sizing: border-box;
 
-        h2 {
-            margin-top: 0;
-        }
-
-        .icon2 {
+        .create-new-cycle {
+            position: relative;
             width: 30px;
             right: 50%;
+            // top: 50%;
             transform: translateX(50%);
-            position: relative;
-            margin-bottom: -7px;
         }
 
         .expand-icon {
@@ -123,74 +115,5 @@
             left: 12px;
             padding: 8px;
         }
-    }
-
-    .title {
-        font-weight: 300;
-
-        &.title__expand {
-            font-weight: 400;
-        }
-    }
-
-    h2 {
-        font-weight: 400;
-        margin-top: -7px;
-    }
-
-    h3 {
-        font-weight: 700;
-        margin-top: 22px;
-    }
-
-
-    .fa {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        font-size: 35px;
-        color: #2E365B;
-        padding: 5px;
-        z-index: 10;
-
-        &.fa__fix {
-            position: fixed;
-            color: #fff;
-        }
-
-        &.fa__course {
-            top: 4px;
-            font-size: 25px;
-        }
-    }
-
-    .menu-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        background-color: #2e365b;
-        z-index: 9;
-        border-bottom-right-radius: 7px;
-        border-bottom-left-radius: 7px;
-        box-sizing: border-box;
-        padding: 15px;
-        padding-top: 45px;
-    }
-
-    .menu-element {
-        font-size: 18px;
-        color: #fff;
-        display: block;
-        padding: 3px;
-        cursor: pointer;
-    }
-
-    .header {
-        font-weight: 900;
-        font-size: 34rem;
-        color: #2E365B;
-        margin-right: 15px;
-        margin-top: 8px;
     }
 }

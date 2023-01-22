@@ -15,14 +15,14 @@
     <div class="courses-grid" *ngIf="items.length > 0">
         <div class="output-container" *ngFor="let item of items; let i = index" (click)="router(i)" routerLink={{routing}}>
 
-            <img src="../../../../assets/images/remove.svg" (click)="removeFromeFavorites(item.CourseName)" routerLink="/favorite">
+            <img src="../../../../assets/images/remove.svg" (click)="removeFromeFavorites(item.courseName)" routerLink="/favorite">
             <div class="title-container">
-                <h4 class="main-title1"> קורס {{item.CourseNumber}}<span> - {{item.CourseName}} </span></h4>
+                <h4 class="main-title1"> קורס {{item.courseNumber}}<span> - {{item.courseName}} </span></h4>
                 
             </div>
             
             <div class="text-container">
-                <h5 style=" margin-right: 0;"> משך ההכשרה<br>{{item.CourseTime}}</h5><hr>
+                <h5 style=" margin-right: 0;"> משך ההכשרה<br>{{item.courseTime}}</h5><hr>
                 <h5> מיקום ההכשרה<br>בח"א 21 - טכני</h5><hr>
                 <h5 style="margin-left: 0; flex-grow: 1.4;">קרב א' נשק <br>מונחה</h5>
             </div>
