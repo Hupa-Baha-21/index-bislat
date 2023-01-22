@@ -22,6 +22,10 @@
   img {
     height: 8vw;
     filter: drop-shadow(#879ba1 0px 3px 12px) drop-shadow(#94a2a7 0px 3px 50px);
+
+    .img__three-images-position {
+      height: 3vw;
+    }
   }
 }
 
@@ -29,16 +33,23 @@
   position: relative;
 
   h1 {
-    bottom: 25rem;
-    line-height: 60%;
+    bottom: 20rem;
+    margin: 0 5vw;
+    font-size: 7.1vw;
+    right: 0;
+    left: 0;
+
+    &.h1__three-images-position {
+      margin: 0 31vw;
+      font-size: 2.935vw;
+    }
   }
+
 }
 
 .title {
   position: absolute;
-  width: 100%;
   color: rgb(255, 255, 255);
-  font-size: 7vw;
   font-weight: 900;
   caret-color: transparent;
   text-align: center;
@@ -46,10 +57,8 @@
 }
 
 .background-images {
-  position: relative;
-  top: 0;
   height: 37vh;
-  width: 100vw;
+  width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -57,13 +66,20 @@
   transition: background-image 2s;
 
   &::after {
-    position: static;
-    top: 0;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     content: "";
-    display: block;
+    display: inline-block;
     background-color: #2631667c;
+  }
+}
+
+.img-grid {
+  display: grid;
+  flex-wrap: nowrap;
+
+  &.img-grid__big-screen {
+    grid-template-columns: auto auto auto;
   }
 }
 
@@ -80,17 +96,18 @@ li {
   list-style: none;
 }
 
-@media (min-width: 1700px) {
+@media (min-width: 900px) {
 
   .logos-container {
     img {
-      height: 100px;
+      height: 3vw;
     }
   }
 
+
   .title-container {
     h1 {
-      bottom: -10rem;
+      font-size: 4.8vw;
     }
   }
 }
@@ -98,24 +115,50 @@ li {
 
 /*
 animation: 15s images-change 2s linear forwards; 
-    animation-iteration-count: infinite;
-    // animation-play-state: running;
-    
-    @keyframes images-change {
+animation-iteration-count: infinite;
+// animation-play-state: running;
+
+@keyframes images-change {
        
-        0%{
+  0%{
             background-image: url(../../../assets/images/startImg1.jpg);
         }
         10% {
-            background-image: url(../../../assets/images/startImg2.jpg);
+          background-image: url(../../../assets/images/startImg2.jpg);
         }
         20% {
-            background-image: url(../../../assets/images/startImg3.jpg);
+          background-image: url(../../../assets/images/startImg3.jpg);
         }
         30% {
-            background-image: url(../../../assets/images/startImg4.jpg);
+          background-image: url(../../../assets/images/startImg4.jpg);
         }
         90% {
             background-image: url(../../../assets/images/startImg5.jpg);
-        }
+          }
+
+
+
+
+          
+          // .background-images {
+          //   position: relative;
+          //   top: 0;
+          //   height: 37vh;
+          //   width: 100vw;
+          //   background-size: cover;
+          //   background-repeat: no-repeat;
+          //   background-position: center;
+          
+          //   transition: background-image 2s;
+          
+          //   &::after {
+          //     position: static;
+          //     top: 0;
+          //     width: 100vw;
+          //     height: 100%;
+          //     content: "";
+          //     display: block;
+          //     background-color: #2631667c;
+          //   }
+          // }
     } */

@@ -6,33 +6,42 @@
     min-height: 100%;
 }
 
-.header {
-    font-family: 'Heebo', sans-serif;
-    font-weight: 900;
-    font-size: 34rem;
-    color: #2E365B;
-    margin-right: 15px;
+.header-container {
+    padding: 10px 15px 40px 60px;
 }
 
-.block-form {
-    position: relative;
-    top: 120px;
-    font-family: 'Heebo', sans-serif;
+h2 {
+    color: #61687F;
     font-weight: 500;
-    font-size: 35rem;
+    margin-top: 9px;
+}
+
+h4 {
+    font-weight: 600;
+
+    &.h4__error-message {
+        color: red;
+    }
+}
+
+.container {
+    background-color: #fff;
+    border: #2E365B 2px solid;
+    color: #2E365B;
+    padding: 7px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.note-container {
+    font-size: 32rem;
+    font-weight: 500;
     text-align: center;
     color: #61687F;
-    margin: 15px;
+    padding: 120px 15px 0px;
+    box-sizing: border-box;
 }
-
-// .logo {
-//     position: relative;
-//     height: 34px;
-//     right: 50%;
-//     // transform: translateX(50%);
-//     // margin-top: 15px;
-//     display: block;
-// }
 
 .homepage {
     position: absolute;
@@ -43,21 +52,18 @@
 
 .select-container {
     width: 100%;
-    padding: 15px;
-    padding-bottom: 70px;
+    padding: 0 15px 70px;
     box-sizing: border-box;
-    margin-top: 20px;
 
-    input,
-    select {
+
+    .input-select {
         -webkit-appearance: none;
         position: relative;
         height: 40px;
         width: 100%;
-        max-width: 555px;
-        font-family: 'Heebo', sans-serif;
         font-weight: 600;
         font-size: 15rem;
+        margin-bottom: 15px;
         color: #2E365B;
         padding-right: 7px;
         box-sizing: border-box;
@@ -71,56 +77,94 @@
         }
     }
 
+
     .error {
         box-shadow: inset 0px 0px 6px red;
     }
 
-    .error-message {
-        font-family: 'Heebo', sans-serif;
-        font-weight: 500;
-        font-size: 15rem;
-        color: red;
-        display: block;
-    }
 
     ::placeholder {
         color: rgb(182, 182, 182);
         font-weight: 400;
     }
 
-    .InputTitle {
-        font-family: 'Heebo', sans-serif;
-        font-weight: 600;
-        font-size: 15rem;
-        color: #2E365B;
-        margin-top: 15px;
-        display: block;
-    }
-
     button {
-        font-family: 'Heebo', sans-serif;
         font-weight: 600;
-        font-size: 20rem;
-        height: 40px;
-        width: 100px;
+        font-size: 17rem;
+        min-height: 40px;
+        min-width: 80px;
+        padding: 6px 24px;
         color: cornsilk;
         background-color: #2E365B;
-        display: block;
         filter: drop-shadow(#00000045 3px 3px 10px);
         border-radius: 10px;
         border: none;
-        margin-top: 18px;
+        display: block;
     }
 }
 
-@media (max-width: 390px) {
-    .header {
-        position: relative;
-        top: 6px;
-        font-size: 7vw;
+@media (min-width: 1200px) {
+    .select-container {
+        width: 40%;
+        padding: 70px 0;
+        margin: auto;
     }
 
-    .homepage {
-        width: 30px;
+    .header-container {
+        padding: 10px 60px 10px 60px;
+        text-align: center;
+    }
+
+    .note-container {
+        font-size: 48rem;
     }
 }
+
+@media (max-width: 330px) {
+    .select-container {
+        padding: 23px 9px 70px;
+    }
+
+    h1 {
+        font-size: 20rem;
+    }
+}
+
+// .InputTitle {
+//     font-weight: 600;
+//     font-size: 15rem;
+//     color: #2E365B;
+//     margin-top: 15px;
+//     display: block;
+// }
+
+// .note {
+//     display: block;
+//     font-weight: 500;
+//     font-size: 20rem;
+//     color: #61687F;
+//     margin-top: 10px;
+
+// }
+
+// .block-form {
+//     display: block;
+//     font-weight: 500;
+//     font-size: 32rem;
+//     color: #61687F;
+//     margin: 15px;
+//     margin-top: 120px;
+//     text-align: center;
+// }
+// .error-message {
+//     font-weight: 500;
+//     font-size: 15rem;
+//     color: red;
+//     display: block;
+// }
+// input,
+// select {
+
+//     width: 100%;
+//     max-width: none;
+// }

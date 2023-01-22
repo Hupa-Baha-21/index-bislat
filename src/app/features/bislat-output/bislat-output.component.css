@@ -1,0 +1,153 @@
+.main-title {
+  position: relative;
+  top: 20px;
+  font-weight: 900;
+  font-size: 37rem;
+  display: block;
+  color: #2E365B;
+  caret-color: transparent;
+}
+
+.main-title .number-font {
+  font-weight: 900;
+  font-size: 33rem;
+  vertical-align: top;
+  line-height: 99%;
+}
+
+.main-title .text-font {
+  margin-right: 45px;
+  vertical-align: top;
+  line-height: 82%;
+}
+
+.subheading {
+  font-weight: 300;
+  font-size: 22rem;
+  color: #2E365B;
+  margin-right: 15px;
+  margin-top: -15px;
+  caret-color: transparent;
+}
+
+.course-output {
+  position: relative;
+  caret-color: transparent;
+  width: 90vw;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  font-weight: 300;
+  font-size: 18rem;
+  background: #ffffff;
+  color: black;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 10rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 20rem;
+  -webkit-filter: drop-shadow(#00000045 3px 3px 10px);
+          filter: drop-shadow(#00000045 3px 3px 10px);
+  overflow-y: auto;
+}
+
+.course-output .read-more-less {
+  height: 17px;
+  margin-top: 14px;
+  float: left;
+}
+
+.map-container {
+  position: relative;
+  width: 85vw;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  font-weight: 300;
+  font-size: 18rem;
+  color: black;
+  caret-color: transparent;
+  overflow-y: auto;
+}
+
+.map-container .map {
+  width: 45vw;
+  max-height: 600px;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 30px;
+}
+
+.youtube-container {
+  position: relative;
+  width: 85vw;
+  max-height: 60%;
+  right: 50%;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+  font-weight: 300;
+  font-size: 18rem;
+  color: black;
+  background: #ffffff;
+  margin-bottom: 70px;
+  margin-top: 50px;
+  padding: 10rem;
+  border-radius: 20rem;
+  caret-color: transparent;
+  -webkit-filter: drop-shadow(#00000045 3px 3px 10px);
+          filter: drop-shadow(#00000045 3px 3px 10px);
+  overflow-y: auto;
+}
+
+.youtube-video {
+  display: block;
+  margin: 30px auto;
+}
+
+.favorite {
+  position: absolute;
+  top: 21px;
+  width: 27px;
+  margin-right: 15px;
+}
+
+.homepage {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  width: 40px;
+}
+
+@media (max-width: 390px) {
+  .youtube-video {
+    width: 90%;
+  }
+  .homepage {
+    width: 33px;
+  }
+  .main-title {
+    font-size: 29rem;
+  }
+  .main-title .number-font {
+    font-size: 26rem;
+  }
+  .main-title .favorite-img {
+    width: 20px;
+    font-size: 0;
+  }
+  .main-title .homepage-img {
+    width: 30px;
+  }
+  .main-title .text-font {
+    margin-right: 39px;
+  }
+  .subheading {
+    font-size: 18rem;
+    margin-top: 9px;
+  }
+  .favorite {
+    width: 19px;
+  }
+}
+/*# sourceMappingURL=bislat-output.component.css.map */

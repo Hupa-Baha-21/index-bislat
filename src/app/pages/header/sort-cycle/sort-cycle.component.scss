@@ -1,0 +1,44 @@
+.backgroundcolor {
+    position: absolute;
+    background: #c0cADB;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+.header-container {
+    padding: 6px 10px 20px 60px;
+    box-sizing: border-box;
+}
+
+h2 {
+    margin-top: -6px;
+    font-weight: 450;
+}
+
+h4 {
+    margin: 8px auto 8px;
+    cursor: pointer;
+}
+
+.homepage {
+    position: absolute;
+    width: 40px;
+    top: 20px;
+    left: 15px;
+}
+
+.container {
+    padding: 5vw;
+    box-sizing: border-box;
+}
+
+.course-container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    filter: drop-shadow(#00000045 3px 3px 10px);
+}

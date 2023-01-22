@@ -1,170 +1,162 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="backgroundcolor">
-
-    <!-- <img src="../../../../assets/images/home.svg" class="homepage-icon" routerLink="/homePage"> -->
-    <div class="header">דף ניהול</div>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
+    <app-top-bar #child (selectedPage)="page = $event"></app-top-bar>
     
-    <i class="fa fa-bars" (click)="menuCliked()" [class.fa__fix]="showMenuBar"></i>
+    <div class="header-container">
+        <h1>דף ניהול</h1>
+        <h2 *ngIf="isManager()">{{page.text}}</h2>
+    </div> 
+<!-- ---------------------------------------------- -->
 
-    <div class="menu-bar" *ngIf="showMenuBar">
-        <span class="menu-element" routerLink="/homePage">דף הבית</span>
-        <span class="menu-element" (click)="changePage('selectionForm')">שאלון העדפות</span>
-        <span class="menu-element" (click)="changePage('createNewCycle')">יצירת מחזור מיון חדש</span>
-        <span class="menu-element" (click)="changePage('editCycle')">עריכת מחזור מיון קיים</span>
-        <span class="menu-element">התנתק</span>
-    </div>
-
+<!-- <div class="container" *ngIf="isManager()">
     
-    <div class="container" *ngIf="selectedPage === 'selectionForm'">
 
-        <span class="main-title">שאלון העדפות</span>
+</div> -->
 
-        <div class="text-container">
-            <button class="cycle-button">הצג הכל</button>
-            <button class="cycle-button">מחזור דצמבר 2021</button>
-            <button class="cycle-button">מחזור דצמבר 2022</button>
-        
 
-        <div class="tabel-container" [class.text-container__animated]="true" style="padding: 0;">
 
-            <table>
-                <tr>
-                  <th>מחזור המיון</th>
-                  <th>שם</th>
-                  <th>תעודת זהות</th>
-                  <th>מסגרת מיון</th>
-                  <th>העדפה ראשונה</th>
-                  <th>העדפה שנייה</th>
-                  <th>העדפה שלישית</th>
-                </tr>
-                <tr>
-                  <td>Emil</td>
-                  <td>Tobias</td>
-                  <td>Linus</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>16</td>
-                  <td>14</td>
-                  <td>10</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-            </table>
 
+
+    <!-- ---------------------------------------------------------------------- -->
+
+    <div class="container" *ngIf="isManager()">
+        <ng-container *ngIf="page.url === 'sorts'">
+            <div class="blob" *ngFor="let sort of sortElemntsProperties[0]; index as i" (click)="sortOnFocus(i, 0)">
+                <h4 [class.h4__bold]="sort.isExpand">מחזור {{sort.name}}</h4>
+                <img src="../../../../assets/images/arrowReadMore.png" class="expand-icon" *ngIf="!sort.isExpand">
+                <img src="../../../../assets/images/arrowReadLess.png" class="expand-icon" *ngIf="sort.isExpand">
+
+                <ng-container *ngIf="sort.isExpand"> 
+                    <h4>עריכה</h4>
+                    <h4>הורדת שאלון העדפות</h4>
+                    <h4 (click)="deleteCycle(sort.name, i, 0)">מחיקה</h4>
+                    <h4>העבר לארכיון</h4>
+                </ng-container>
             </div>
+
+            <div class="blob" style="background-color: rgb(255, 255, 255); padding: 10px;" (click)="page = {text: 'הוספת מחזור מיון', url: 'add-cycle'}">
+                <img src="../../../../assets/images/addIcon.png" class="create-new-cycle">
+            </div> 
+        </ng-container>
+
+    <!-- ------------------------------------- add new cycle ------------------------------------- -->
+    <form [formGroup]="newCycle" *ngIf="page.url === 'add-cycle'" [formGroup]="newCycle" (ngSubmit)="createCycleInterface()">
+        <h4>שם מחזור המיון</h4>
+        <input class="input-style" style="margin-bottom: 7px; border-radius: 15px;" [formControlName]="'name'" placeholder="לדוגמא: דצמבר 2022" [class.input-style__focus]="true"> 
+        
+        <h4 style="font-weight: 400;">הוספת קורסים</h4>
+        
+        <input class="input-style" [formControl]="inputControl" placeholder="הקלד מספר/ שם מקצוע" (blur)="onBlur()" (focus)="listOnFocus()" autocomplete="off">
+        <div class="list-container">
+            <app-bislat-list [indexOutput]="indexOutput$ | async" [showList]="showList" page="managementPage" (selectedItemEmitter)="addCourse($event)"></app-bislat-list>
         </div>
-        <div class="error-message">לא ניתן לצפות בתצוגה מקדימה של שאלון העדפות בטלפון</div>
-        <span class="download-tabel">הורדת הקובץ למחשב</span>
 
-    </div>
+        <div class="blob" *ngIf="selectedCourses[0].length || selectedCourses[1].length">
+            <h4 *ngIf="selectedCourses[0].length">
+                אוויוניקה
+                <div *ngFor="let course of selectedCourses[0]">
+                    <img src="../../../../assets/images/remove.svg" (click)="deleteCourse(course, 0)">
+                    <span>{{course.courseNumber}}- {{course.courseName}}</span>
+                </div>
+            </h4>
+            <h4 *ngIf="selectedCourses[1].length">
+                אחזקה מתכת/חשמל
+                <div *ngFor="let course of selectedCourses[1]">
+                    <img src="../../../../assets/images/remove.svg" (click)="deleteCourse(course, 1)">
+                    <span>{{course.courseNumber}}- {{course.courseName}}</span>
+                </div>
+            </h4>
+        </div>
+
+        <input type="checkbox" style=" margin-top: 15px;" formControlName="showSortOnWeb">
+        <label for="vehicle1" style="font-weight: 400;"> הצגת המחזור באתר</label><br>
+
+        <ng-container *ngIf="newCycle.controls['showSortOnWeb'].value">
+            <input type="checkbox" style=" margin-top: 15px;" formControlName="openSelectionForm">
+        <label for="vehicle1" style="font-weight: 400;"> פתיחת שאלון העדפות</label><br> 
+        </ng-container>
         
         
-    <div class="container" *ngIf="selectedPage === 'createNewCycle'">
 
-        <span class="main-title">יצירת מחזור מיון חדש</span>            
-        <span class="title">מחזור המיון</span>
-        <input class="cycle-input">
+        <h4 *ngIf="coursesValidator()" style="color: red;">* יש למלא שם מחזור מיון ולבחור לפחות 3 קורסים השייכים לאותו מגזר</h4>
+        <div class="buton-container">
+            <button type="submit" (click)="buttonClicked = true">סיום</button>
+            <button (click)="clearPage()">ביטול</button>
+       </div>
+       
+       <app-preview *ngIf="previewPopUp"(popUp)="previewPopUp = $event" [information]="previewPageInformation" [newCycleInterface]="item" (page)="page.url= $event" (sorstingCycle)="addItem($event)"></app-preview>
+    </form>
 
-        <div class="courses-grid">
-            <div *ngFor="let con of [].constructor(10)">
-                <span class="title">מערך החשמל</span>
-                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
-    
-                <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
-                <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
-    
-                <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
-                <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
-                
-                <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
-                <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
-            </div>
-        </div>        
+    <ng-container *ngIf="page.url === 'archives'">
+        <div class="blob" *ngFor="let sort of sortElemntsProperties[1]; index as i" (click)="sortOnFocus(i, 1)">
+            <h4 [class.h4__bold]="sort.isExpand">מחזור {{sort.name}}</h4>
+            <img src="../../../../assets/images/arrowReadMore.png" class="expand-icon" *ngIf="!sort.isExpand">
+            <img src="../../../../assets/images/arrowReadLess.png" class="expand-icon" *ngIf="sort.isExpand">
 
-        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
-        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
-        
-        <button class="save-button">יצירה</button>
-    </div>        
-
-
-     <div class="container" *ngIf="selectedPage === 'editCycle'">
-
-        <span class="main-title">עריכת מחזור מיון</span>
-        
-        <span class="title">מחזור המיון</span>
-        <select class="cycle-input" name="cycle">
-            <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
-            <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
-        </select>
-
-        <span class="title">מערך החשמל</span>
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" checked="true">
-        <label for="vehicle1"> 1307 - טכנאי מערכות חשמל פתן/ שרף</label><br>
-
-        <input type="checkbox" id="vehicle" name="vehicle" value="Bike" checked="true">
-        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
-
-        <span class="title">מערך מטוסי קרב</span>
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-        <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
-
-        <input type="checkbox" id="vehicle" name="vehicle" value="Bike" checked="true">
-        <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
-
-        <!-- <span class="title">+ הוספת מקצוע</span> -->
-        <!-- <input class="cycle-input" placeholder="הקלד מספר קורס"> -->
-        <!-- <app-bislat-input [inputControl]="inputControl" (showListEmitter)="handleShowList($event)"></app-bislat-input> -->
-
-        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
-        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br>
-
-        <button class="save-button">שמור שינויים</button>
-
-        
-    </div>        
-
-
-
-    <!-- <div class="container">
-
-        <button class="container-header" (click)="editCycleClicked()" [class.container-header__border]="editCycle">עריכת שאלון מיון</button>
-        <div class="text-container" *ngIf="editCycle" [class.text-container__animated]="editCycle">
-            
-            
-            <button class="save-button">שמור שינויים</button>
-
-            
-        </div>         -->
-
-
+            <ng-container *ngIf="sort.isExpand"> 
+                <h4>עריכה</h4>
+                <h4 (click)="deleteCycle(sort.name, i, 1)">מחיקה</h4>
+                <h4>הוצא מהארכיון</h4>
+            </ng-container>
+        </div>
+    </ng-container>
 </div>
 
-
-
-<!-- <span class="selction-item">מחזור המיון: דצמבק 2022</span>
-    <span class="selction-item">שם: ליה</span>
-    <span class="selction-item">מספר תעודת זהות: 123456789</span>
-<span class="selction-item">מסגרת מיון: 12</span> -->
+<app-block-form *ngIf="!isManager()"></app-block-form>
 
 
 
-    <!-- <div class="container">
-        <button [class.button__animatedButton1]="true">יצירת מחזור מיון חדש</button>
-        <span class="title">מערך החשמל</span>
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-        <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
-        
+
+
+
+
+    
+
+
+    <!-- <div class="container" *ngIf="isManager()">
+
+        <div *ngFor="let item of child.selectedPage.items">
+            <h3>{{item.title}}</h3>
+            
+            <input *ngIf="item.HTMLelement === 'input'" class="cycle-input" [placeholder]="item.inputPlaceholder">
+    
+            <select *ngIf="item.HTMLelement === 'select'" class="cycle-input">
+                <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
+                <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
+            </select>
+        </div>
+
+        <ng-container *ngIf="child.selectedPage.courses">
+            <h3>הוספת מקצועות</h3>
+
+            <div class="level-container">
+                <h4>מערך החשמל</h4>
+                <i class="fa fa-angle-down" [class.fa__course]="true"></i>
+            </div>
+            <div class="level-container">
+                <h4>מערך החשמל</h4>
+                <i class="fa fa-angle-down" [class.fa__course]="true"></i>
+            </div>
+
+        <div class="level-container">
+            <h4>מערך החשמל</h4>
+            <i class="fa fa-angle-up" [class.fa__course]="true"></i>
+            
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label for="vehicle1"> טכנאי מערכות חשמל פתן/ שרף</label><br>
+
         <input type="checkbox" id="vehicle" name="vehicle" value="Bike">
         <label for="vehicle1"> טכנאי מערכות חשמל</label><br>
-    </div> -->
+        </div>
+        </ng-container>
+
+        <input type="checkbox" id="hicle" name="vehicle" value="Bike" style="margin-top: 15px;" checked="true">
+        <label for="vehicle1" style="font-weight: 500;"> יצירת שאלון העדפות</label><br> -->
+    <!-- </div> -->
+
+
+<!-- </div>  -->
+    
+
+

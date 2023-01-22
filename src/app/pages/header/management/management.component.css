@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap");
+:host {
+  font-size: 16rem;
+  font-weight: 300;
+}
+
+:host .backgroundcolor {
+  position: absolute;
+  background: #c0cADB;
+  width: 100%;
+  min-height: 100vh;
+}
+
+:host .fa {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 35px;
+  color: #2E365B;
+  padding: 5px;
+  z-index: 10;
+}
+
+:host .fa.fa__fix {
+  position: fixed;
+  color: #fff;
+}
+
+:host .menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #2e365b;
+  z-index: 9;
+  border-bottom-right-radius: 7px;
+  border-bottom-left-radius: 7px;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-top: 50px;
+  padding-bottom: 25px;
+}
+
+:host .menu-element {
+  font-size: 18px;
+  color: #fff;
+  display: block;
+  padding: 3px;
+  cursor: pointer;
+}
+
+:host .header {
+  font-weight: 900;
+  font-size: 34rem;
+  color: #2E365B;
+  margin-right: 15px;
+  margin-top: 8px;
+}
+
+:host .container {
+  width: 100%;
+  padding: 15px;
+  padding-top: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 50px;
+}
+
+:host .text-container {
+  width: 100%;
+  display: none;
+  overflow: auto;
+}
+
+:host .main-title {
+  font-weight: 400;
+  font-size: 25rem;
+  color: #2E365B;
+  text-align: right;
+  line-height: 80%;
+  display: block;
+  margin-bottom: 45px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+:host .tabel-container {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.404);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: auto;
+}
+
+:host .tabel-container.text-container__animated {
+  display: block;
+}
+
+:host .title {
+  font-size: 18rem;
+  font-weight: 500;
+  display: block;
+  margin-top: 15px;
+}
+
+:host .error-message {
+  position: relative;
+  top: 20px;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 500;
+  font-size: 23rem;
+  text-align: center;
+  color: #61687F;
+  margin: 15px;
+}
+
+:host .cycle-input {
+  font-family: 'Heebo', sans-serif;
+  height: 34px;
+  min-width: 210px;
+  font-size: 14rem;
+  padding: 5px;
+  padding-right: 10px;
+  border-radius: 7px;
+  background: #fff;
+  display: block;
+  margin-bottom: 10px;
+  border: 1px solid #2E365B;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-filter: drop-shadow(#00000045 3px 3px 10px);
+          filter: drop-shadow(#00000045 3px 3px 10px);
+}
+
+:host .cycle-input:focus {
+  outline: none;
+}
+
+:host table,
+:host th,
+:host td {
+  border: 2px solid black;
+  border-collapse: collapse;
+  padding: 7px;
+}
+
+:host th,
+:host td {
+  min-width: 100px;
+}
+
+:host .cycle-button {
+  padding: 7px;
+  margin-left: 2px;
+  margin-bottom: 7px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+:host .save-button {
+  font-family: 'Heebo', sans-serif;
+  font-weight: 500;
+  font-size: 20rem;
+  background-color: #2E365B;
+  color: #fff;
+  min-width: 90px;
+  min-height: 40px;
+  margin: 10px auto 7px;
+  border-radius: 5px;
+  border: none;
+}
+
+:host .download-tabel {
+  margin-top: 30px;
+  display: block;
+}
+
+:host .courses-grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (340rem)[auto-fill];
+      grid-template-columns: repeat(auto-fill, 340rem);
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 20rem;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 1400px) {
+  :host {
+    font-size: 20rem;
+  }
+  :host .title {
+    font-size: 21rem;
+  }
+  :host .main-title {
+    font-size: 25rem;
+  }
+  :host .cycle-input {
+    height: 35px;
+    font-size: 18rem;
+  }
+  :host .cycle-button {
+    font-size: 15rem;
+  }
+  :host .save-button {
+    font-size: 21rem;
+  }
+  :host th,
+  :host td {
+    min-width: 200px;
+  }
+  :host .error-message {
+    display: none;
+  }
+  :host .text-container {
+    display: block;
+  }
+}
+/*# sourceMappingURL=management.component.css.map */

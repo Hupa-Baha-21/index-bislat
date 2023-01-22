@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDictionaryItem } from 'src/app/features/bislat-container/bislat-container.component';
 import { IDictionary } from 'src/app/features/bislat-container/bislat-container.component';
 import * as data from '../../../mock-data.json';
-import { SortCoursesService } from 'src/app/features/bislat-container/sort-courses.service';
+import { searchCourses } from 'src/app/services/api-helpers/search/search-courses.service';
 
 
 @Component({
@@ -13,29 +13,34 @@ import { SortCoursesService } from 'src/app/features/bislat-container/sort-cours
 })
 export class FavoritePageComponent implements OnInit {
 
-  dictionaryData: IDictionary = data;
-  items: IDictionaryItem[] = [];
+  // dictionaryData: IDictionary = data;
+  items: any[] = [];
   routing: string = "/course/";
   ifRouting: boolean = true;
   
-  constructor(service: SortCoursesService) {
-    this.items = service.findFavoriteCourses();
+  constructor(service: searchCourses) {
+    // this.items = service.findFavoriteCourses();
+    this.items = service.getClearedSelectedCourses(JSON.parse(localStorage.getItem('courseName') || '[]'));
   }
   
   ngOnInit(): void {
   }
   
-  removeFromeFavorites(index: number): void {
+  removeFromeFavorites(courseName: any): void {
     
-    let favorites = JSON.parse(localStorage.getItem('courseNumber') || '[]');
-    favorites.splice(index, 1);
-    localStorage.setItem('courseNumber', JSON.stringify(favorites));
+    let favoritesCoursesNames = JSON.parse(localStorage.getItem('courseName') || '[]');
+    let index = favoritesCoursesNames.indexOf(courseName);
+    favoritesCoursesNames.splice(index, 1);
+    localStorage.setItem('courseName', JSON.stringify(favoritesCoursesNames));
     this.routing = "/favorite";
     this.ifRouting = false;
   }
   
   router(index: number): void {
-    if (this.ifRouting === true) { this.routing = "/course/" + this.items[index].CourseNumber; }
+    if (this.ifRouting === true) { 
+      sessionStorage.setItem("selectedItem", this.items[index].courseName);
+      this.routing = "/course/" + this.items[index].courseNumber; 
+    }
     this.ifRouting = true;
     window.location.href = this.routing;
   }

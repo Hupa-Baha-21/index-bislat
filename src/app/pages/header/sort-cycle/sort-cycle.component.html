@@ -1,0 +1,18 @@
+<div class="backgroundcolor">
+    <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
+
+    <div class="header-container">
+        <h1>מחזור המיון הקרוב</h1>
+        <h2 style="font-weight: 300;">{{sortingCycle.name}}</h2>
+    </div>
+    
+    <div class="container">
+        <div class="course-container" *ngFor="let gender of sortingCycle.genders">
+                    
+            <h2>{{gender.title}}</h2>
+            <ng-container *ngFor="let course of gender.courses"> 
+                <h4 (click)="itemClicked(course)">{{course.number}}- {{course.name}}</h4>
+            </ng-container>
+        </div>
+    </div>
+</div>

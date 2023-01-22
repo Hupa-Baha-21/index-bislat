@@ -1,16 +1,97 @@
 <div class="backgroundcolor">
 
-  <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
-  <span class="header">שאלון העדפות מיון</span>
+  <div class="header-container">
+    <h1>שאלון העדפות מיון</h1>
+    <img src="../../../../assets/images/home.svg" class="homepage" routerLink="/homePage">
+  </div>
 
-  <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
-    <div *ngIf="pageNumber === 1 && !blockForm" class="select-container">  
+  <ng-container *ngIf="isLogedIn()">
+  <ng-container *ngFor="let s of selectionPages; let i = index">
+    <form [formGroup]="s.formGroup || selectionPage1Form" (ngSubmit)="submitForm(i)">
+      <div *ngIf="pageNumber === (i + 1) && !blockForm" class="select-container">
+
+        <ng-container *ngFor="let item of s.items">
+
+          <h4>{{item.title}}</h4>
+          <input *ngIf="item.HTMLelement === 'input'" class="input-select" [formControlName] = "item.formControlName" [placeholder]="item.inputPlaceholder" [class.error]="!isValid(item.validName)"> 
+          
+          <select #selectDom *ngIf="item.HTMLelement === 'select'" class="input-select" [formControlName] ="item.formControlName" [class.error]="!isValid(item.validName)" >
+            <ng-container  *ngFor="let option of item.validName | options : allCourses : allCycles"> 
+              <option>{{option}}</option>
+            </ng-container>
+          </select>
+
+          <div [formArrayName]="item.formControlName" *ngIf="item.HTMLelement === 'checkbox'" class="container" [class.error]="!isValid(item.validName)">
+            <div *ngFor="let option of item.selectionsOptions; let i = index">
+              <ng-container *ngIf="item.selectionsOptions">
+                <ng-container (click)="addAndRemoveInput(item.selectionsOptions[i].expansion, causeCheckbox.checked, item.formControlName, i)">
+  
+                  <input [id]="item.selectionsOptions[i]" #causeCheckbox type="checkbox" [formControlName] = i [id]="item.selectionsOptions[i].name" name="vehicle" (click)="addAndRemoveInput(item.selectionsOptions[i].expansion, causeCheckbox.checked, item.formControlName, i)">
+                  <label *ngIf="item.selectionsOptions" for="vehicle" style="font-weight: 500; font-size: 15px;">{{item.selectionsOptions[i].text}}</label><br>
+                </ng-container>
+                
+                <input *ngIf="causeCheckbox.checked && item.selectionsOptions[i].expansion" [formControlName]=ExpansionValidatorLocation[i] class="input-select">
+              </ng-container>
+            </div>
+          </div>
+        
+        </ng-container>
+        
+        <button type="submit">{{s.buttonText}}</button>
+        <h4 [class.h4__error-message]="true" *ngIf="!s.formGroup?.valid && buttonClicked === true">* הכנס ערך חוקי</h4>
+        <h4 [class.h4__error-message]="true" *ngIf="errorNote">* לא ניתן לבחור מקצוע יותר מפעם אחת</h4>
+        <h2>שים לב! ניתן למלא שאלון זה רק פעם אחת</h2>
+      </div>
+    </form>
+  </ng-container>
+</ng-container>
+
+<app-block-form *ngIf="!isLogedIn()"></app-block-form>
+
+  <div class="note-container">
+    <span *ngIf="pageNumber === 3">הטופס נשלח בהצלחה!</span>
+    <span *ngIf="blockForm">כבר מילאת שאלון העדפות, לא ניתן למלא שוב</span>
+  </div>
+</div>
+
+
+<!-- <div [formArrayName]="item.formControlName" *ngIf="item.HTMLelement === 'checkbox'" class="container" [class.error]="!isValid(item.validName)">
+  <div *ngFor="let option of item.selectionsOptions; let i = index">
+    <ng-container *ngIf="item.selectionsOptions">
+        
+      <input [id]="item.selectionsOptions[i]" #causeCheckbox type="checkbox" [formControlName] = i #checkbox1 [id]="item.selectionsOptions[i].name" name="vehicle" (click)="addAndRemoveInput(item.selectionsOptions[i].expansion, checkbox1.checked, item.formControlName, i)">
+      <label *ngIf="item.selectionsOptions" for="vehicle" style="font-weight: 500; font-size: 15px;">{{item.selectionsOptions[i].text}}</label><br>
     
+      <ng-container *ngIf="addInput(causeCheckbox.checked, item.selectionsOptions[i].expansion, causeCheckbox.id)">
+          <input *ngIf="causeCheckbox.checked && item.selectionsOptions[i].expansion" [formControlName]=getFormLength()-1 class="input-select">
+      </ng-container>
+
+    </ng-container>
+  </div>
+</div> -->
+
+
+<!-- <div formArrayName="firstOptions" *ngIf="item.HTMLelement === 'checkbox'" class="container" data-validate="custom=causeValidator" [class.error]="!causeValidator() && buttonClicked">
+  <div *ngFor="let option of item.selectionsOptions; let iii = index">
+
+    <input type="checkbox" [formControlName] = i #checkbox1 id="hicle" name="vehicle" value="Bike" (click)="cause(0, checkbox1)" >
+    <label for="vehicle1" style="font-weight: 500; font-size: 15px;">{{option}}</label><br>
+  </div>
+</div> -->
+
+
+
+
+
+
+  <!-- <form [formGroup]="selectionPage1Form" (ngSubmit)="moveNextPage()">
+    <div *ngIf="pageNumber === 1 && !blockForm" class="select-container">  
+      
       <span class="InputTitle">מחזור המיון</span>
         <select name="cycle" formControlName="cycleInput" [class.error]="!isValid('cycleInput')">
           <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
           <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
-      </select>
+        </select>
         
       <span class="InputTitle">שם פרטי + שם משפחה</span>
       <input formControlName="nameInput" [class.error]="!isValid('nameInput')">
@@ -23,12 +104,14 @@
         
       <button type="submit" (click)="moveNextPage()">המשך</button> 
       <span class="error-message" *ngIf="!selectionPage1Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
-      
-    </div>
-  </form>
+      <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
+      <span class="note">{{selectionPages.length}}</span> -->
+      <!-- <ng-container *ngFor="let s of selectionPages"><span class="note">hdcsui</span></ng-container> -->
+    <!-- </div> -->
+  <!-- </form> -->
 
 
-  <form [formGroup]="selectionPage2Form" (ngSubmit)="sendForm()">
+  <!-- <form [formGroup]="selectionPage2Form" (ngSubmit)="sendForm()">
     <div *ngIf="pageNumber === 2 && !blockForm" class="select-container">
       
       <span class="InputTitle">העדפה ראשונה</span>
@@ -42,7 +125,7 @@
         <option value="מחזורר 2021">מחזור דר 2021</option>
         <option value="מחזור ינואר 2022">מחזור ינואר 2022</option>
       </select>
-
+      
       <span class="InputTitle">העדפה שלישית</span>
       <select name="thirdOption" formControlName="thirdOption" [class.error]="!isValid('thirdOption')">
         <option value="מחזור דצמבר 2021">מחזור דצמבר 2021</option>
@@ -50,7 +133,7 @@
       </select>
       <button type="submit" (click)="sendForm()">שלח</button>
       <span class="error-message" *ngIf="!selectionPage2Form.valid && buttonClicked === true">* הכנס ערך חוקי</span>
-
+      <span class="note">שים לב! ניתן למלא שאלון זה רק פעם אחת</span>
     </div>
   </form>
 
@@ -62,6 +145,12 @@
     כבר מילאת שאלון העדפות, לא ניתן למלא שוב
   </div>
 </div>
+
+
+<div *ngFor="let s of selectionPages">
+  <span class="note">hjcdio</span>
+<div> -->
+
 
 
 
@@ -103,3 +192,10 @@
               </div> --> -->
               
 <!-- </div> -->
+
+
+            <!-- <ng-component *ngIf="item.selectOptions">
+              <ng-component *ngFor="let selectItem of item.selectOptions">
+                <option value="{{selectItem}}">{{selectItem}}</option>
+              </ng-component>
+            </ng-component> -->

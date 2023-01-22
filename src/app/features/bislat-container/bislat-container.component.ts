@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
-// import { distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
-// import * as data from '../../mock-data.json'
-import { SortCoursesService } from './sort-courses.service';
-
+import { searchCourses } from '../../services/api-helpers/search/search-courses.service';
+import { openingParagraphs, openingVideosUrl } from 'src/app/pages/header/img-url';
+import { iCourseForSelectionPage } from 'src/app/inerfaces/api-interface';
+import { ApiHelpersService } from 'src/app/services/api-helpers/api-helpers.service';
 
 @Component({
   selector: 'app-bislat-container',
@@ -14,31 +14,36 @@ import { SortCoursesService } from './sort-courses.service';
 export class BislatContainerComponent implements OnInit {
 
   inputControl: FormControl = new FormControl();
-  indexOutput$: Observable<IDictionaryItem[]>;
+  indexOutput$: Observable<iCourseForSelectionPage[]>;
 
-  resultItem$ = new Subject<IDictionaryItem | undefined>();
+  resultItem$ = new Subject<iCourseForSelectionPage | undefined>();
 
   showList: boolean = false;
-  item: IDictionaryItem | undefined;
+  item: any | undefined;
+  sortingCycles: any[];
 
-  constructor(service: SortCoursesService) {
+  readMoreButton = [false, 1]; //[f-short t-long, mun of paragraphs]
+  openingParagraphs: string[] = openingParagraphs;
+  openingVideosUrl = openingVideosUrl;
+
+  constructor(service: searchCourses, apiFunc: ApiHelpersService) {
 
     this.indexOutput$ = this.inputControl.valueChanges.pipe(
       service.getListCourses()
     );
+
+    this.sortingCycles = apiFunc.ListOfShowOnWebCycles();
   }
 
-  ngOnInit(): void {
-    // this.setValueInPlaceholder()
-  }
+  ngOnInit(): void { }
 
   handleShowList(show: boolean): void {
     this.showList = show;
   }
 
-  handleSelected(item: IDictionaryItem): void {
+  handleSelected(item: iCourseForSelectionPage): void {
     this.resultItem$.next(item);
-    this.inputControl.setValue(item.CourseNumber);
+    this.inputControl.setValue(item.courseNumber);
   }
 
   handleClear(): void {
@@ -46,11 +51,27 @@ export class BislatContainerComponent implements OnInit {
     this.resultItem$.next(undefined);
   }
 
-  // setValueInPlaceholder(): void {
-  //   if (sessionStorage.getItem('ValueInPlaceholder')) {
-  //     this.inputControl.setValue(sessionStorage.getItem('ValueInPlaceholder'));
-  //   }
-  // } ??
+  routingPage() {
+    window.open(
+      'https://youtube.com/channel/UCElJ2Ybi3FBsslbq5ROLQoA',
+      '_blank'
+    );
+  }
+
+  readMoreButtonClick(): void {
+
+    if (this.readMoreButton[0]) { this.readMoreButton = [false, 1]; }
+    else { this.readMoreButton = [true, this.openingParagraphs.length]; }
+  }
+
+  threeImagesPosition(): boolean {
+    if ((window.innerWidth / window.innerHeight) > 1) { return true; }
+    else { return false; }
+  }
+
+  cyclePageClicked(cycleName: string) {
+    sessionStorage.setItem('selectedCycle', cycleName);
+  }
 }
 
 export interface IDictionary {
@@ -58,42 +79,13 @@ export interface IDictionary {
 }
 
 export interface IDictionaryItem {
+  category: string;
   CourseNumber: string;
   CourseName: string;
   CourseTime: string;
-  CourseBases: string;
-  CourseDescription1: string;
-  CourseDescription2: string;
+  CourseBases: string[];
+  CourseDescription: string;
   YouTubeURL: string;
   ImgURL: string;
+  note?: string;
 }
-
-
-
-// this.indexOutput$ = new Observable<IDictionaryItem[]>();
-// console.log(this.inputControl.valueChanges.subscribe(value => console.log(value)));
-// const dictionaryData: IDictionary = data;
-// this.indexOutput$ = this.inputControl.valueChanges.pipe(
-//   debounceTime(300),
-//   distinctUntilChanged(),
-//   switchMap((input: string) => {
-
-//     input = input.trim();
-
-//     if (input) {
-//       const key = input[0];
-//       const keyDictionary: IDictionaryItem[] = dictionaryData[key];
-
-//       if (keyDictionary) {
-//         const filteredDictionary: IDictionaryItem[] = keyDictionary.filter(item => item.CourseNumber.includes(input));
-//         return of(filteredDictionary);
-//       }
-//       else {
-//         return of([]);
-//       }
-//     }
-//     else {
-//       return of([]);
-//     }
-//   })
-// );
